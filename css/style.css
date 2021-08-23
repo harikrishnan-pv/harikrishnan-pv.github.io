@@ -133,6 +133,8 @@ div.h4 {
 }
 
 * {
+  transition-duration: 1s;
+
   
 }
 
@@ -171,4 +173,10 @@ div.h4 {
 }
 p{
   text-align: center;
+}
+#design{
+  height: 
+}
+.myCarousel{
+  
 }
