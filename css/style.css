@@ -116,3 +116,16 @@ div.h4 {
       background-position: 0% 50%;
   }
 }
+
+
+-webkit- @keyframes gradient {
+  0% {
+      -webkit-background-position: 0% 50%;
+  }
+  50% {
+    -webkit-background-position: 100% 50%;
+  }
+  100% {
+    -webkit-background-position: 0% 50%;
+  }
+}
