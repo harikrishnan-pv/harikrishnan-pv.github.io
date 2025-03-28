@@ -5,268 +5,855 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Harikrishnan P V</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <title>Harikrishnan P V - Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap');
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #0a0a0a;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .bg-gradient {
+            background: linear-gradient(135deg, #0a0a0a 0%, #121212 100%);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0, 122, 255, 0.15);
+            border-color: rgba(59, 130, 246, 0.2);
+        }
+
+        .nav-link {
+            position: relative;
+            transition: all 0.2s ease;
+            padding-bottom: 4px;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: #3B82F6;
+            transition: width 0.2s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .accent-text {
+            color: #3B82F6;
+        }
+
+        .accent-border {
+            border-color: #3B82F6;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.6s ease-out;
+        }
+        
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .btn {
+            display: inline-block;
+            font-weight: 500;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            text-align: center;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+        
+        .btn-primary {
+            background-color: #3B82F6;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #2563EB;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(59, 130, 246, 0.2);
+        }
+        
+        .interactive-element {
+            transition: all 0.3s ease;
+        }
+        
+        .interactive-element:hover {
+            transform: translateY(-3px);
+        }
+        
+        .section-transition {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease-out;
+        }
+        
+        .section-transition.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .text-glow:hover {
+            text-shadow: 0 0 10px rgba(59, 130, 246, 0.4);
+        }
+        
+        .parallax-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .parallax-dot {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(59, 130, 246, 0.08);
+            pointer-events: none;
+        }
+        
+        .asymmetric-container {
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+        }
+        
+        .card-hover-effect {
+            transition: all 0.2s ease;
+        }
+        
+        .card-hover-effect:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(59, 130, 246, 0.15);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(90deg, #3B82F6, #60A5FA);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
 </head>
+<body class="min-h-screen bg-gradient">
+    <!-- Background Particles -->
+    <div class="parallax-bg" id="particles"></div>
 
-<body>
-    <div class="sticky-top align-items-center bg-dark header container-fluid fs-4">
-        <nav id="navbarr" class="bg-dark navbar navbar-expand-lg navbar-dark">
-            <div class="bg-dark container-fluid align-items-center">
-
-                <div id="brands"><a class="display-6 px-5 navbar-brand fs-3" href="#">Harikrishnan P V</a></div>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler"
-                    aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarToggler">
-                    <ul class="lead navbar-nav me-auto mb-2 mb-lg-0 ">
-                        <li class="nav-item">
-                            <a class="nav-link p-4" aria-current="page" href="#">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link p-4" href="#skills">Skills</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link p-4" href="#design"> Design Projects</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link p-4" href="#web">Web Design Projects</a>
-                        </li>
-                    </ul>
+    <!-- Navigation -->
+    <nav class="sticky top-0 backdrop-blur-lg bg-black/30 z-50 border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <a href="#" class="text-xl font-semibold text-white">Harikrishnan P V</a>
+                <div class="hidden md:flex space-x-10">
+                    <a href="#home" class="nav-link text-white/80 hover:text-white text-sm uppercase tracking-wider">Home</a>
+                    <a href="#about" class="nav-link text-white/80 hover:text-white text-sm uppercase tracking-wider">About</a>
+                    <a href="#education" class="nav-link text-white/80 hover:text-white text-sm uppercase tracking-wider">Education</a>
+                    <a href="#skills" class="nav-link text-white/80 hover:text-white text-sm uppercase tracking-wider">Skills</a>
+                    <a href="#experience" class="nav-link text-white/80 hover:text-white text-sm uppercase tracking-wider">Experience</a>
+                    <a href="#research" class="nav-link text-white/80 hover:text-white text-sm uppercase tracking-wider">Research</a>
+                    <a href="#contact" class="nav-link text-white/80 hover:text-white text-sm uppercase tracking-wider">Contact</a>
                 </div>
             </div>
-        </nav>
-    </div>
-    <div data-bs-spy="scroll" data-bs-target="#navbarr" data-bs-offset="0" id="home">
-        <section class="text-light" id="intro">
-            <div class="container-lg">
-                <div style="height:90vh" class="row text-center align-items-center justify-content-center">
-                    <div class="  col-md-10 text-lg-start col-lg-7 ">
-                        <div class="display-1 align-center">Harikrishnan P V</div>
-                        <hr />
-                        <div class="display-6 ">Programmer / Designer / Entrepreneur</div>
-                        <p class="lead my-4 text-start ">I am a physics student with programming and designing skills.
-                            And one of the founders of Dailist Media</p>
-                    </div>
-                    <div class="d-lg-block d-none    col-lg-5">
-                        <img src="images/dp.jpg" alt="My Image"
-                            class="rounded-circle border border-5 border-white img-fluid shadow-lg">
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section class="bg-light bg-gradient p-5" id="skills">
-            <div class="display-1 p-3 text-center">Skills</div>
-            <div class="container-sm">
-                <hr>
-            </div>
-            <div class="container  mt-5 ">
-                <div
-                    class="row text-center align-items-center justify-content-center row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 ">
-                    <div class="  col mt-2">
-                        <div class=" mx-auto card p-3 align-items-center justify-content-center  "
-                            style="width: 14rem;">
-                            <img style="height: 100px; width: 100px;" class="" src="images/html.png"
-                                alt="Card image cap">
-                            <div class="card-body">
-                                <h5 class=" text-center card-title">HTML</h5>
-                                <p class="card-text">I have more than 5 years experience with HTML, CSS and javascript
-                                </p>
-                                <div style="background-color:white;" class="progress">
-                                    <span class="progress-bar" style="width: 90%"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mt-2">
-                        <div class=" mx-auto card p-3 align-items-center justify-content-center  "
-                            style="width: 14rem;">
-                            <img style="height: 100px; width: 100px;" class="" src="images/bs.png" alt="Card image cap">
-                            <div class="card-body">
-                                <h5 class=" text-center card-title">Bootstrap</h5>
-                                <p class="card-text">I can make websites responsive and beautiful with bootstrap</p>
-                                <div style="background-color:white;" class="progress">
-                                    <span class="progress-bar" style="width: 80%"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mt-2">
-                        <div class=" mx-auto card p-3 align-items-center justify-content-center  "
-                            style="width: 14rem;">
-                            <img style="height: 100px; width: 100px;" class="" src="images/c.png" alt="Card image cap">
-                            <div class="card-body">
-                                <h5 class=" text-center card-title">C</h5>
-                                <p class="card-text">I am experienced with C and C++ object oriented programming</p>
-                                <div style="background-color:white;" class="progress">
-                                    <span class="progress-bar" style="width: 90%"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mt-2">
-                        <div class=" mx-auto card p-3 align-items-center justify-content-center  "
-                            style="width: 14rem;">
-                            <img style="height: 100px; width: 100px;" class="" src="images/flut.png"
-                                alt="Card image cap">
-                            <div class="card-body">
-                                <h5 class=" text-center card-title">Flutter</h5>
-                                <p class="card-text">Worked with flutter for some android app designs</p>
-                                <div style="background-color:white;" class="progress">
-                                    <span class="progress-bar" style="width: 60%"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mt-2">
-                        <div class=" mx-auto card p-3 align-items-center justify-content-center  "
-                            style="width: 14rem;">
-                            <img style="height: 100px; width: 100px;" class="" src="images/py.png" alt="Card image cap">
-                            <div class="card-body">
-                                <h5 class=" text-center card-title">Python</h5>
-                                <p class="card-text">Done simple projects with python</p>
-                                <div style="background-color:white;" class="progress">
-                                    <span class="progress-bar" style="width: 60%"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mt-2">
-                        <div class=" mx-auto card p-3 align-items-center justify-content-center  "
-                            style="width: 14rem;">
-                            <img style="height: 100px; width: 100px;" class="" src="images/ps.png" alt="Card image cap">
-                            <div class="card-body">
-                                <h5 class=" text-center card-title">Adobe Photoshop</h5>
-                                <p class="card-text">Designed countless posters</p>
-                                <div style="background-color:white;" class="progress">
-                                    <span class="progress-bar" style="width: 95%"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mt-2">
-                        <div class=" mx-auto card p-3 align-items-center justify-content-center  "
-                            style="width: 14rem;">
-                            <img style="height: 100px; width: 100px;" class="" src="images/ai.png" alt="Card image cap">
-                            <div class="card-body">
-                                <h5 class=" text-center card-title">Adobe Illustrator</h5>
-                                <p class="card-text">Using illustrator for vector arts in my designs
-                                    and CSS</p>
-                                <div style="background-color:white;" class="progress">
-                                    <span class="progress-bar" style="width: 80%"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mt-2">
-                        <div class=" mx-auto card p-3 align-items-center justify-content-center  "
-                            style="width: 14rem;">
-                            <img style="height: 100px; width: 100px;" class="" src="images/indes.png"
-                                alt="Card image cap">
-                            <div class="card-body">
-                                <h5 class=" text-center card-title">Adobe Indesign</h5>
-                                <p class="card-text">Designed several magazines with Adobe Indesign
-                                    and CSS</p>
-                                <div style="background-color:white;" class="progress">
-                                    <span class="progress-bar" style="width: 90%"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        </div>
+    </nav>
 
-
-                </div>
-            </div>
-        </section>
-        <section id="design" class="bg-dark bg-gradient">
-            <div class="container-lg text-center p-5 text-light display-1">Design Projects
-                <hr class="mt-5">
-            </div>
-            <div class="container-lg pb-5">
-                <div id="carousel-des" class="carousel slide" data-bs-ride="carousel">
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <img src="images/1.png" class="d-block mx-auto w-50" alt="...">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="images/2.png" class="d-block mx-auto w-50" alt="...">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="images/3.png" class="d-block mx-auto w-50" alt="...">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="images/4.png" class="d-block mx-auto w-50" alt="...">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="images/5.png" class="d-block mx-auto w-50" alt="...">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="images/6.png" class="d-block mx-auto w-50" alt="...">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="images/7.png" class="d-block mx-auto w-50" alt="...">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="images/8.png" class="d-block mx-auto w-50" alt="...">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="images/9.png" class="d-block mx-auto w-50" alt="...">
-                        </div>
-
-
-
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-full">
+            <div class="absolute top-20 left-10 w-64 h-64 rounded-full bg-blue-500/5 blur-3xl"></div>
+            <div class="absolute bottom-20 right-10 w-80 h-80 rounded-full bg-blue-500/5 blur-3xl"></div>
+        </div>
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+                <div class="md:col-span-7 space-y-8 animate-fade-in" data-aos="fade-right" data-aos-duration="800">
+                    <div class="inline-block px-3 py-1 bg-blue-500/10 rounded-full mb-4">
+                        <span class="text-blue-400 text-sm">MSc Photonics Graduate</span>
                     </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carousel-des"
-                        data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carousel-des"
-                        data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
-                </div>
-
-            </div>
-        </section>
-        <section id="web" class="bg-light bg-gradient">
-            <div class="container-lg text-center p-5 display-1">Web Design Projects
-                <hr class="mt-5">
-            </div>
-            <div class="container-lg pb-5">
-                <div class="row row-cols-xl-3 row-cols-sm-1 row-cols-lg-2">
-                    <div class="col ">
-                        <a href="https://etchnew.com/">
-                            <img src="images/web.png" alt="" class="shadow-lg img-fluid">
+                    <h1 class="text-5xl md:text-6xl font-bold leading-tight">
+                        <span class="text-white">I'm </span>
+                        <span class="">Harikrishnan</span>
+                    </h1>
+                    <p class="text-gray-400 text-lg max-w-xl">Passionate Photonics Engineer & Software Developer with expertise in optical design, simulation, and full-stack development.</p>
+                    <div class="flex flex-wrap gap-4 pt-4">
+                        <a href="mailto:harikrznan@gmail.com" class="btn btn-primary">
+                            <i class="bi bi-envelope mr-2"></i> Get in Touch
                         </a>
-                    </div>
-                    <div class="col ">
-                        <a href="https://harikrishnan-pv.github.io/SEO-Marketing/">
-                            <img src="images/Screenshot 2021-08-28 140039.png" alt="" class="shadow-lg img-fluid">
-                        </a>
-                    </div>
-                    <div class="col ">
-                        <a href="https://harikrishnan-pv.github.io/Stratos-Homepage/">
-                            <img src="images/Screenshot 2021-08-28 140156.png" alt="" class="shadow-lg img-fluid">
+                        <a href="https://linkedin.com/in/harikrishnanpv" class="px-6 py-3 border border-white/20 text-white rounded-md hover:border-blue-500 hover:bg-blue-500/10 transition-colors">
+                            <i class="bi bi-linkedin mr-2"></i> LinkedIn
                         </a>
                     </div>
                 </div>
+                <div class="md:col-span-5 animate-float relative" data-aos="fade-left" data-aos-duration="800">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-blue-500/20 to-transparent rounded-full blur-3xl opacity-50"></div>
+                    <img src="images/dp.jpg" alt="Harikrishnan P V" class="rounded-2xl w-full h-auto object-cover border border-white/10 hover:border-blue-500/50 transition-colors shadow-xl relative z-10">
+                </div>
             </div>
+        </div>
+    </section>
 
-        </section>
+    <!-- About Section -->
+    <section id="about" class="py-24 section-transition relative">
+        <div class="absolute inset-0 bg-gradient-to-b from-black/0 via-blue-900/5 to-black/0 z-0"></div>
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <span class="text-blue-500 text-sm uppercase tracking-wider">Who I Am</span>
+                <h2 class="text-4xl md:text-5xl font-bold mt-2" data-aos="fade-up">About Me</h2>
+            </div>
+            
+            <div class="glass-card p-8 md:p-10" data-aos="zoom-in">
+                <p class="text-gray-300 leading-relaxed text-lg">
+                    A results-driven MSc Photonics graduate with a strong foundation in optical design, simulation, and development, complemented by expertise in full-stack software development. I have a proven track record of designing innovative optical solutions, leading software development projects, and conducting advanced optics research. My technical excellence is matched by strong problem-solving, communication, and leadership abilities, allowing me to effectively tackle complex challenges in photonics technology.
+                </p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center">
+                            <i class="bi bi-sun text-blue-400 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-medium">Email</h3>
+                            <a href="mailto:harikrznan@gmail.com" class="text-gray-400 hover:text-blue-400 transition-colors">harikrznan@gmail.com</a>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center">
+                            <i class="bi bi-telephone text-blue-400 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-medium">Phone</h3>
+                            <a href="tel:+918111957721" class="text-gray-400 hover:text-blue-400 transition-colors">+91 81119 57721</a>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center">
+                            <i class="bi bi-linkedin text-blue-400 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-medium">LinkedIn</h3>
+                            <a href="https://linkedin.com/in/harikrishnanpv" class="text-gray-400 hover:text-blue-400 transition-colors">harikrishnanpv</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-10 pt-6 border-t border-white/10">
+                    <h3 class="text-xl font-semibold mb-4">Languages</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="glass-card p-4 text-center">
+                            <p class="text-white font-medium">Malayalam</p>
+                            <p class="text-gray-400 text-sm">Native</p>
+                        </div>
+                        <div class="glass-card p-4 text-center">
+                            <p class="text-white font-medium">English</p>
+                            <p class="text-gray-400 text-sm">Fluent</p>
+                        </div>
+                        <div class="glass-card p-4 text-center">
+                            <p class="text-white font-medium">Tamil</p>
+                            <p class="text-gray-400 text-sm">Fluent</p>
+                        </div>
+                        <div class="glass-card p-4 text-center">
+                            <p class="text-white font-medium">Hindi</p>
+                            <p class="text-gray-400 text-sm">Conversational</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-10 pt-6 border-t border-white/10">
+                    <h3 class="text-xl font-semibold mb-4">Professional Skills</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center mt-1">
+                                <i class="bi bi-lightbulb text-blue-400"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium">Problem Solving</h4>
+                                <p class="text-gray-400 text-sm">Systematic analysis and solution development for complex technical challenges.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <div class="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center mt-1">
+                                <i class="bi bi-chat-dots text-blue-400"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium">Communication</h4>
+                                <p class="text-gray-400 text-sm">Clear presentation of technical concepts to diverse audiences.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <div class="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center mt-1">
+                                <i class="bi bi-people text-blue-400"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium">Collaboration</h4>
+                                <p class="text-gray-400 text-sm">Effective teamwork across multidisciplinary environments.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <div class="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center mt-1">
+                                <i class="bi bi-flag text-blue-400"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium">Leadership</h4>
+                                <p class="text-gray-400 text-sm">Demonstrated through university roles and technical project management.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-10 pt-6 border-t border-white/10">
+                    <h3 class="text-xl font-semibold mb-4">Leadership & Activities</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center mt-1">
+                                <i class="bi bi-journal-text text-blue-400"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium">University Magazine Chief Editor (2023)</h4>
+                                <p class="text-gray-400 text-sm">Led content development and publication process.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <div class="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center mt-1">
+                                <i class="bi bi-gear text-blue-400"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium">Technical Lead for University Events (2022-2023)</h4>
+                                <p class="text-gray-400 text-sm">Managed technical aspects for Sargam-2022, Medha-2022, and CFF-2023.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <div class="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center mt-1">
+                                <i class="bi bi-calendar-event text-blue-400"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium">General Secretary, Annual Optics Fest - EtchNew-2023</h4>
+                                <p class="text-gray-400 text-sm">Coordinated event planning and execution.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <div class="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center mt-1">
+                                <i class="bi bi-easel text-blue-400"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium">Optics Workshop Facilitator</h4>
+                                <p class="text-gray-400 text-sm">Conducted hands-on workshops for undergraduate students.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <!-- Education Section -->
+    <section id="education" class="py-24 section-transition asymmetric-container bg-black/20">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16">
+                <div>
+                    <span class="text-blue-500 text-sm uppercase tracking-wider">Academic Background</span>
+                    <h2 class="text-4xl md:text-5xl font-bold mt-2" data-aos="fade-up">Education</h2>
+                </div>
+                <p class="text-gray-400 max-w-md mt-4 md:mt-0" data-aos="fade-up" data-aos-delay="100">My academic journey has equipped me with specialized knowledge in photonics and optical systems.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <div class="glass-card p-8 md:p-10 relative overflow-hidden" data-aos="fade-up" data-aos-delay="100">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-2xl"></div>
+                    <span class="text-blue-500 text-sm uppercase tracking-wider">2024</span>
+                    <h3 class="text-2xl font-semibold mt-3">Cochin University of Science and Technology</h3>
+                    <p class="text-blue-400 mt-2">MSc Photonics</p>
+                    <p class="text-gray-400 mt-4">Kochi, India</p>
+                    <div class="mt-6 pt-6 border-t border-white/10">
+                        <p class="text-gray-300 font-medium">Graduation Thesis:</p>
+                        <p class="text-gray-400">Lens Design for Optical Wireless Communication in Rotary Applications</p>
+                        <p class="text-gray-400 mt-2"><span class="text-gray-500">Advisor:</span> Dr. Vamsy Godthi</p>
+                    </div>
+                </div>
+                <div class="glass-card p-8 md:p-10 relative overflow-hidden md:mt-16" data-aos="fade-up" data-aos-delay="200">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-2xl"></div>
+                    <span class="text-blue-500 text-sm uppercase tracking-wider">Bachelor's Degree</span>
+                    <h3 class="text-2xl font-semibold mt-3">Cochin University of Science and Technology</h3>
+                    <p class="text-gray-400 mt-4">Kochi, India</p>
+                    <div class="mt-6 pt-6 border-t border-white/10">
+                        <p class="text-gray-300 font-medium">Under Graduation Thesis:</p>
+                        <p class="text-gray-400">Characteristic Study of Carbon Dot Embedded Self Assembled Photonic Crystal</p>
+                        <p class="text-gray-400 mt-2"><span class="text-gray-500">Advisor:</span> Dr. Priya Rose T</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-16 glass-card p-8 md:p-10" data-aos="fade-up">
+                <h3 class="text-xl font-semibold mb-6">Relevant Coursework</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="text-blue-400 mb-3">Graduate</h4>
+                        <ul class="space-y-2 text-gray-300">
+                            <li>• Quantum Optics</li>
+                            <li>• Non-Linear Optics</li>
+                            <li>• Optical Sensor Technology</li>
+                            <li>• Nanophotonics</li>
+                            <li>• Laser Spectroscopy</li>
+                            <li>• Photonic Bandgap Structures and Metamaterials</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-blue-400 mb-3">Undergraduate</h4>
+                        <ul class="space-y-2 text-gray-300">
+                            <li>• Optics</li>
+                            <li>• Molecular and Atomic Spectroscopy</li>
+                            <li>• Quantum Mechanics</li>
+                            <li>• Laser Physics</li>
+                            <li>• Fibre Optics</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <!-- Skills Section -->
+    <section id="skills" class="py-24 section-transition relative">
+        <div class="absolute inset-0 bg-gradient-to-b from-black/0 via-blue-900/5 to-black/0 z-0"></div>
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <span class="text-blue-500 text-sm uppercase tracking-wider">What I Do</span>
+                <h2 class="text-4xl md:text-5xl font-bold mt-2" data-aos="fade-up">Skills</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="glass-card p-8 card-hover-effect" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-12 h-12 rounded-lg bg-blue-500/20 flex items-center justify-center mb-6">
+                        <i class="bi bi-braces text-white-400 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-white">Modeling & Simulation</h3>
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-blue-900/30 rounded-full text-blue-300 text-sm hover:bg-blue-800/40 transition-colors">COMSOL</span>
+                        <span class="px-3 py-1 bg-blue-900/30 rounded-full text-blue-300 text-sm hover:bg-blue-800/40 transition-colors">Matlab</span>
+                        <span class="px-3 py-1 bg-blue-900/30 rounded-full text-blue-300 text-sm hover:bg-blue-800/40 transition-colors">Qiskit</span>
+                        <span class="px-3 py-1 bg-blue-900/30 rounded-full text-blue-300 text-sm hover:bg-blue-800/40 transition-colors">Zemax</span>
+                        <span class="px-3 py-1 bg-blue-900/30 rounded-full text-blue-300 text-sm hover:bg-blue-800/40 transition-colors">SolidWorks</span>
+                    </div>
+                </div>
+                <div class="glass-card p-8 card-hover-effect md:translate-y-4" data-aos="fade-up" data-aos-delay="150">
+                    <div class="w-12 h-12 rounded-lg bg-blue-500/20 flex items-center justify-center mb-6">
+                        <i class="bi bi-code-slash text-white-400 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-white">Programming</h3>
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-blue-900/30 rounded-full text-blue-300 text-sm hover:bg-blue-800/40 transition-colors">Python</span>
+                        <span class="px-3 py-1 bg-blue-900/30 rounded-full text-blue-300 text-sm hover:bg-blue-800/40 transition-colors">C/C++</span>
+                        <span class="px-3 py-1 bg-blue-900/30 rounded-full text-blue-300 text-sm hover:bg-blue-800/40 transition-colors">Java</span>
+                        <span class="px-3 py-1 bg-blue-900/30 rounded-full text-blue-300 text-sm hover:bg-blue-800/40 transition-colors">JavaScript</span>
+                        <span class="px-3 py-1 bg-blue-900/30 rounded-full text-blue-300 text-sm hover:bg-blue-800/40 transition-colors">Dart</span>
+                    </div>
+                </div>
+                <div class="glass-card p-8 card-hover-effect" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-12 h-12 rounded-lg bg-blue-500/20 flex items-center justify-center mb-6">
+                        <i class="bi bi-lightbulb text-white-400 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-white">Optical Design</h3>
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-blue-900/30 rounded-full text-blue-300 text-sm hover:bg-blue-800/40 transition-colors">Lens Design</span>
+                        <span class="px-3 py-1 bg-blue-900/30 rounded-full text-blue-300 text-sm hover:bg-blue-800/40 transition-colors">Optical Systems</span>
+                        <span class="px-3 py-1 bg-blue-900/30 rounded-full text-blue-300 text-sm hover:bg-blue-800/40 transition-colors">Advanced Lens Types</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
+                <div class="glass-card p-8 card-hover-effect group" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="w-12 h-12 rounded-lg bg-blue-500/20 flex items-center justify-center mb-6 group-hover:rotate-12 transition-transform">
+                        <i class="bi bi-tools text-white-400 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-white">Prototyping</h3>
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-blue-900/30 rounded-full text-blue-300 text-sm hover:bg-blue-800/40 transition-colors">3D-Printing</span>
+                        <span class="px-3 py-1 bg-blue-900/30 rounded-full text-blue-300 text-sm hover:bg-blue-800/40 transition-colors">CNC</span>
+                    </div>
+                </div>
+                <div class="glass-card p-8 card-hover-effect md:translate-y-8 group" data-aos="zoom-in" data-aos-delay="400">
+                    <div class="w-12 h-12 rounded-lg bg-blue-500/20 flex items-center justify-center mb-6 group-hover:rotate-12 transition-transform">
+                        <i class="bi bi-layers text-white-400 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-white">Frameworks</h3>
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-blue-900/30 rounded-full text-blue-300 text-sm hover:bg-blue-800/40 transition-colors">React.js</span>
+                        <span class="px-3 py-1 bg-blue-900/30 rounded-full text-blue-300 text-sm hover:bg-blue-800/40 transition-colors">Next.js</span>
+                        <span class="px-3 py-1 bg-blue-900/30 rounded-full text-blue-300 text-sm hover:bg-blue-800/40 transition-colors">Flutter</span>
+                    </div>
+                </div>
+                <div class="glass-card p-8 card-hover-effect group" data-aos="zoom-in" data-aos-delay="600">
+                    <div class="w-12 h-12 rounded-lg bg-blue-500/20 flex items-center justify-center mb-6 group-hover:rotate-12 transition-transform">
+                        <i class="bi bi-eyeglasses text-white-400 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-white">Testing</h3>
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-blue-900/30 rounded-full text-blue-300 text-sm hover:bg-blue-800/40 transition-colors">Spectroscopy</span>
+                        <span class="px-3 py-1 bg-blue-900/30 rounded-full text-blue-300 text-sm hover:bg-blue-800/40 transition-colors">Laser Induced Spectroscopy</span>
+                        <span class="px-3 py-1 bg-blue-900/30 rounded-full text-blue-300 text-sm hover:bg-blue-800/40 transition-colors">Spectrophotometer</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12 glass-card p-8" data-aos="fade-up">
+                <h3 class="text-xl font-semibold mb-6 text-white">Design Tools</h3>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                    <div class="flex flex-col items-center p-4">
+                        <div class="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center mb-4">
+                            <i class="bi bi-bezier text-white-400 text-xl"></i>
+                        </div>
+                        <h4 class="text-white mb-2 text-center">Vector</h4>
+                        <div class="flex flex-wrap justify-center gap-2">
+                            <span class="px-3 py-1 bg-blue-900/30 rounded-full text-blue-300 text-sm hover:bg-blue-800/40 transition-colors">Inkscape</span>
+                            <span class="px-3 py-1 bg-blue-900/30 rounded-full text-blue-300 text-sm hover:bg-blue-800/40 transition-colors">Adobe Illustrator</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-center p-4">
+                        <div class="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center mb-4">
+                            <i class="bi bi-image text-white-400 text-xl"></i>
+                        </div>
+                        <h4 class="text-white mb-2 text-center">Raster</h4>
+                        <div class="flex flex-wrap justify-center gap-2">
+                            <span class="px-3 py-1 bg-blue-900/30 rounded-full text-blue-300 text-sm hover:bg-blue-800/40 transition-colors">Adobe Photoshop</span>
+                            <span class="px-3 py-1 bg-blue-900/30 rounded-full text-blue-300 text-sm hover:bg-blue-800/40 transition-colors">Gimp</span>
+                            <span class="px-3 py-1 bg-blue-900/30 rounded-full text-blue-300 text-sm hover:bg-blue-800/40 transition-colors">Affinity Design</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-center p-4">
+                        <div class="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center mb-4">
+                            <i class="bi bi-layout-text-window text-white-400 text-xl"></i>
+                        </div>
+                        <h4 class="text-white mb-2 text-center">UI/UX</h4>
+                        <div class="flex flex-wrap justify-center gap-2">
+                            <span class="px-3 py-1 bg-blue-900/30 rounded-full text-blue-300 text-sm hover:bg-blue-800/40 transition-colors">Figma</span>
+                            <span class="px-3 py-1 bg-blue-900/30 rounded-full text-blue-300 text-sm hover:bg-blue-800/40 transition-colors">Framer</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-center p-4">
+                        <div class="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center mb-4">
+                            <i class="bi bi-file-earmark-text text-white-400 text-xl"></i>
+                        </div>
+                        <h4 class="text-white mb-2 text-center">Publishing</h4>
+                        <div class="flex flex-wrap justify-center gap-2">
+                            <span class="px-3 py-1 bg-blue-900/30 rounded-full text-blue-300 text-sm hover:bg-blue-800/40 transition-colors">Adobe InDesign</span>
+                            <span class="px-3 py-1 bg-blue-900/30 rounded-full text-blue-300 text-sm hover:bg-blue-800/40 transition-colors">LATEX</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    </div>
-    <script src="javascript/script.js">
+    <!-- Experience Section -->
+    <section id="experience" class="py-24 section-transition">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16">
+                <div>
+                    <span class="text-blue-500 text-sm uppercase tracking-wider">Work History</span>
+                    <h2 class="text-4xl md:text-5xl font-bold mt-2" data-aos="fade-up">Experience</h2>
+                </div>
+                <p class="text-gray-400 max-w-md mt-4 md:mt-0" data-aos="fade-up" data-aos-delay="100">Professional experience that has shaped my expertise in optics and development.</p>
+            </div>
+            
+            <div class="space-y-12">
+                <div class="glass-card p-8 md:p-10 relative overflow-hidden" data-aos="fade-right" data-aos-delay="100">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-2xl"></div>
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                        <div>
+                            <span class="text-blue-500 text-sm uppercase tracking-wider">Sep 2022 - Present</span>
+                            <h3 class="text-2xl font-semibold mt-2">Lead Developer</h3>
+                            <p class="text-gray-300 mt-1">Reflex Optic Solutions</p>
+                            <p class="text-gray-400 mt-1">Bangalore, India (Hybrid)</p>
+                        </div>
+                        <div class="md:text-right">
+                            <span class="inline-block px-3 py-1 bg-blue-500/10 text-blue-400 rounded-full text-sm">Development</span>
+                        </div>
+                    </div>
+                    <div class="mt-6 pt-6 border-t border-white/10">
+                        <ul class="text-gray-400 space-y-2">
+                            <li>• Led the architecture and development of a comprehensive e-commerce platform for optical wholesale.</li>
+                            <li>• Managed full-stack development, including front-end, back-end, database, and API integrations.</li>
+                            <li>• Implemented responsive design for seamless mobile and web experiences.</li>
+                            <li>• Achieved a 30% reduction in operational costs through automation and efficient system design.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="glass-card p-8 md:p-10 relative overflow-hidden" data-aos="fade-left" data-aos-delay="200">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-2xl"></div>
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                        <div>
+                            <span class="text-blue-500 text-sm uppercase tracking-wider">Sep 2024 - Feb 2025</span>
+                            <h3 class="text-2xl font-semibold mt-2">Development Engineer - Optics</h3>
+                            <p class="text-gray-300 mt-1">Infiniti Agrotech</p>
+                            <p class="text-gray-400 mt-1">Goa, India</p>
+                        </div>
+                        <div class="md:text-right">
+                            <span class="inline-block px-3 py-1 bg-blue-500/10 text-blue-400 rounded-full text-sm">Optical Design</span>
+                        </div>
+                    </div>
+                    <div class="mt-6 pt-6 border-t border-white/10">
+                        <ul class="text-gray-400 space-y-2">
+                            <li>• Designed and optimized optical circuits and systems for agricultural technology applications.</li>
+                            <li>• Integrated optical components with electronic systems to create comprehensive solutions.</li>
+                            <li>• Conducted research to enhance optical performance in agricultural environments.</li>
+                            <li>• Provided expertise in electronics review, chemometry, software development, and product costing.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="glass-card p-8 md:p-10 relative overflow-hidden" data-aos="fade-right" data-aos-delay="300">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-2xl"></div>
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                        <div>
+                            <span class="text-blue-500 text-sm uppercase tracking-wider">Jan - Jun 2024</span>
+                            <h3 class="text-2xl font-semibold mt-2">Optics Intern</h3>
+                            <p class="text-gray-300 mt-1">SABIC</p>
+                            <p class="text-gray-400 mt-1">Bangalore, India</p>
+                        </div>
+                        <div class="md:text-right">
+                            <span class="inline-block px-3 py-1 bg-blue-500/10 text-blue-400 rounded-full text-sm">Optical Engineering</span>
+                        </div>
+                    </div>
+                    <div class="mt-6 pt-6 border-t border-white/10">
+                        <ul class="text-gray-400 space-y-2">
+                            <li>• Engineered high-efficiency Free Space Optical Lenses for rotary joints, achieving a 50% efficiency improvement.</li>
+                            <li>• Evaluated prototyping techniques and manufacturability using CNC and injection molding.</li>
+                            <li>• Collaborated with cross-functional teams to align optical designs with project requirements.</li>
+                            <li>• Presented technical findings to senior management.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="glass-card p-8 md:p-10 relative overflow-hidden" data-aos="fade-left" data-aos-delay="400">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-2xl"></div>
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                        <div>
+                            <span class="text-blue-500 text-sm uppercase tracking-wider">Sep 2021 - Apr 2022</span>
+                            <h3 class="text-2xl font-semibold mt-2">Software Development Intern</h3>
+                            <p class="text-gray-300 mt-1">Intelltech Pvt Ltd.</p>
+                            <p class="text-gray-400 mt-1">Kochi, India (Hybrid)</p>
+                        </div>
+                        <div class="md:text-right">
+                            <span class="inline-block px-3 py-1 bg-blue-500/10 text-blue-400 rounded-full text-sm">Web & Mobile Development</span>
+                        </div>
+                    </div>
+                    <div class="mt-6 pt-6 border-t border-white/10">
+                        <ul class="text-gray-400 space-y-2">
+                            <li>• Delivered over 30 websites and mobile applications for diverse client needs.</li>
+                            <li>• Utilized HTML, CSS, JavaScript, React, and Flutter to create responsive, user-friendly interfaces.</li>
+                            <li>• Collaborated directly with clients to gather requirements and implement solutions.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 section-transition relative">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/0 via-blue-900/5 to-black/0 z-0"></div>
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <span class="text-blue-500 text-sm uppercase tracking-wider">Get In Touch</span>
+                <h2 class="text-4xl md:text-5xl font-bold mt-2" data-aos="fade-up">Contact</h2>
+                <p class="text-gray-400 max-w-md mx-auto mt-4" data-aos="fade-up" data-aos-delay="100">Interested in working together? Feel free to reach out through any of these channels.</p>
+            </div>
+            
+            <div class="flex flex-wrap justify-center gap-6">
+                <a href="mailto:harikrznan@gmail.com" class="group glass-card p-6 flex items-center space-x-4 interactive-element" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center group-hover:bg-blue-500/30 transition-colors">
+                        <i class="bi bi-envelope text-blue-400 text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-medium">Email</h3>
+                        <p class="text-gray-400 text-sm">harikrznan@gmail.com</p>
+                    </div>
+                </a>
+                
+                <a href="tel:+918111957721" class="group glass-card p-6 flex items-center space-x-4 interactive-element" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center group-hover:bg-blue-500/30 transition-colors">
+                        <i class="bi bi-telephone text-blue-400 text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-medium">Phone</h3>
+                        <p class="text-gray-400 text-sm">+91 8111957721</p>
+                    </div>
+                </a>
+                
+                <a href="https://linkedin.com/in/harikrishnanpv" class="group glass-card p-6 flex items-center space-x-4 interactive-element" data-aos="zoom-in" data-aos-delay="500">
+                    <div class="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center group-hover:bg-blue-500/30 transition-colors">
+                        <i class="bi bi-linkedin text-blue-400 text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-medium">LinkedIn</h3>
+                        <p class="text-gray-400 text-sm">harikrishnanpv</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 text-center">
+            <p class="text-gray-500">© 2024 Harikrishnan P V. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        // Initialize AOS animation library
+        AOS.init({
+            once: true,
+            mirror: false,
+            duration: 800
+        });
+        
+        // Remove loading animation when page is loaded
+        window.addEventListener('load', function () {
+            if (document.querySelector('.loading')) {
+                document.querySelector('.loading').style.display = 'none';
+            }
+            
+            // Create background particles
+            createParticles();
+        });
+
+        // Add scroll reveal animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    // Unobserve after adding the visible class to ensure it only happens once
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.section-transition').forEach(section => {
+            observer.observe(section);
+        });
+        
+        // Add parallax effect to hero section
+        const heroSection = document.querySelector('#home');
+        
+        window.addEventListener('scroll', () => {
+            const scrollPosition = window.scrollY;
+            const heroImage = heroSection.querySelector('img');
+            const heroContent = heroSection.querySelector('.animate-fade-in');
+            
+            if (scrollPosition < window.innerHeight) {
+                const translateY = scrollPosition * 0.2;
+                if (heroImage) heroImage.style.transform = `translateY(${translateY}px)`;
+                if (heroContent) heroContent.style.transform = `translateY(${translateY * 0.5}px)`;
+            }
+        });
+        
+        heroSection.addEventListener('mousemove', (e) => {
+            const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
+            const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
+            
+            const heroImage = heroSection.querySelector('img');
+            if (heroImage) {
+                heroImage.style.transform = `translate(${moveX}px, ${moveY}px)`;
+            }
+        });
+        
+        // Add smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Create background particles
+        function createParticles() {
+            const container = document.getElementById('particles');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const size = Math.random() * 10 + 5;
+                const particle = document.createElement('div');
+                particle.classList.add('parallax-dot');
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                particle.style.opacity = Math.random() * 0.3;
+                
+                container.appendChild(particle);
+                
+                // Add parallax movement
+                const speed = Math.random() * 0.05;
+                window.addEventListener('mousemove', (e) => {
+                    const x = (window.innerWidth / 2 - e.clientX) * speed;
+                    const y = (window.innerHeight / 2 - e.clientY) * speed;
+                    particle.style.transform = `translate(${x}px, ${y}px)`;
+                });
+            }
+        }
+        
+        // Add micro-interactions for interactive elements
+        document.querySelectorAll('.interactive-element').forEach(element => {
+            element.addEventListener('mouseenter', function() {
+                this.style.transition = 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+            });
+        });
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
-        crossorigin="anonymous"></script>
 </body>
 
 </html>
