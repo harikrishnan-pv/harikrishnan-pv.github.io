@@ -22,7 +22,7 @@
             transition: background 0.3s ease, color 0.3s ease;
             overflow-x: hidden;
             color: #334155;
-            font-size: 16px;
+            font-size: 18px; /* Increased base font size */
         }
 
         body.dark-mode {
@@ -39,18 +39,23 @@
         }
 
         body.light-mode {
-            background-color: #f5eeda;
-            color: #4a4032;
+            background-color: #f5f5dc; /* bit darker shade of brown */
+            color: #495057; /* Slightly lighter than before, more readable */
+            --blueprint-grid-color-light: rgba(139, 69, 19, 0.1); /* Dark Brown grid lines, slightly darker */
+            --blueprint-dot-color-light: rgba(160, 82, 45, 0.2); 
             background-image:
-                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='5' height='5' viewBox='0 0 5 5'%3E%3Cpath fill='%23a89d8a' fill-opacity='0.07' d='M0 0h1v1H0z M2 2h1v1H2z M4 4h1v1H4z'%3E%3C/path%3E%3C/svg%3E"),
-                repeating-linear-gradient(90deg, rgba(180, 170, 150, 0.05), rgba(180, 170, 150, 0.05) 1px, transparent 1px, transparent 50px),
-                repeating-linear-gradient(0deg, rgba(180, 170, 150, 0.04), rgba(180, 170, 150, 0.04) 1px, transparent 1px, transparent 40px),
-                radial-gradient(circle at center, rgba(255, 255, 255, 0.05), rgba(228, 220, 205, 0.05) 80%);
+                linear-gradient(var(--blueprint-grid-color-light) 1px, transparent 1px),
+                linear-gradient(90deg, var(--blueprint-grid-color-light) 1px, transparent 1px),
+                radial-gradient(var(--blueprint-dot-color-light) 1px, transparent 1px);
+            background-size: 40px 40px, 40px 40px, 5px 5px;
+            background-position: -1px -1px, -1px -1px, -1px -1px;
 
-            --text-muted-light: #8a7e6d;
-            --heading-color-light: #5c4f3f;
-            --border-color-light: #e0d6c6;
-            --card-bg-light: rgba(245, 238, 218, 0.9);
+            /* Light Mode Color Variables */
+            --accent-color-light: #a0522d; /* Sienna Accent */
+            --text-muted-light: #778899; /* LightSlateGray */
+            --heading-color-light: #343a40; /* Dark Gray */
+            --border-color-light: #ced4da; /* Light Gray */
+            --card-bg-light: rgba(255, 255, 255, 0.9); /* White with slightly less opacity */
         }
 
 
@@ -64,45 +69,54 @@
             --heading-color-dark: #f1f5f9;
         }
 
+        /* Primary blue remains for buttons/icons unless specifically overridden */
         .text-primary { color: var(--primary-blue); }
+        /* Override text-primary visual use in light mode where brown accent is preferred */
+        .light-mode .text-primary-accent { color: var(--accent-color-light, #a0522d); }
+
 
         .dark-mode .text-muted { color: var(--text-muted-dark); }
-        .light-mode .text-muted { color: var(--text-muted-light, #8a7e6d); }
+        .light-mode .text-muted { color: var(--text-muted-light, #778899); }
 
         .dark-mode h1, .dark-mode h2, .dark-mode h3, .dark-mode h4 { color: var(--heading-color-dark); }
-        .light-mode h1, .light-mode h2, .light-mode h3, .light-mode h4 { color: var(--heading-color-light, #5c4f3f); }
+        .light-mode h1, .light-mode h2, .light-mode h3, .light-mode h4 { color: var(--heading-color-light, #343a40); }
 
         .dark-mode .border-themed { border-color: var(--border-color-dark); }
-        .light-mode .border-themed { border-color: var(--border-color-light, #e0d6c6); }
+        .light-mode .border-themed { border-color: var(--border-color-light, #ced4da); }
 
-        .light-mode nav { background-color: rgba(245, 238, 218, 0.75) !important; }
-        .light-mode .nav-link { color: var(--text-muted-light, #8a7e6d); }
-        .light-mode .nav-link:hover, .light-mode .nav-link.active { color: var(--heading-color-light, #5c4f3f); }
+        /* --- Navigation --- */
+        .light-mode nav { background-color: rgba(248, 249, 250, 0.85) !important; } /* Lighter gray bg */
+        .light-mode .nav-link { color: var(--text-muted-light, #778899); }
+        .light-mode .nav-link:hover, .light-mode .nav-link.active { color: var(--heading-color-light, #343a40); }
+        /* Logo text/border uses heading color */
         .light-mode nav .text-primary { color: var(--heading-color-light); }
         .light-mode nav .border-primary { border-color: var(--heading-color-light); }
+        /* Nav underline uses accent color */
+        .light-mode .nav-link::after { background: var(--accent-color-light, #a0522d); }
 
         .nav-link {
             position: relative; transition: color 0.2s ease; padding-bottom: 6px;
             font-family: 'JetBrains Mono', monospace; text-transform: uppercase;
-            letter-spacing: 0.05em; font-size: 0.9rem;
+            letter-spacing: 0.05em; font-size: 1rem; /* Increased nav link font size */
         }
         .nav-link::after {
             content: ''; position: absolute; bottom: 0; left: 0;
             width: 0; height: 1px; background: var(--primary-blue);
             transition: width 0.3s ease-out;
         }
-        .light-mode .nav-link::after { background: var(--heading-color-light); }
         .nav-link:hover::after, .nav-link.active::after { width: 100%; }
         .dark-mode .nav-link { color: var(--text-muted-dark); }
         .dark-mode .nav-link:hover, .dark-mode .nav-link.active { color: #fff; }
 
 
+        /* --- Buttons --- */
         .btn {
             font-family: 'JetBrains Mono', monospace; display: inline-block;
-            font-weight: 500; padding: 0.65rem 1.3rem; border-radius: 4px;
+            font-weight: 500; padding: 0.75rem 1.5rem; border-radius: 4px; /* Slightly larger buttons */
             text-align: center; transition: all 0.2s ease; border: 1px solid;
-            text-transform: uppercase; letter-spacing: 0.03em; font-size: 0.9rem;
+            text-transform: uppercase; letter-spacing: 0.03em; font-size: 1rem; /* Increased button font size */
         }
+        /* Primary button remains blue */
         .btn-primary {
             background-color: var(--primary-blue); border-color: var(--primary-blue);
             color: #ffffff;
@@ -110,26 +124,28 @@
         .btn-primary:hover {
             background-color: var(--primary-blue-darker); border-color: var(--primary-blue-darker);
         }
+        /* Secondary button uses accent color in light mode */
         .btn-secondary {
            border-color: var(--primary-blue); color: var(--primary-blue);
            background-color: transparent;
         }
         .dark-mode .btn-secondary { border-color: var(--primary-blue-lighter); color: var(--primary-blue-lighter); }
         .light-mode .btn-secondary {
-            border-color: var(--heading-color-light, #5c4f3f);
-            color: var(--heading-color-light, #5c4f3f);
+            border-color: var(--accent-color-light, #a0522d);
+            color: var(--accent-color-light, #a0522d);
         }
         .btn-secondary:hover { background-color: rgba(59, 130, 246, 0.1); }
         .dark-mode .btn-secondary:hover { color: #fff; border-color: #fff;}
         .light-mode .btn-secondary:hover {
-             background-color: rgba(92, 79, 63, 0.1);
-             border-color: var(--heading-color-light, #5c4f3f);
-             color: var(--heading-color-light, #5c4f3f);
+             background-color: rgba(160, 82, 45, 0.1); /* Sienna accent hover */
+             border-color: var(--accent-color-light, #a0522d);
+             color: var(--accent-color-light, #a0522d);
         }
 
 
+        /* --- Blueprint Card Styling --- */
         .blueprint-card {
-            border-radius: 4px; padding: 1.75rem;
+            border-radius: 4px; padding: 2rem; /* Increased padding */
             transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
             border: 1px solid; position: relative; overflow: hidden;
         }
@@ -138,65 +154,75 @@
             border-color: var(--border-color-dark);
         }
         .light-mode .blueprint-card {
-            background-color: var(--card-bg-light, rgba(245, 238, 218, 0.9));
-            border-color: var(--border-color-light, #e0d6c6);
-            box-shadow: 0 3px 7px rgba(92, 79, 63, 0.07);
+            background-color: var(--card-bg-light, rgba(255, 255, 255, 0.9));
+            border-color: var(--border-color-light, #ced4da);
+            box-shadow: 0 4px 9px rgba(0, 0, 0, 0.06); /* Subtle shadow */
         }
         .blueprint-card:hover {
-             box-shadow: 0 5px 12px rgba(92, 79, 63, 0.12);
+             box-shadow: 0 6px 14px rgba(0, 0, 0, 0.09);
         }
         .dark-mode .blueprint-card:hover {
-             box-shadow: 0 5px 12px rgba(0, 0, 0, 0.2);
+             box-shadow: 0 6px 14px rgba(0, 0, 0, 0.22);
         }
 
+        /* Corner markers */
         .blueprint-card::before, .blueprint-card::after {
-            content: ''; position: absolute; width: 12px; height: 12px;
+            content: ''; position: absolute; width: 14px; height: 14px; /* Slightly larger corners */
             border-color: var(--primary-blue); border-style: solid;
             opacity: 0.6; transition: opacity 0.3s ease; pointer-events: none;
         }
+        /* Use accent color for corners in light mode */
         .light-mode .blueprint-card::before, .light-mode .blueprint-card::after {
-             border-color: var(--heading-color-light, #5c4f3f);
+             border-color: var(--accent-color-light, #a0522d);
         }
-        .blueprint-card::before { top: 6px; left: 6px; border-width: 1px 0 0 1px; }
-        .blueprint-card::after { bottom: 6px; right: 6px; border-width: 0 1px 1px 0; }
+        .blueprint-card::before { top: 8px; left: 8px; border-width: 1px 0 0 1px; }
+        .blueprint-card::after { bottom: 8px; right: 8px; border-width: 0 1px 1px 0; }
         .blueprint-card:hover::before, .blueprint-card:hover::after { opacity: 1; }
 
 
+        /* --- Theme Toggle --- */
         .theme-toggle {
-            cursor: pointer; width: 38px; height: 38px; border-radius: 4px;
+            cursor: pointer; width: 40px; height: 40px; border-radius: 4px; /* Slightly larger toggle */
             display: flex; align-items: center; justify-content: center;
             transition: all 0.3s ease; border: 1px solid;
         }
         .dark-mode .theme-toggle { background-color: rgba(59, 130, 246, 0.1); border-color: var(--border-color-dark); color: var(--text-muted-dark); }
         .dark-mode .theme-toggle:hover { background-color: rgba(59, 130, 246, 0.2); color: #fff; }
-        .light-mode .theme-toggle { background-color: rgba(92, 79, 63, 0.1); border-color: var(--border-color-light, #e0d6c6); color: var(--text-muted-light, #8a7e6d); }
-        .light-mode .theme-toggle:hover { background-color: rgba(92, 79, 63, 0.15); color: var(--heading-color-light, #5c4f3f); }
+        /* Use accent color for toggle in light mode */
+        .light-mode .theme-toggle { background-color: rgba(160, 82, 45, 0.07); border-color: var(--border-color-light, #ced4da); color: var(--text-muted-light, #778899); }
+        .light-mode .theme-toggle:hover { background-color: rgba(160, 82, 45, 0.11); color: var(--accent-color-light, #a0522d); }
 
+        /* --- Skill Tag --- */
         .skill-tag {
-            font-family: 'JetBrains Mono', monospace; font-size: 0.8rem;
-            border-radius: 4px; padding: 0.3rem 0.7rem; display: inline-block;
+            font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; /* Increased skill tag font size */
+            border-radius: 4px; padding: 0.4rem 0.8rem; display: inline-block;
             margin: 0.2rem; font-weight: 500; border: 1px solid;
             transition: background-color 0.2s ease, color 0.2s ease;
         }
         .dark-mode .skill-tag { border-color: rgba(59, 130, 246, 0.4); color: var(--primary-blue-lighter); background-color: rgba(59, 130, 246, 0.1); }
         .dark-mode .skill-tag:hover { background-color: rgba(59, 130, 246, 0.2); }
+        /* Use accent color for tags in light mode */
         .light-mode .skill-tag {
-            border-color: rgba(92, 79, 63, 0.4);
-            color: var(--heading-color-light, #5c4f3f);
-            background-color: rgba(92, 79, 63, 0.06);
+            border-color: rgba(160, 82, 45, 0.4); /* Sienna border */
+            color: var(--accent-color-light, #a0522d);
+            background-color: rgba(160, 82, 45, 0.05); /* Sienna bg */
         }
-        .light-mode .skill-tag:hover { background-color: rgba(92, 79, 63, 0.12); }
+        .light-mode .skill-tag:hover { background-color: rgba(160, 82, 45, 0.1); }
 
+        /* --- Icon Container --- */
         .icon-container {
-            width: 2.75rem; height: 2.75rem; border-radius: 4px;
+            width: 3rem; height: 3rem; border-radius: 4px; /* Slightly larger icon container */
             display: flex; align-items: center; justify-content: center;
             flex-shrink: 0; border: 1px solid;
         }
         .dark-mode .icon-container { background-color: rgba(59, 130, 246, 0.1); border-color: var(--border-color-dark); }
-        .light-mode .icon-container { background-color: rgba(92, 79, 63, 0.06); border-color: var(--border-color-light, #e0d6c6); }
-        .icon-container i { font-size: 1.35rem; color: var(--primary-blue); }
+        /* Use accent color for icon container bg in light mode */
+        .light-mode .icon-container { background-color: rgba(160, 82, 45, 0.05); border-color: var(--border-color-light, #ced4da); }
+        /* Icon color remains blue */
+        .icon-container i { font-size: 1.45rem; color: var(--primary-blue); }
 
 
+        /* --- Animation Setup (Fade/Slide) --- */
         .animate-on-scroll {
             opacity: 0;
             transition: opacity 0.6s ease-out, transform 0.6s ease-out;
@@ -210,9 +236,10 @@
         .animate-slide-in-right { transform: translateX(50px); }
         .animate-slide-in-right.visible { opacity: 1; transform: translateX(0); }
 
-        p, li { font-size: 1rem; line-height: 1.65; }
-        .text-lg { font-size: 1.125rem; line-height: 1.7; }
-        .text-sm { font-size: 0.9rem; line-height: 1.6; }
+        /* --- Font Size Base --- */
+        p, li { font-size: 1.1rem; line-height: 1.7; }
+        .text-lg { font-size: 1.25rem; line-height: 1.8; }
+        .text-sm { font-size: 1rem; line-height: 1.7; }
 
     </style>
 </head>
@@ -252,12 +279,12 @@
         <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10 w-full">
             <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
                 <div class="md:col-span-7 space-y-5 animate-on-scroll animate-slide-in-left">
-                    <span class="inline-block px-3 py-1 border border-primary/50 text-primary rounded text-xs font-medium font-mono bg-primary/10 light:border-[var(--heading-color-light)]/50 light:text-[var(--heading-color-light)] light:bg-[var(--heading-color-light)]/5">
+                    <span class="inline-block px-3 py-1 border border-primary/50 text-primary rounded text-xs font-medium font-mono bg-primary/10 dark:text-primary light:border-[var(--accent-color-light)]/50 light:text-primary-accent light:bg-[var(--accent-color-light)]/5">
                         MSc PHOTONICS GRADUATE
                     </span>
                     <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight font-mono">
                         <span class="block text-muted">Hi, I'm</span>
-                        <span class="text-primary light:text-[var(--heading-color-light)]">Harikrishnan P V</span>
+                        <span class="text-primary dark:text-primary light:text-primary-accent">Harikrishnan P V</span>
                     </h1>
                     <p class="text-xl text-muted max-w-xl">
                         Photonics Engineer & Software Developer. Expertise in optical design, simulation, and full-stack development.
@@ -273,7 +300,7 @@
                 </div>
                 <div class="md:col-span-5 animate-on-scroll animate-slide-in-right">
                      <div class="relative group blueprint-card p-2">
-                         <img src="https://placehold.co/400x400/f5eeda/5c4f3f?text=HK"
+                         <img src="images/dp.jpg"
                               alt="Harikrishnan P V Profile Picture Placeholder"
                               onerror="this.onerror=null; this.src='https://placehold.co/400x400/e0e0e0/a0a0a0?text=Image+Not+Found';"
                               class="rounded-sm w-full h-auto object-cover aspect-square">
@@ -286,9 +313,9 @@
     <section id="about" class="py-20 md:py-24 relative">
         <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
             <div class="text-center mb-12 md:mb-16 animate-on-scroll animate-fade-in">
-                <span class="text-primary text-xs uppercase tracking-widest font-semibold font-mono light:text-[var(--heading-color-light)]">Who I Am</span>
+                <span class="text-primary text-xs uppercase tracking-widest font-semibold font-mono dark:text-primary light:text-primary-accent">Who I Am</span>
                 <h2 class="text-3xl md:text-4xl font-bold mt-2">About Me</h2>
-                 <div class="w-12 h-0.5 bg-primary mx-auto mt-3 light:bg-[var(--heading-color-light)]"></div>
+                 <div class="w-12 h-0.5 bg-primary mx-auto mt-3 dark:bg-primary light:bg-primary-accent"></div>
             </div>
 
             <div class="blueprint-card animate-on-scroll animate-fade-in">
@@ -300,37 +327,37 @@
                         <div class="icon-container"> <i class="bi bi-envelope"></i> </div>
                         <div>
                             <h3 class="text-lg font-medium">Email</h3>
-                            <a href="mailto:harikrznan@gmail.com" class="text-muted hover:text-primary transition-colors text-base light:hover:text-[var(--heading-color-light)]">harikrznan@gmail.com</a>
+                            <a href="mailto:harikrznan@gmail.com" class="text-muted hover:text-primary transition-colors text-base light:hover:text-primary-accent">harikrznan@gmail.com</a>
                         </div>
                     </div>
                     <div class="flex items-center space-x-3">
                          <div class="icon-container"> <i class="bi bi-telephone"></i> </div>
                         <div>
                             <h3 class="text-lg font-medium">Phone</h3>
-                            <a href="tel:+918111957721" class="text-muted hover:text-primary transition-colors text-base light:hover:text-[var(--heading-color-light)]">+91 81119 57721</a>
+                            <a href="tel:+918111957721" class="text-muted hover:text-primary transition-colors text-base light:hover:text-primary-accent">+91 81119 57721</a>
                         </div>
                     </div>
                     <div class="flex items-center space-x-3">
                          <div class="icon-container"> <i class="bi bi-linkedin"></i> </div>
                         <div>
                             <h3 class="text-lg font-medium">LinkedIn</h3>
-                            <a href="https://linkedin.com/in/harikrishnanpv" target="_blank" rel="noopener noreferrer" class="text-muted hover:text-primary transition-colors text-base light:hover:text-[var(--heading-color-light)]">harikrishnanpv</a>
+                            <a href="https://linkedin.com/in/harikrishnanpv" target="_blank" rel="noopener noreferrer" class="text-muted hover:text-primary transition-colors text-base light:hover:text-primary-accent">harikrishnanpv</a>
                         </div>
                     </div>
                 </div>
                 <div class="mb-8 pt-6 border-t border-themed">
                     <h3 class="text-xl font-semibold mb-4">Languages</h3>
                      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        <div class="border border-themed rounded p-4 text-center bg-primary/5 light:bg-opacity-5 light:bg-[var(--heading-color-light)]">
+                        <div class="border border-themed rounded p-4 text-center bg-primary/5 dark:bg-primary/5 light:bg-primary-accent/5">
                             <p class="font-medium text-base">Malayalam <span class="text-muted text-sm">(Native)</span></p>
                         </div>
-                        <div class="border border-themed rounded p-4 text-center bg-primary/5 light:bg-opacity-5 light:bg-[var(--heading-color-light)]">
+                        <div class="border border-themed rounded p-4 text-center bg-primary/5 dark:bg-primary/5 light:bg-primary-accent/5">
                             <p class="font-medium text-base">English <span class="text-muted text-sm">(Fluent)</span></p>
                         </div>
-                        <div class="border border-themed rounded p-4 text-center bg-primary/5 light:bg-opacity-5 light:bg-[var(--heading-color-light)]">
+                        <div class="border border-themed rounded p-4 text-center bg-primary/5 dark:bg-primary/5 light:bg-primary-accent/5">
                             <p class="font-medium text-base">Tamil <span class="text-muted text-sm">(Fluent)</span></p>
                         </div>
-                        <div class="border border-themed rounded p-4 text-center bg-primary/5 light:bg-opacity-5 light:bg-[var(--heading-color-light)]">
+                        <div class="border border-themed rounded p-4 text-center bg-primary/5 dark:bg-primary/5 light:bg-primary-accent/5">
                             <p class="font-medium text-base">Hindi <span class="text-muted text-sm">(Conversational)</span></p>
                         </div>
                     </div>
@@ -376,20 +403,20 @@
                             <div>
                                 <h4 class="font-medium text-base mb-1">University Magazine Chief Editor (2023)</h4>
                                 <p class="text-muted text-base mb-1">Led content development & publication.</p>
-                                <a href="https://magazine23.netlify.app/" target="_blank" rel="noopener noreferrer" class="text-sm text-primary hover:underline light:text-[var(--heading-color-light)] light:hover:text-[var(--primary-blue)]">View Magazine <i class="bi bi-box-arrow-up-right text-xs"></i></a>
+                                <a href="https://magazine23.netlify.app/" target="_blank" rel="noopener noreferrer" class="text-sm text-primary hover:underline light:text-primary-accent light:hover:text-primary">View Magazine <i class="bi bi-box-arrow-up-right text-xs"></i></a>
                             </div>
                         </div>
                          <div class="flex items-start space-x-4">
                             <i class="bi bi-gear text-primary mt-1 text-lg"></i>
                             <div>
                                 <h4 class="font-medium text-base mb-1">Technical Lead, University Events (2022-23)</h4>
-                                <p class="text-muted text-base">Managed tech for Sargam, Medha, CFF.</p>
+                                <p class="text-muted text-base">Managed tech for <a href="https://www.google.com/search?q=sargam+cusat" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline light:text-primary-accent light:hover:text-primary">Sargam</a>, <a href="https://www.google.com/search?q=medha+cusat" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline light:text-primary-accent light:hover:text-primary">Medha</a>, and <a href="https://www.google.com/search?q=CFF+cusat" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline light:text-primary-accent light:hover:text-primary">CFF</a>.</p>
                             </div>
                         </div>
                          <div class="flex items-start space-x-4">
                             <i class="bi bi-calendar-event text-primary mt-1 text-lg"></i>
                             <div>
-                                <h4 class="font-medium text-base mb-1">Gen Sec, Optics Fest - EtchNew-2023</h4>
+                                <h4 class="font-medium text-base mb-1">Gen Sec, <a href="https://www.google.com/search?q=etchnew+cusat" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline light:text-primary-accent light:hover:text-primary">Optics Fest - EtchNew-2023 <i class="bi bi-box-arrow-up-right text-xs"></i></a></h4>
                                 <p class="text-muted text-base">Coordinated event planning & execution.</p>
                             </div>
                         </div>
@@ -406,10 +433,10 @@
         </div>
     </section>
 
-    <section id="education" class="py-20 md:py-24 light:bg-[#f5eeda]/50 dark:bg-slate-800/20">
+    <section id="education" class="py-20 md:py-24 light:bg-[#e5e7eb]/20 ">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="text-center md:text-left mb-12 md:mb-16 animate-on-scroll animate-fade-in">
-                 <span class="text-primary text-xs uppercase tracking-widest font-semibold font-mono light:text-[var(--heading-color-light)]">Academic Background</span>
+                 <span class="text-primary text-xs uppercase tracking-widest font-semibold font-mono dark:text-primary light:text-primary-accent">Academic Background</span>
                 <h2 class="text-3xl md:text-4xl font-bold mt-2">Education</h2>
                  <p class="text-muted max-w-xl mt-3 mx-auto md:mx-0 text-base">
                     Specialized knowledge in photonics and optical systems.
@@ -418,7 +445,7 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 mb-12">
                 <div class="blueprint-card animate-on-scroll animate-fade-in">
-                    <span class="text-primary text-xs uppercase tracking-wider font-semibold font-mono light:text-[var(--heading-color-light)]">2022 - 2024</span>
+                    <span class="text-primary text-xs uppercase tracking-wider font-semibold font-mono dark:text-primary light:text-primary-accent">2022 - 2024</span>
                     <h3 class="text-xl lg:text-2xl font-semibold mt-2 mb-1">MSc Photonics</h3>
                     <p class="text-muted text-base mb-3">Cochin University of Science and Technology (CUSAT)</p>
                     <div class="mt-3 pt-3 border-t border-themed">
@@ -427,7 +454,7 @@
                     </div>
                 </div>
                 <div class="blueprint-card animate-on-scroll animate-fade-in" style="transition-delay: 0.1s;">
-                    <span class="text-primary text-xs uppercase tracking-wider font-semibold font-mono light:text-[var(--heading-color-light)]">2019 - 2022</span>
+                    <span class="text-primary text-xs uppercase tracking-wider font-semibold font-mono dark:text-primary light:text-primary-accent">2019 - 2022</span>
                     <h3 class="text-xl lg:text-2xl font-semibold mt-2 mb-1">BSc Physics</h3>
                      <p class="text-muted text-base mb-3">Cochin University of Science and Technology (CUSAT)</p>
                      <div class="mt-3 pt-3 border-t border-themed">
@@ -441,7 +468,7 @@
                 <h3 class="text-xl font-semibold mb-4">Relevant Coursework</h3>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
                     <div>
-                        <h4 class="text-primary mb-2 font-medium text-base light:text-[var(--heading-color-light)]">Graduate</h4>
+                        <h4 class="text-primary mb-2 font-medium text-base dark:text-primary light:text-primary-accent">Graduate</h4>
                         <ul class="space-y-1.5 text-muted text-base list-disc list-inside font-mono">
                             <li>Quantum Optics</li> <li>Non-Linear Optics</li>
                             <li>Optical Sensors</li> <li>Nanophotonics</li>
@@ -449,7 +476,7 @@
                         </ul>
                     </div>
                     <div>
-                        <h4 class="text-primary mb-2 font-medium text-base light:text-[var(--heading-color-light)]">Undergraduate</h4>
+                        <h4 class="text-primary mb-2 font-medium text-base dark:text-primary light:text-primary-accent">Undergraduate</h4>
                         <ul class="space-y-1.5 text-muted text-base list-disc list-inside font-mono">
                             <li>Optics & Electrodynamics</li> <li>Spectroscopy (Mol./Atom.)</li>
                             <li>Quantum Mechanics</li> <li>Laser Physics</li>
@@ -464,9 +491,9 @@
     <section id="skills" class="py-20 md:py-24 relative">
         <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
             <div class="text-center mb-12 md:mb-16 animate-on-scroll animate-fade-in">
-                <span class="text-primary text-xs uppercase tracking-widest font-semibold font-mono light:text-[var(--heading-color-light)]">What I Do</span>
+                <span class="text-primary text-xs uppercase tracking-widest font-semibold font-mono dark:text-primary light:text-primary-accent">What I Do</span>
                 <h2 class="text-3xl md:text-4xl font-bold mt-2">Technical Skills</h2>
-                 <div class="w-12 h-0.5 bg-primary mx-auto mt-3 light:bg-[var(--heading-color-light)]"></div>
+                 <div class="w-12 h-0.5 bg-primary mx-auto mt-3 dark:bg-primary light:bg-primary-accent"></div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
@@ -477,7 +504,7 @@
                     </div>
                     <div class="flex flex-wrap gap-1.5">
                         <span class="skill-tag">COMSOL</span> <span class="skill-tag">Matlab</span>
-                        <span class="skill-tag">Qiskit</span> <span class="skill-tag">Zemax</span>
+                         <span class="skill-tag">Zemax</span>
                         <span class="skill-tag">SolidWorks</span> <span class="skill-tag">Python (SciPy)</span>
                     </div>
                 </div>
@@ -489,7 +516,7 @@
                     <div class="flex flex-wrap gap-1.5">
                         <span class="skill-tag">Python</span> <span class="skill-tag">C/C++</span>
                         <span class="skill-tag">Java</span> <span class="skill-tag">JavaScript</span>
-                        <span class="skill-tag">Dart</span> <span class="skill-tag">SQL</span> <span class="skill-tag">HTML/CSS</span>
+                        <span class="skill-tag">Dart</span> 
                     </div>
                 </div>
                  <div class="blueprint-card animate-on-scroll animate-fade-in" style="transition-delay: 0.1s;">
@@ -499,8 +526,7 @@
                     </div>
                     <div class="flex flex-wrap gap-1.5">
                         <span class="skill-tag">Lens Design</span> <span class="skill-tag">Optical Systems</span>
-                        <span class="skill-tag">Free Space Optics</span> <span class="skill-tag">Fiber Optics</span>
-                        <span class="skill-tag">Illumination</span>
+                        <span class="skill-tag">FSO</span> <span class="skill-tag">Fiber Optics</span>
                     </div>
                 </div>
                  <div class="blueprint-card animate-on-scroll animate-fade-in" style="transition-delay: 0.15s;">
@@ -521,7 +547,7 @@
                     <div class="flex flex-wrap gap-1.5">
                         <span class="skill-tag">React</span> <span class="skill-tag">Next.js</span>
                         <span class="skill-tag">Flutter</span> <span class="skill-tag">Node.js</span>
-                        <span class="skill-tag">Express</span> <span class="skill-tag">Tailwind</span>
+                        <span class="skill-tag">Tailwind</span>
                     </div>
                 </div>
                 <div class="blueprint-card animate-on-scroll animate-fade-in" style="transition-delay: 0.25s;">
@@ -531,7 +557,7 @@
                     </div>
                     <div class="flex flex-wrap gap-1.5">
                         <span class="skill-tag">Spectroscopy</span> <span class="skill-tag">Interferometry</span>
-                        <span class="skill-tag">Profilometry</span> <span class="skill-tag">Data Analysis</span>
+                        <span class="skill-tag">Data Analysis</span>
                         <span class="skill-tag">LabVIEW (Basic)</span>
                     </div>
                 </div>
@@ -565,10 +591,10 @@
         </div>
     </section>
 
-    <section id="experience" class="py-20 md:py-24 light:bg-[#f5eeda]/50 dark:bg-slate-800/20">
+    <section id="experience" class="py-20 md:py-24 light:bg-[#e5e7eb]/50 ">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="text-center md:text-left mb-12 md:mb-16 animate-on-scroll animate-fade-in">
-                <span class="text-primary text-xs uppercase tracking-widest font-semibold font-mono light:text-[var(--heading-color-light)]">Work History</span>
+                <span class="text-primary text-xs uppercase tracking-widest font-semibold font-mono dark:text-primary light:text-primary-accent">Work History</span>
                 <h2 class="text-3xl md:text-4xl font-bold mt-2">Experience</h2>
                  <p class="text-muted max-w-xl mt-3 mx-auto md:mx-0 text-base">
                     Professional experience in optics and development.
@@ -580,7 +606,7 @@
                     <div class="flex flex-col md:flex-row justify-between md:items-start gap-1 mb-2">
                         <div>
                             <h3 class="text-xl font-semibold">Lead Developer</h3>
-                            <p class="text-primary font-medium text-base light:text-[var(--heading-color-light)]">Reflex Optic Solutions</p>
+                            <p class="text-primary font-medium text-base dark:text-primary light:text-primary-accent">Reflex Optic Solutions</p>
                         </div>
                         <div class="text-sm text-muted text-left md:text-right font-mono mt-1 md:mt-0">
                              <p>Sep 2022 - Present</p>
@@ -599,10 +625,10 @@
                     <div class="flex flex-col md:flex-row justify-between md:items-start gap-1 mb-2">
                         <div>
                             <h3 class="text-xl font-semibold">Development Engineer - Optics</h3>
-                            <p class="text-primary font-medium text-base light:text-[var(--heading-color-light)]">Infiniti Agrotech</p>
+                            <p class="text-primary font-medium text-base dark:text-primary light:text-primary-accent">Infiniti Agrotech</p>
                         </div>
                         <div class="text-sm text-muted text-left md:text-right font-mono mt-1 md:mt-0">
-                             <p>Sep 2024 - Feb 2025 (Exp.)</p>
+                             <p>Sep 2024 - Feb 2025</p>
                              <p>Goa, India</p>
                         </div>
                     </div>
@@ -618,7 +644,7 @@
                     <div class="flex flex-col md:flex-row justify-between md:items-start gap-1 mb-2">
                         <div>
                             <h3 class="text-xl font-semibold">Optics Intern</h3>
-                            <p class="text-primary font-medium text-base light:text-[var(--heading-color-light)]">SABIC</p>
+                            <p class="text-primary font-medium text-base dark:text-primary light:text-primary-accent">SABIC</p>
                         </div>
                         <div class="text-sm text-muted text-left md:text-right font-mono mt-1 md:mt-0">
                              <p>Jan 2024 - Jun 2024</p>
@@ -637,7 +663,7 @@
                     <div class="flex flex-col md:flex-row justify-between md:items-start gap-1 mb-2">
                         <div>
                             <h3 class="text-xl font-semibold">Software Development Intern</h3>
-                            <p class="text-primary font-medium text-base light:text-[var(--heading-color-light)]">Intelltech Pvt Ltd.</p>
+                            <p class="text-primary font-medium text-base dark:text-primary light:text-primary-accent">Intelltech Pvt Ltd.</p>
                         </div>
                         <div class="text-sm text-muted text-left md:text-right font-mono mt-1 md:mt-0">
                              <p>Sep 2021 - Apr 2022</p>
@@ -657,19 +683,19 @@
     <section id="contact" class="py-20 md:py-24 relative">
         <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
             <div class="text-center mb-12 md:mb-16 animate-on-scroll animate-fade-in">
-                <span class="text-primary text-xs uppercase tracking-widest font-semibold font-mono light:text-[var(--heading-color-light)]">Get In Touch</span>
+                <span class="text-primary text-xs uppercase tracking-widest font-semibold font-mono dark:text-primary light:text-primary-accent">Get In Touch</span>
                 <h2 class="text-3xl md:text-4xl font-bold mt-2">Contact Me</h2>
                 <p class="text-muted max-w-md mx-auto mt-3 text-base">
                     Interested in working together or have a question? Feel free to reach out.
                 </p>
-                 <div class="w-12 h-0.5 bg-primary mx-auto mt-3 light:bg-[var(--heading-color-light)]"></div>
+                 <div class="w-12 h-0.5 bg-primary mx-auto mt-3 dark:bg-primary light:bg-primary-accent"></div>
             </div>
 
             <div class="flex flex-wrap justify-center gap-6">
                  <a href="mailto:harikrznan@gmail.com"
                     class="group blueprint-card p-4 flex items-center space-x-4 w-full sm:w-auto sm:min-w-[300px] animate-on-scroll animate-fade-in"
                     style="transition-delay: 0.1s;">
-                    <div class="icon-container group-hover:bg-primary/10 light:group-hover:bg-[var(--heading-color-light)]/10 transition-colors"> <i class="bi bi-envelope"></i> </div>
+                    <div class="icon-container group-hover:bg-primary/10 light:group-hover:bg-primary-accent/10 transition-colors"> <i class="bi bi-envelope"></i> </div>
                     <div class="text-left">
                         <h3 class="text-lg font-medium">Email</h3>
                         <p class="text-muted text-base break-all">harikrznan@gmail.com</p>
@@ -679,7 +705,7 @@
                 <a href="tel:+918111957721"
                     class="group blueprint-card p-4 flex items-center space-x-4 w-full sm:w-auto sm:min-w-[300px] animate-on-scroll animate-fade-in"
                     style="transition-delay: 0.2s;">
-                    <div class="icon-container group-hover:bg-primary/10 light:group-hover:bg-[var(--heading-color-light)]/10 transition-colors"> <i class="bi bi-telephone"></i> </div>
+                    <div class="icon-container group-hover:bg-primary/10 light:group-hover:bg-primary-accent/10 transition-colors"> <i class="bi bi-telephone"></i> </div>
                     <div class="text-left">
                         <h3 class="text-lg font-medium">Phone</h3>
                         <p class="text-muted text-base">+91 81119 57721</p>
@@ -689,7 +715,7 @@
                 <a href="https://linkedin.com/in/harikrishnanpv" target="_blank" rel="noopener noreferrer"
                     class="group blueprint-card p-4 flex items-center space-x-4 w-full sm:w-auto sm:min-w-[300px] animate-on-scroll animate-fade-in"
                     style="transition-delay: 0.3s;">
-                    <div class="icon-container group-hover:bg-primary/10 light:group-hover:bg-[var(--heading-color-light)]/10 transition-colors"> <i class="bi bi-linkedin"></i> </div>
+                    <div class="icon-container group-hover:bg-primary/10 light:group-hover:bg-primary-accent/10 transition-colors"> <i class="bi bi-linkedin"></i> </div>
                     <div class="text-left">
                         <h3 class="text-lg font-medium">LinkedIn</h3>
                         <p class="text-muted text-base">harikrishnanpv</p>
@@ -727,7 +753,15 @@
         const savedTheme = localStorage.getItem('theme');
         const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
         let currentTheme = savedTheme ? savedTheme : (prefersDark ? 'dark' : 'light');
-        applyTheme(currentTheme);
+
+        // If no theme is saved, use the user's preferred color scheme
+        if (!savedTheme) {
+            applyTheme(currentTheme);
+        } else {
+            // If a theme is saved, apply it
+            applyTheme(savedTheme);
+        }
+
 
         themeToggle.addEventListener('click', () => {
             const newTheme = body.classList.contains('dark-mode') ? 'light' : 'dark';
@@ -795,4 +829,4 @@
 
     </script>
 </body>
-</ht
+</html>
