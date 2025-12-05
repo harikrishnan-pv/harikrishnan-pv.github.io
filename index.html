@@ -211,6 +211,29 @@
             background: #cbd5e1;
             border-radius: 4px;
         }
+        /* --- Modal --- */
+        #projectModal {
+            transition: opacity 0.3s ease;
+        }
+        
+        #projectModal.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        #projectModal:not(.hidden) {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        #modalContent {
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+        }
+
+        #projectModal:not(.hidden) #modalContent {
+            transform: scale(1);
+        }
     </style>
 </head>
 
@@ -319,14 +342,14 @@
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Project 1 -->
-                <div class="card p-8 rounded-xl animate-on-scroll">
+                <div onclick="openProjectModal('brixline')" class="card p-8 rounded-xl animate-on-scroll cursor-pointer group hover:border-primary/50 dark:hover:border-white/50">
                     <div class="flex justify-between items-start mb-6">
-                        <i class="bi bi-building-gear text-3xl text-primary dark:text-white"></i>
+                        <i class="bi bi-building-gear text-3xl text-primary dark:text-white group-hover:scale-110 transition-transform"></i>
                         <div class="flex gap-2">
                             <span class="text-xs font-mono py-1 px-2 rounded bg-black/5 dark:bg-white/10">AWS</span>
                         </div>
                     </div>
-                    <h3 class="text-xl font-bold mb-3">Brixline Listing Engine</h3>
+                    <h3 class="text-xl font-bold mb-3 group-hover:text-primary dark:group-hover:text-white transition-colors">Brixline Listing Engine <i class="bi bi-arrow-up-right text-sm align-top opacity-0 group-hover:opacity-100 transition-opacity ml-1"></i></h3>
                     <p class="text-slate-600 dark:text-slate-400 mb-6 text-sm leading-relaxed">
                         Developed dynamic listing pages with AWS Lambda for OGP insertion and optimized caching via CloudFront to reduce latency.
                     </p>
@@ -376,14 +399,14 @@
                         </div>
 
                 <!-- Project 4: Optical Retail ERP -->
-                <div class="card p-8 rounded-xl animate-on-scroll" style="transition-delay: 300ms;">
+                <div onclick="openProjectModal('reflex')" class="card p-8 rounded-xl animate-on-scroll cursor-pointer group hover:border-primary/50 dark:hover:border-white/50" style="transition-delay: 300ms;">
                     <div class="flex justify-between items-start mb-6">
-                        <i class="bi bi-cart3 text-3xl text-primary dark:text-white"></i>
+                        <i class="bi bi-cart3 text-3xl text-primary dark:text-white group-hover:scale-110 transition-transform"></i>
                         <div class="flex gap-2">
                             <span class="text-xs font-mono py-1 px-2 rounded bg-black/5 dark:bg-white/10">SaaS</span>
                             </div>
                         </div>
-                    <h3 class="text-xl font-bold mb-3">Optical Retail ERP</h3>
+                    <h3 class="text-xl font-bold mb-3 group-hover:text-primary dark:group-hover:text-white transition-colors">Optical Retail ERP <i class="bi bi-arrow-up-right text-sm align-top opacity-0 group-hover:opacity-100 transition-opacity ml-1"></i></h3>
                     <p class="text-slate-600 dark:text-slate-400 mb-6 text-sm leading-relaxed">
                         Comprehensive optical retail ERP SaaS with GST Taxation and real-time Inventory management.
                     </p>
@@ -409,9 +432,9 @@
                     <div class="mt-auto">
                         <div class="text-xs font-mono text-slate-500 dark:text-slate-500">
                             Flutter • Hardware Integration
-                </div>
                             </div>
                         </div>
+                            </div>
 
                 <!-- Project 6: Optical E-commerce App -->
                 <div class="card p-8 rounded-xl animate-on-scroll" style="transition-delay: 500ms;">
@@ -420,7 +443,7 @@
                         <div class="flex gap-2">
                             <span class="text-xs font-mono py-1 px-2 rounded bg-black/5 dark:bg-white/10">Mobile</span>
                         </div>
-                    </div>
+                            </div>
                     <h3 class="text-xl font-bold mb-3">Optical E-commerce App</h3>
                     <p class="text-slate-600 dark:text-slate-400 mb-6 text-sm leading-relaxed">
                         Developed an e-commerce Android app and admin dashboard for an optical retail store.
@@ -428,28 +451,10 @@
                     <div class="mt-auto">
                         <div class="text-xs font-mono text-slate-500 dark:text-slate-500">
                             Flutter • Firebase
-                            </div>
-                        </div>
-                            </div>
-
-                 <!-- Project 7: Ride-Booking Platform -->
-                 <div class="card p-8 rounded-xl animate-on-scroll" style="transition-delay: 600ms;">
-                    <div class="flex justify-between items-start mb-6">
-                        <i class="bi bi-car-front text-3xl text-primary dark:text-white"></i>
-                        <div class="flex gap-2">
-                            <span class="text-xs font-mono py-1 px-2 rounded bg-black/5 dark:bg-white/10">UI/UX</span>
-                        </div>
-                            </div>
-                    <h3 class="text-xl font-bold mb-3">Ride-Booking Platform</h3>
-                    <p class="text-slate-600 dark:text-slate-400 mb-6 text-sm leading-relaxed">
-                        Designed and implemented the complete UI/UX for a ride-booking platform.
-                    </p>
-                    <div class="mt-auto">
-                        <div class="text-xs font-mono text-slate-500 dark:text-slate-500">
-                            Flutter • UI/UX Design
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
@@ -508,7 +513,7 @@
                             <span class="skill-tag">Cursor</span>
                             <span class="skill-tag">Claude Code</span>
             </div>
-                    </div>
+        </div>
 
                     <!-- Preserving unique Optical Skills -->
                     <div>
@@ -522,8 +527,8 @@
                             <span class="skill-tag">FSO</span>
                             <span class="skill-tag">Fiber Optics</span>
                     </div>
-                </div>
-                    
+            </div>
+
                     <div>
                         <h3 class="text-lg font-mono font-semibold mb-4 text-primary dark:text-white border-b border-black/10 dark:border-white/10 pb-2 inline-block">Languages</h3>
                         <div class="flex flex-wrap gap-2">
@@ -580,7 +585,7 @@
                         <li><strong>Mobile Interface:</strong> Built a high-performance <strong>Flutter</strong> interface for spectrometer hardware, automating manual calibration to slash field data collection time by <strong>80%</strong>.</li>
                         <li><strong>Backend Systems:</strong> Built a <strong>Next.js</strong> Admin Dashboard with Firebase to manage spectral data, handling cross-functional integration of optical physics logic.</li>
                     </ul>
-            </div>
+                    </div>
 
                 <!-- Role 3 -->
                 <div class="relative pl-8 animate-on-scroll">
@@ -588,7 +593,7 @@
                     <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between mb-2">
                         <h3 class="text-xl font-bold text-slate-900 dark:text-white">Founding Engineer (Part-Time)</h3>
                         <span class="font-mono text-sm text-slate-500">Sept 2022 – Present</span>
-                    </div>
+                </div>
                     <div class="mb-4">
                         <span class="font-medium text-primary dark:text-slate-300">Reflex Optic Solutions</span>
                         <span class="text-slate-400 mx-2">|</span>
@@ -607,17 +612,17 @@
                     <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between mb-2">
                         <h3 class="text-xl font-bold text-slate-900 dark:text-white">Software Development Intern</h3>
                         <span class="font-mono text-sm text-slate-500">Sept 2021 – April 2022</span>
-            </div>
+                </div>
                     <div class="mb-4">
                         <span class="font-medium text-primary dark:text-slate-300">Intelltech Pvt Ltd.</span>
                         <span class="text-slate-400 mx-2">|</span>
                         <span class="text-sm text-slate-500">Kochi, India</span>
-                        </div>
+                    </div>
                     <ul class="list-disc list-outside ml-4 space-y-2 text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
                         <li><strong>Flutter Development:</strong> Developed multiple web and mobile applications using Flutter.</li>
                         <li><strong>UI/UX Design:</strong> Designed and implemented the complete UI/UX for a ride-booking platform (similar to Uber).</li>
                     </ul>
-                </div>
+                    </div>
 
                  <!-- Role 5 -->
                  <div class="relative pl-8 animate-on-scroll">
@@ -625,7 +630,7 @@
                     <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between mb-2">
                         <h3 class="text-xl font-bold text-slate-900 dark:text-white">Optics Intern</h3>
                         <span class="font-mono text-sm text-slate-500">Jan 2024 - June 2024</span>
-                        </div>
+                </div>
                     <div class="mb-4">
                         <span class="font-medium text-primary dark:text-slate-300">SABIC</span>
                         <span class="text-slate-400 mx-2">|</span>
@@ -634,10 +639,10 @@
                     <ul class="list-disc list-outside ml-4 space-y-2 text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
                         <li>Designed and simulated a hybrid optical lens for optical communication networks.</li>
                     </ul>
-                </div>
+            </div>
 
-                        </div>
-                        </div>
+                    </div>
+                    </div>
     </section>
     
     <!-- Education Section -->
@@ -649,10 +654,10 @@
                         <div>
                         <h3 class="text-2xl font-bold text-slate-900 dark:text-white">Integrated MSc in Photonics</h3>
                         <p class="text-primary dark:text-slate-300 font-medium">Cochin University of Science and Technology (CUSAT)</p>
-                        </div>
+                    </div>
                     <div class="mt-2 md:mt-0 font-mono text-sm text-slate-500">
                         2019 - 2024 | Kochi, India
-                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -684,6 +689,24 @@
             </p>
         </div>
     </footer>
+
+    <!-- Project Modal -->
+    <div id="projectModal" class="hidden fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+        <div id="modalContent" class="bg-white dark:bg-[#0f172a] w-full max-w-4xl rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] border border-black/10 dark:border-white/10">
+            <!-- Header -->
+            <div class="flex items-center justify-between p-4 border-b border-black/5 dark:border-white/5">
+                <div class="text-sm font-mono text-slate-500 uppercase tracking-wider">Project Details</div>
+                <button id="closeModalBtn" class="p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-full transition-colors">
+                    <i class="bi bi-x-lg text-lg"></i>
+                </button>
+                        </div>
+            
+            <!-- Content -->
+            <div id="modalBody" class="p-6 md:p-8 overflow-y-auto custom-scrollbar">
+                <!-- Dynamic Content -->
+                        </div>
+                    </div>
+                </div>
 
     <script>
         // Theme Toggle Logic
@@ -745,6 +768,303 @@
 
         document.querySelectorAll('.animate-on-scroll').forEach((el) => {
             observer.observe(el);
+        });
+
+        // Project Data
+        const projectsData = {
+            brixline: {
+                title: "Brixline - Real Estate Platform Frontend",
+                tags: ["Next.js 15", "React 19", "TypeScript", "Tailwind CSS", "AWS"],
+                description: "A cutting-edge, production-grade real estate platform built with Next.js 15 and React 19, serving the Indian property market. Brixline helps users discover, finance, and secure properties through an intuitive digital interface.",
+                images: [
+                    "images/brixline/home.png",
+                    "images/brixline/detail.png",
+                    "images/brixline/dashboard.png"
+                ],
+                content: `
+                    <div class="space-y-8">
+                        <div>
+                            <h4 class="text-lg font-bold mb-3 flex items-center gap-2">
+                                <i class="bi bi-code-square text-primary dark:text-white"></i> Technical Architecture
+                            </h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="bg-slate-50 dark:bg-white/5 p-4 rounded-lg">
+                                    <span class="block font-semibold text-sm mb-2 text-slate-900 dark:text-white">Core Stack</span>
+                                    <ul class="text-sm text-slate-600 dark:text-slate-400 space-y-1 list-disc list-inside">
+                                        <li>Next.js 15 (App Router)</li>
+                                        <li>React 19.1.0</li>
+                                        <li>TypeScript (Strict)</li>
+                                        <li>Tailwind CSS v4</li>
+                                    </ul>
+                        </div>
+                                <div class="bg-slate-50 dark:bg-white/5 p-4 rounded-lg">
+                                    <span class="block font-semibold text-sm mb-2 text-slate-900 dark:text-white">Key Libraries</span>
+                                    <ul class="text-sm text-slate-600 dark:text-slate-400 space-y-1 list-disc list-inside">
+                                        <li>Framer Motion</li>
+                                        <li>Radix UI + HeroUI</li>
+                                        <li>Embla Carousel</li>
+                                        <li>React Context API</li>
+                                    </ul>
+                        </div>
+                    </div>
+                </div>
+
+                        <div>
+                            <h4 class="text-lg font-bold mb-3 flex items-center gap-2">
+                                <i class="bi bi-lightning-charge text-primary dark:text-white"></i> Key Features
+                            </h4>
+                            <ul class="space-y-3 text-slate-600 dark:text-slate-400">
+                                <li class="flex gap-3">
+                                    <i class="bi bi-check-circle-fill text-green-500 mt-1 flex-shrink-0"></i>
+                                    <span><strong>Advanced Property Search:</strong> Multi-criteria filtering, smart debounced API calls, and URL state management with browser history sync.</span>
+                                </li>
+                                <li class="flex gap-3">
+                                    <i class="bi bi-check-circle-fill text-green-500 mt-1 flex-shrink-0"></i>
+                                    <span><strong>Intelligent Lead Gen:</strong> Multi-step modal workflow with OTP verification and smart session-based caching.</span>
+                                </li>
+                                <li class="flex gap-3">
+                                    <i class="bi bi-check-circle-fill text-green-500 mt-1 flex-shrink-0"></i>
+                                    <span><strong>Financial Suite:</strong> Real-time EMI, Eligibility, and Stamp Duty calculators with interactive D3/SVG visualizations.</span>
+                                </li>
+                                <li class="flex gap-3">
+                                    <i class="bi bi-check-circle-fill text-green-500 mt-1 flex-shrink-0"></i>
+                                    <span><strong>Performance:</strong> 90+ Lighthouse scores via code splitting, multi-level caching, and predictive prefetching.</span>
+                                </li>
+                    </ul>
+                </div>
+
+                        <div>
+                            <h4 class="text-lg font-bold mb-3 flex items-center gap-2">
+                                <i class="bi bi-braces text-primary dark:text-white"></i> Engineering Highlights
+                            </h4>
+                            <div class="space-y-4 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                                <p>
+                                    <strong class="text-slate-900 dark:text-white">Type-Safe Data Layer:</strong> 
+                                    Implemented a comprehensive transformation pipeline that converts raw API responses into frontend-optimized, strictly typed interfaces, eliminating runtime errors.
+                                </p>
+                                <p>
+                                    <strong class="text-slate-900 dark:text-white">Smart Device Detection:</strong> 
+                                    Context-aware navigation logic that adapts behavior (deep links vs. new tabs) based on the user's device type.
+                                </p>
+                                <p>
+                                    <strong class="text-slate-900 dark:text-white">Resilience:</strong> 
+                                    Built-in exponential backoff for image loading retries and graceful degradation patterns for API failures.
+                                </p>
+                        </div>
+                        </div>
+                    </div>
+                `
+            },
+            reflex: {
+                title: "Optical Retail ERP",
+                tags: ["Next.js 15", "Supabase", "TypeScript", "Bun", "Edge Functions"],
+                description: "A comprehensive optical/eye care business management platform that streamlines operations for optical stores, eye camps, and fitting labs across India. It combines clinical eye care, retail operations, and business management into a unified, scalable solution.",
+                images: [
+                    "images/reflex/dashboard.png"
+                ],
+                content: `
+                    <div class="space-y-8">
+                        <div>
+                            <h4 class="text-lg font-bold mb-3 flex items-center gap-2">
+                                <i class="bi bi-code-square text-primary dark:text-white"></i> Technical Architecture
+                            </h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="bg-slate-50 dark:bg-white/5 p-4 rounded-lg">
+                                    <span class="block font-semibold text-sm mb-2 text-slate-900 dark:text-white">Core Stack</span>
+                                    <ul class="text-sm text-slate-600 dark:text-slate-400 space-y-1 list-disc list-inside">
+                                        <li>Next.js 15 (App Router)</li>
+                                        <li>Supabase (Backend)</li>
+                                        <li>Bun Runtime</li>
+                                        <li>TypeScript (Strict)</li>
+                    </ul>
+                </div>
+                                <div class="bg-slate-50 dark:bg-white/5 p-4 rounded-lg">
+                                    <span class="block font-semibold text-sm mb-2 text-slate-900 dark:text-white">Key Features</span>
+                                    <ul class="text-sm text-slate-600 dark:text-slate-400 space-y-1 list-disc list-inside">
+                                        <li>196+ Edge Functions</li>
+                                        <li>Real-time Subscriptions</li>
+                                        <li>Row-Level Security (RLS)</li>
+                                        <li>shadcn/ui Components</li>
+                                    </ul>
+            </div>
+        </div>
+                        </div>
+
+                        <div>
+                            <h4 class="text-lg font-bold mb-3 flex items-center gap-2">
+                                <i class="bi bi-lightning-charge text-primary dark:text-white"></i> Module Highlights
+                            </h4>
+                            <ul class="space-y-3 text-slate-600 dark:text-slate-400">
+                                <li class="flex gap-3">
+                                    <i class="bi bi-check-circle-fill text-green-500 mt-1 flex-shrink-0"></i>
+                                    <span><strong>Eye Care Management:</strong> Digital eye examinations, prescription tracking, and vision care workflows.</span>
+                                </li>
+                                <li class="flex gap-3">
+                                    <i class="bi bi-check-circle-fill text-green-500 mt-1 flex-shrink-0"></i>
+                                    <span><strong>Multi-Store Operations:</strong> Manage hundreds of optical stores with hierarchical access control and inventory tracking.</span>
+                                </li>
+                                <li class="flex gap-3">
+                                    <i class="bi bi-check-circle-fill text-green-500 mt-1 flex-shrink-0"></i>
+                                    <span><strong>Financial Management:</strong> GST compliance, tax filing, TDS management, and revenue analytics.</span>
+                                </li>
+                                <li class="flex gap-3">
+                                    <i class="bi bi-check-circle-fill text-green-500 mt-1 flex-shrink-0"></i>
+                                    <span><strong>Field Operations:</strong> Mobile eye camp management with agent workflows in remote communities.</span>
+                                </li>
+                            </ul>
+            </div>
+
+                        <div>
+                            <h4 class="text-lg font-bold mb-3 flex items-center gap-2">
+                                <i class="bi bi-braces text-primary dark:text-white"></i> Engineering Achievements
+                            </h4>
+                            <div class="space-y-4 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                                <p>
+                                    <strong class="text-slate-900 dark:text-white">Scale & Complexity:</strong> 
+                                    Orchestrated 196+ Edge Functions across 10+ business domains, handling complex schemas with 32+ database migrations.
+                                </p>
+                                <p>
+                                    <strong class="text-slate-900 dark:text-white">Enterprise Security:</strong> 
+                                    Implemented a 4-tier role-based access control system with granular permissions and complete data isolation for multi-tenant usage.
+                                </p>
+                                <p>
+                                    <strong class="text-slate-900 dark:text-white">Performance:</strong> 
+                                    Leveraged Bun runtime for 4x faster development and Supabase real-time subscriptions for live updates across all modules.
+                                </p>
+                    </div>
+                        </div>
+                    </div>
+                `
+            }
+        };
+
+        // Modal Logic
+        const projectModal = document.getElementById('projectModal');
+        const modalContent = document.getElementById('modalContent');
+        const modalBody = document.getElementById('modalBody');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+
+        let currentSlide = 0;
+        let currentProjectId = '';
+
+        function openProjectModal(projectId) {
+            currentProjectId = projectId;
+            const project = projectsData[projectId];
+            if (!project) return;
+
+            const contentHtml = `
+                <div class="mb-6">
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        ${project.tags.map(tag => `<span class="text-xs font-mono bg-primary/10 dark:bg-white/10 text-primary dark:text-white px-2 py-1 rounded">${tag}</span>`).join('')}
+                    </div>
+                    <h2 class="text-3xl font-bold mb-2 text-slate-900 dark:text-white">${project.title}</h2>
+                    <p class="text-slate-600 dark:text-slate-400 text-lg">${project.description}</p>
+                </div>
+
+                <!-- Image Carousel -->
+                <div class="relative mb-8 group rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-800 aspect-video border border-black/5 dark:border-white/5">
+                    <div id="carouselImages" class="h-full flex transition-transform duration-500 ease-out">
+                        ${project.images.map(img => `
+                            <div class="min-w-full h-full flex items-center justify-center bg-slate-100 dark:bg-slate-800">
+                                <img src="${img}" class="max-w-full max-h-full object-contain" alt="${project.title} screenshot">
+                    </div>
+                        `).join('')}
+            </div>
+                    
+                    <!-- Carousel Controls -->
+                    <button onclick="prevSlide()" class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-black/50 p-2 rounded-full hover:bg-white dark:hover:bg-black transition-colors shadow-lg backdrop-blur-sm">
+                        <i class="bi bi-chevron-left text-xl"></i>
+                    </button>
+                    <button onclick="nextSlide()" class="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-black/50 p-2 rounded-full hover:bg-white dark:hover:bg-black transition-colors shadow-lg backdrop-blur-sm">
+                        <i class="bi bi-chevron-right text-xl"></i>
+                    </button>
+                    
+                    <!-- Indicators -->
+                    <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                        ${project.images.map((_, i) => `
+                            <button onclick="goToSlide(${i})" class="w-2 h-2 rounded-full bg-black/30 dark:bg-white/30 transition-colors hover:bg-primary dark:hover:bg-white" id="indicator-${i}"></button>
+                        `).join('')}
+        </div>
+                </div>
+
+                <div class="prose dark:prose-invert max-w-none">
+                    ${project.content}
+        </div>
+            `;
+
+            modalBody.innerHTML = contentHtml;
+            projectModal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            
+            // Initialize Carousel
+            currentSlide = 0;
+            updateCarousel();
+        }
+
+        function updateCarousel() {
+            const track = document.getElementById('carouselImages');
+            if (!track) return;
+            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+            
+            // Update indicators
+            const indicators = document.querySelectorAll('[id^="indicator-"]');
+            indicators.forEach((ind, i) => {
+                if (i === currentSlide) {
+                    ind.classList.add('bg-primary', 'dark:bg-white');
+                    ind.classList.remove('bg-black/30', 'dark:bg-white/30');
+        } else {
+                    ind.classList.remove('bg-primary', 'dark:bg-white');
+                    ind.classList.add('bg-black/30', 'dark:bg-white/30');
+                }
+            });
+        }
+
+        window.prevSlide = function() { 
+            const project = projectsData[currentProjectId]; 
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateCarousel();
+            } else {
+                currentSlide = project.images.length - 1;
+                updateCarousel();
+            }
+        }
+
+        window.nextSlide = function() {
+            const project = projectsData[currentProjectId];
+            if (currentSlide < project.images.length - 1) {
+                currentSlide++;
+                updateCarousel();
+            } else {
+                currentSlide = 0;
+                updateCarousel();
+            }
+        }
+
+        window.goToSlide = function(index) {
+            currentSlide = index;
+            updateCarousel();
+        }
+
+        function closeModal() {
+            projectModal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        closeModalBtn.addEventListener('click', closeModal);
+        
+        // Close on backdrop click
+        projectModal.addEventListener('click', (e) => {
+            if (e.target === projectModal) {
+                closeModal();
+            }
+        });
+
+        // Close on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !projectModal.classList.contains('hidden')) {
+                closeModal();
+            }
         });
 
         // Set Year
