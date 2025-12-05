@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Harikrishnan P V - Portfolio [Blueprint]</title>
+    <title>Harikrishnan P V - Founding Engineer & Full Stack Developer</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,28 +13,49 @@
     <link
         href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="https://img.icons8.com/fluency/48/engineering.png">
-    <link rel="apple-touch-icon" href="https://img.icons8.com/fluency/48/engineering.png">
-    <meta name="msapplication-TileImage" content="https://img.icons8.com/fluency/48/engineering.png">
+    <link rel="icon" type="image/png" href="https://img.icons8.com/fluency/48/console.png">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            DEFAULT: '#323232', // LaTeX primarycolor
+                            light: '#646464',   // LaTeX secondarycolor
+                            dark: '#1e1e1e',    // LaTeX accentcolor
+                        },
+                        dark: {
+                            bg: '#0f172a',
+                            card: 'rgba(30, 41, 59, 0.8)',
+                            border: '#334155'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
 
     <style>
         html {
             scroll-behavior: smooth;
         }
 
-        /* Animated Grid Pattern */
-        @keyframes gridPulse {
-            0%, 100% {
-                opacity: 0.4;
-            }
-            50% {
-                opacity: 0.8;
-            }
+        body {
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            overflow-x: hidden;
         }
 
-        body::before {
-            content: '';
+        /* --- Grid Background --- */
+        .grid-bg {
             position: fixed;
             top: 0;
             left: 0;
@@ -42,181 +63,129 @@
             height: 100%;
             pointer-events: none;
             z-index: 0;
-            animation: gridPulse 8s ease-in-out infinite;
+            opacity: 0.6;
         }
 
-        body.dark-mode::before {
-            background-image: radial-gradient(circle, rgba(59, 130, 246, 0.1) 2px, transparent 2px);
-            background-size: 120px 120px;
-            background-position: 0 0;
-        }
-
-        body.light-mode::before {
-            background-image: radial-gradient(circle, rgba(160, 82, 45, 0.08) 2px, transparent 2px);
-            background-size: 120px 120px;
-            background-position: 0 0;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            transition: background 0.3s ease, color 0.3s ease;
-            overflow-x: hidden;
-            color: #334155;
-            font-size: 18px;
-            /* Increased base font size */
-        }
-
-        body.dark-mode {
-            background-color: #0f172a;
-            color: #cbd5e1;
-            --blueprint-grid-color: rgba(51, 65, 85, 0.3);
-            --blueprint-dot-color: rgba(71, 85, 105, 0.6);
-            --blueprint-ellipsis-color: rgba(59, 130, 246, 0.4);
+        .dark .grid-bg {
             background-image:
-                linear-gradient(var(--blueprint-grid-color) 1px, transparent 1px),
-                linear-gradient(90deg, var(--blueprint-grid-color) 1px, transparent 1px),
-                radial-gradient(circle, var(--blueprint-ellipsis-color) 1.5px, transparent 1.5px),
-                radial-gradient(circle, var(--blueprint-dot-color) 0.5px, transparent 0.5px);
-            background-size: 60px 60px, 60px 60px, 30px 30px, 10px 10px;
-            background-position: -1px -1px, -1px -1px, 0 0, 0 0;
+                linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
         }
 
-        body.light-mode {
-            background-color: #f5f5dc;
-            /* bit darker shade of brown */
-            color: #495057;
-            /* Slightly lighter than before, more readable */
-            --blueprint-grid-color-light: rgba(139, 69, 19, 0.08);
-            /* Dark Brown grid lines, slightly darker */
-            --blueprint-dot-color-light: rgba(160, 82, 45, 0.3);
-            --blueprint-ellipsis-color-light: rgba(160, 82, 45, 0.2);
+        .light .grid-bg {
             background-image:
-                linear-gradient(var(--blueprint-grid-color-light) 1px, transparent 1px),
-                linear-gradient(90deg, var(--blueprint-grid-color-light) 1px, transparent 1px),
-                radial-gradient(circle, var(--blueprint-ellipsis-color-light) 1.5px, transparent 1.5px),
-                radial-gradient(circle, var(--blueprint-dot-color-light) 0.5px, transparent 0.5px);
-            background-size: 60px 60px, 60px 60px, 30px 30px, 10px 10px;
-            background-position: -1px -1px, -1px -1px, 0 0, 0 0;
-
-            /* Light Mode Color Variables */
-            --accent-color-light: #a0522d;
-            /* Sienna Accent */
-            --text-muted-light: #778899;
-            /* LightSlateGray */
-            --heading-color-light: #343a40;
-            /* Dark Gray */
-            --border-color-light: #ced4da;
-            /* Light Gray */
-            --card-bg-light: rgba(255, 255, 255, 0.9);
-            /* White with slightly less opacity */
+                linear-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
         }
 
-
-        :root {
-            --primary-blue: #3b82f6;
-            --primary-blue-darker: #2563eb;
-            --primary-blue-lighter: #60a5fa;
-            --border-color-dark: #475569;
-            --card-bg-dark: rgba(30, 41, 59, 0.8);
-            --text-muted-dark: #94a3b8;
-            --heading-color-dark: #f1f5f9;
-        }
-
-        /* Primary blue remains for buttons/icons unless specifically overridden */
-        .text-primary {
-            color: var(--primary-blue);
-        }
-
-        /* Override text-primary visual use in light mode where brown accent is preferred */
-        .light-mode .text-primary-accent {
-            color: var(--accent-color-light, #a0522d);
-        }
-
-
-        .dark-mode .text-muted {
-            color: var(--text-muted-dark);
-        }
-
-        .light-mode .text-muted {
-            color: var(--text-muted-light, #778899);
-        }
-
-        .dark-mode h1,
-        .dark-mode h2,
-        .dark-mode h3,
-        .dark-mode h4 {
-            color: var(--heading-color-dark);
-        }
-
-        .light-mode h1,
-        .light-mode h2,
-        .light-mode h3,
-        .light-mode h4 {
-            color: var(--heading-color-light, #343a40);
-        }
-
-        .dark-mode .border-themed {
-            border-color: var(--border-color-dark);
-        }
-
-        .light-mode .border-themed {
-            border-color: var(--border-color-light, #ced4da);
-        }
-
-        /* --- Navigation --- */
-        nav {
+        /* --- Components --- */
+        .section-title {
             position: relative;
-            z-index: 10;
+            display: inline-block;
+            margin-bottom: 2rem;
         }
         
-        .light-mode nav {
-            background-color: rgba(248, 249, 250, 0.85) !important;
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: currentColor;
+            opacity: 0.7;
         }
 
-        /* Lighter gray bg */
-        .light-mode .nav-link {
-            color: var(--text-muted-light, #778899);
+        .card {
+            border: 1px solid;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
 
-        .light-mode .nav-link:hover,
-        .light-mode .nav-link.active {
-            color: var(--heading-color-light, #343a40);
+        .card:hover {
+            transform: translateY(-2px);
         }
 
-        /* Logo text/border uses heading color */
-        .light-mode nav .text-primary {
-            color: var(--heading-color-light);
+        .dark .card {
+            background-color: rgba(30, 41, 59, 0.6);
+            border-color: rgba(255, 255, 255, 0.1);
         }
 
-        .light-mode nav .border-primary {
-            border-color: var(--heading-color-light);
+        .dark .card:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
         }
 
-        /* Nav underline uses accent color */
-        .light-mode .nav-link::after {
-            background: var(--accent-color-light, #a0522d);
+        .light .card {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-color: rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .light .card:hover {
+            border-color: rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .skill-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            border: 1px solid;
+            transition: all 0.2s;
+        }
+
+        .dark .skill-tag {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.1);
+            color: #e2e8f0;
+        }
+
+        .dark .skill-tag:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: #e2e8f0;
+        }
+
+        .light .skill-tag {
+            background-color: rgba(0, 0, 0, 0.05);
+            border-color: rgba(0, 0, 0, 0.1);
+            color: #334155;
+        }
+
+        .light .skill-tag:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+            border-color: #334155;
+        }
+
+        /* --- Animations --- */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .nav-link {
             position: relative;
-            transition: color 0.2s ease;
-            padding-bottom: 6px;
-            font-family: 'JetBrains Mono', monospace;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            font-size: 1rem;
-            /* Increased nav link font size */
         }
 
         .nav-link::after {
             content: '';
             position: absolute;
-            bottom: 0;
+            bottom: -2px;
             left: 0;
             width: 0;
             height: 1px;
-            background: var(--primary-blue);
-            transition: width 0.3s ease-out;
+            background-color: currentColor;
+            transition: width 0.3s ease;
         }
 
         .nav-link:hover::after,
@@ -224,527 +193,118 @@
             width: 100%;
         }
 
-        .dark-mode .nav-link {
-            color: var(--text-muted-dark);
-        }
-
-        .dark-mode .nav-link:hover,
-        .dark-mode .nav-link.active {
-            color: #fff;
-        }
-
-
-        /* --- Buttons --- */
-        .btn {
-            font-family: 'JetBrains Mono', monospace;
-            display: inline-block;
-            font-weight: 500;
-            padding: 0.75rem 1.5rem;
-            border-radius: 4px;
-            /* Slightly larger buttons */
-            text-align: center;
-            transition: all 0.2s ease;
-            border: 1px solid;
-            text-transform: uppercase;
-            letter-spacing: 0.03em;
-            font-size: 1rem;
-            /* Increased button font size */
-        }
-
-        /* Primary button remains blue */
-        .btn-primary {
-            background-color: var(--primary-blue);
-            border-color: var(--primary-blue);
-            color: #ffffff;
-        }
-
-        .btn-primary:hover {
-            background-color: var(--primary-blue-darker);
-            border-color: var(--primary-blue-darker);
-        }
-
-        /* Secondary button uses accent color in light mode */
-        .btn-secondary {
-            border-color: var(--primary-blue);
-            color: var(--primary-blue);
-            background-color: transparent;
-        }
-
-        .dark-mode .btn-secondary {
-            border-color: var(--primary-blue-lighter);
-            color: var(--primary-blue-lighter);
-        }
-
-        .light-mode .btn-secondary {
-            border-color: var(--accent-color-light, #a0522d);
-            color: var(--accent-color-light, #a0522d);
-        }
-
-        .btn-secondary:hover {
-            background-color: rgba(59, 130, 246, 0.1);
-        }
-
-        .dark-mode .btn-secondary:hover {
-            color: #fff;
-            border-color: #fff;
-        }
-
-        .light-mode .btn-secondary:hover {
-            background-color: rgba(160, 82, 45, 0.1);
-            /* Sienna accent hover */
-            border-color: var(--accent-color-light, #a0522d);
-            color: var(--accent-color-light, #a0522d);
-        }
-
-
-        /* --- Blueprint Card Styling --- */
-        .blueprint-card {
-            border-radius: 4px;
-            padding: 2rem;
-            /* Increased padding */
-            transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-            border: 1px solid;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .dark-mode .blueprint-card {
-            background-color: var(--card-bg-dark);
-            border-color: var(--border-color-dark);
-        }
-
-        .light-mode .blueprint-card {
-            background-color: var(--card-bg-light, rgba(255, 255, 255, 0.9));
-            border-color: var(--border-color-light, #ced4da);
-            box-shadow: 0 4px 9px rgba(0, 0, 0, 0.06);
-            /* Subtle shadow */
-        }
-
-        .blueprint-card:hover {
-            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.09);
-        }
-
-        .dark-mode .blueprint-card:hover {
-            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.22);
-        }
-
-        /* Corner markers */
-        .blueprint-card::before,
-        .blueprint-card::after {
-            content: '';
-            position: absolute;
-            width: 14px;
-            height: 14px;
-            /* Slightly larger corners */
-            border-color: var(--primary-blue);
-            border-style: solid;
-            opacity: 0.6;
-            transition: opacity 0.3s ease;
-            pointer-events: none;
-        }
-
-        /* Use accent color for corners in light mode */
-        .light-mode .blueprint-card::before,
-        .light-mode .blueprint-card::after {
-            border-color: var(--accent-color-light, #a0522d);
-        }
-
-        .blueprint-card::before {
-            top: 8px;
-            left: 8px;
-            border-width: 1px 0 0 1px;
-        }
-
-        .blueprint-card::after {
-            bottom: 8px;
-            right: 8px;
-            border-width: 0 1px 1px 0;
-        }
-
-        .blueprint-card:hover::before,
-        .blueprint-card:hover::after {
-            opacity: 1;
-        }
-
-
-        /* --- Theme Toggle --- */
-        .theme-toggle {
-            cursor: pointer;
-            width: 40px;
-            height: 40px;
-            border-radius: 4px;
-            /* Slightly larger toggle */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            border: 1px solid;
-        }
-
-        .dark-mode .theme-toggle {
-            background-color: rgba(59, 130, 246, 0.1);
-            border-color: var(--border-color-dark);
-            color: var(--text-muted-dark);
-        }
-
-        .dark-mode .theme-toggle:hover {
-            background-color: rgba(59, 130, 246, 0.2);
-            color: #fff;
-        }
-
-        /* Use accent color for toggle in light mode */
-        .light-mode .theme-toggle {
-            background-color: rgba(160, 82, 45, 0.07);
-            border-color: var(--border-color-light, #ced4da);
-            color: var(--text-muted-light, #778899);
-        }
-
-        .light-mode .theme-toggle:hover {
-            background-color: rgba(160, 82, 45, 0.11);
-            color: var(--accent-color-light, #a0522d);
-        }
-
-        /* --- Skill Tag --- */
-        .skill-tag {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.9rem;
-            /* Increased skill tag font size */
-            border-radius: 4px;
-            padding: 0.4rem 0.8rem;
-            display: inline-block;
-            margin: 0.2rem;
-            font-weight: 500;
-            border: 1px solid;
-            transition: background-color 0.2s ease, color 0.2s ease;
-        }
-
-        .dark-mode .skill-tag {
-            border-color: rgba(59, 130, 246, 0.4);
-            color: var(--primary-blue-lighter);
-            background-color: rgba(59, 130, 246, 0.1);
-        }
-
-        .dark-mode .skill-tag:hover {
-            background-color: rgba(59, 130, 246, 0.2);
-        }
-
-        /* Use accent color for tags in light mode */
-        .light-mode .skill-tag {
-            border-color: rgba(160, 82, 45, 0.4);
-            /* Sienna border */
-            color: var(--accent-color-light, #a0522d);
-            background-color: rgba(160, 82, 45, 0.05);
-            /* Sienna bg */
-        }
-
-        .light-mode .skill-tag:hover {
-            background-color: rgba(160, 82, 45, 0.1);
-        }
-
-        /* --- Icon Container --- */
-        .icon-container {
-            width: 3rem;
-            height: 3rem;
-            border-radius: 4px;
-            /* Slightly larger icon container */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            border: 1px solid;
-        }
-
-        .dark-mode .icon-container {
-            background-color: rgba(59, 130, 246, 0.1);
-            border-color: var(--border-color-dark);
-        }
-
-        /* Use accent color for icon container bg in light mode */
-        .light-mode .icon-container {
-            background-color: rgba(160, 82, 45, 0.05);
-            border-color: var(--border-color-light, #ced4da);
-        }
-
-        /* Icon color remains blue */
-        .icon-container i {
-            font-size: 1.45rem;
-            color: var(--primary-blue);
-        }
-
-
-        /* --- Animation Setup (Fade/Slide) --- */
-        section, main, footer {
-            position: relative;
-            z-index: 1;
+        /* --- Custom Scrollbar --- */
+        ::-webkit-scrollbar {
+            width: 8px;
         }
         
-        .animate-on-scroll {
-            opacity: 0;
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        ::-webkit-scrollbar-track {
+            background: transparent;
         }
-
-        .animate-fade-in {
-            transform: translateY(25px);
+        
+        .dark ::-webkit-scrollbar-thumb {
+            background: #475569;
+            border-radius: 4px;
         }
-
-        .animate-fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .animate-slide-in-left {
-            transform: translateX(-50px);
-        }
-
-        .animate-slide-in-left.visible {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        .animate-slide-in-right {
-            transform: translateX(50px);
-        }
-
-        .animate-slide-in-right.visible {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        /* --- Font Size Base --- */
-        p,
-        li {
-            font-size: 1.1rem;
-            line-height: 1.7;
-        }
-
-        .text-lg {
-            font-size: 1.25rem;
-            line-height: 1.8;
-        }
-
-        .text-sm {
-            font-size: 1rem;
-            line-height: 1.7;
+        
+        .light ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
         }
     </style>
 </head>
 
-<body class="light-mode">
-    <nav class="sticky top-0 z-50 border-b border-themed backdrop-blur-sm">
+<body class="light font-sans antialiased text-slate-800 dark:text-slate-200 bg-[#fafafa] dark:bg-[#0f172a]">
+
+    <!-- Grid Background -->
+    <div class="grid-bg"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 backdrop-blur-md border-b border-black/5 dark:border-white/10 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
-            <div class="flex justify-between h-16 items-center">
-                <a href="#" class="text-lg font-semibold font-mono text-primary flex items-center">
-                    <span class="border border-primary px-2 py-0.5 mr-2 text-sm">HPV</span>
-                    <span>HARIKRISHNAN P V</span>
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <a href="#" class="font-mono text-xl font-bold tracking-tighter flex items-center gap-2">
+                    <span class="w-8 h-8 bg-primary dark:bg-white text-white dark:text-black flex items-center justify-center rounded-sm text-sm">HP</span>
+                    <span>Harikrishnan</span>
                 </a>
-                <div class="flex items-center space-x-4 md:space-x-6">
-                    <div class="hidden md:flex items-center space-x-6">
-                        <a href="#home" class="nav-link">Home</a>
-                        <a href="#about" class="nav-link">About</a>
-                        <a href="#education" class="nav-link">Edu</a>
-                        <a href="#skills" class="nav-link">Skills</a>
-                        <a href="#experience" class="nav-link">Exp</a>
-                        <a href="#contact" class="nav-link">Contact</a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8 text-sm font-medium font-mono">
+                    <a href="#about" class="nav-link hover:text-primary dark:hover:text-white transition-colors">About</a>
+                    <a href="#projects" class="nav-link hover:text-primary dark:hover:text-white transition-colors">Projects</a>
+                    <a href="#skills" class="nav-link hover:text-primary dark:hover:text-white transition-colors">Skills</a>
+                    <a href="#experience" class="nav-link hover:text-primary dark:hover:text-white transition-colors">Experience</a>
+                    <a href="#contact" class="nav-link hover:text-primary dark:hover:text-white transition-colors">Contact</a>
+                    
+                    <!-- Theme Toggle -->
+                    <button id="themeToggle" class="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors">
+                        <i class="bi bi-moon-fill hidden dark:block"></i>
+                        <i class="bi bi-sun-fill block dark:hidden"></i>
+                    </button>
                     </div>
-                    <div class="theme-toggle" id="themeToggle" title="Toggle theme">
-                        <i class="bi bi-moon-stars-fill dark-icon"></i>
-                        <i class="bi bi-sun-fill light-icon hidden"></i>
-                    </div>
-                    <div class="md:hidden">
-                        <button class="text-muted hover:text-primary text-2xl">
+
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden text-2xl" id="mobileMenuBtn">
                             <i class="bi bi-list"></i>
                         </button>
-                    </div>
-                </div>
             </div>
         </div>
     </nav>
 
-    <section id="home" class="min-h-[calc(100vh-4rem)] flex items-center relative overflow-hidden py-16 md:py-0">
-        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10 w-full">
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
-                <div class="md:col-span-7 space-y-5 animate-on-scroll animate-slide-in-left">
-                    <span
-                        class="inline-block px-3 py-1 border border-primary/50 text-primary rounded text-xs font-medium font-mono bg-primary/10 dark:text-primary light:border-[var(--accent-color-light)]/50 light:text-primary-accent light:bg-[var(--accent-color-light)]/5">
-                        MSc PHOTONICS GRADUATE
-                    </span>
-                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight font-mono">
-                        <span class="block text-muted">Hi, I'm</span>
-                        <span class="text-primary dark:text-primary light:text-primary-accent">Harikrishnan P V</span>
+    <!-- Mobile Menu Overlay -->
+    <div id="mobileMenu" class="fixed inset-0 z-40 bg-white/95 dark:bg-[#0f172a]/95 backdrop-blur-xl transform translate-x-full transition-transform duration-300 md:hidden flex flex-col items-center justify-center space-y-8 text-xl font-mono">
+        <button id="closeMenuBtn" class="absolute top-6 right-6 text-3xl">
+            <i class="bi bi-x-lg"></i>
+        </button>
+        <a href="#about" class="mobile-link" onclick="closeMenu()">About</a>
+        <a href="#projects" class="mobile-link" onclick="closeMenu()">Projects</a>
+        <a href="#skills" class="mobile-link" onclick="closeMenu()">Skills</a>
+        <a href="#experience" class="mobile-link" onclick="closeMenu()">Experience</a>
+        <a href="#contact" class="mobile-link" onclick="closeMenu()">Contact</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="about" class="min-h-screen flex items-center pt-16 relative">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 w-full">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6 animate-on-scroll">
+                    <div class="inline-block px-3 py-1 rounded-full border border-primary/20 dark:border-white/20 text-xs font-mono font-semibold tracking-wider uppercase">
+                        Available for Opportunities
+                    </div>
+                    <h1 class="text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tight leading-tight">
+                        Harikrishnan <br/>
+                        <span class="text-primary/70 dark:text-white/70">P V</span>
                     </h1>
-                    <p class="text-xl text-muted max-w-xl">
-                        Photonics Engineer & Software Developer. Expertise in optical design, simulation, and full-stack
-                        development.
+                    <h2 class="text-xl sm:text-2xl font-medium text-slate-600 dark:text-slate-400">
+                        Founding Engineer & Full Stack Developer
+                    </h2>
+                    <p class="text-lg text-slate-600 dark:text-slate-400 max-w-lg leading-relaxed">
+                        Proven to transition complex business requirements into production-ready SaaS. Specialized in high performance web architecture (Next.js/AWS) and bridging hardware-software gaps using AI-driven interfaces.
                     </p>
-                    <div class="flex flex-wrap gap-4 pt-3">
-                        <a href="mailto:harikrznan@gmail.com" class="btn btn-primary">
-                            <i class="bi bi-envelope mr-2"></i> Contact
+                    <div class="flex flex-wrap gap-4 pt-4">
+                        <a href="#projects" class="px-6 py-3 bg-primary dark:bg-white text-white dark:text-black font-mono text-sm font-semibold rounded hover:opacity-90 transition-opacity">
+                            View Work
                         </a>
-                        <a href="https://linkedin.com/in/harikrishnanpv" target="_blank" rel="noopener noreferrer"
-                            class="btn btn-secondary">
-                            <i class="bi bi-linkedin mr-2"></i> LinkedIn
+                        <a href="mailto:harikrznan@gmail.com" class="px-6 py-3 border border-primary/20 dark:border-white/20 font-mono text-sm font-semibold rounded hover:bg-primary/5 dark:hover:bg-white/5 transition-colors">
+                            Contact Me
                         </a>
                     </div>
+                    
+                    <div class="flex items-center gap-6 pt-4 text-2xl text-slate-500 dark:text-slate-400">
+                        <a href="https://linkedin.com/in/harikrishnanpv" target="_blank" class="hover:text-primary dark:hover:text-white transition-colors"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://github.com/harikrishnan-pv" target="_blank" class="hover:text-primary dark:hover:text-white transition-colors"><i class="fab fa-github"></i></a>
+                        <a href="mailto:harikrznan@gmail.com" class="hover:text-primary dark:hover:text-white transition-colors"><i class="fa-solid fa-envelope"></i></a>
                 </div>
-                <div class="md:col-span-5 animate-on-scroll animate-slide-in-right">
-                    <div class="relative group blueprint-card p-2 rounded-full">
-                        <img src="images/dp.jpg" alt="Harikrishnan P V Profile Picture Placeholder"
-                            onerror="this.onerror=null; this.src='https://placehold.co/400x400/e0e0e0/a0a0a0?text=Image+Not+Found';"
-                            class="rounded-full w-full h-auto object-cover aspect-square">
-                    </div>
                 </div>
-            </div>
-        </div>
-    </section>
 
-    <section id="about" class="py-20 md:py-24 relative">
-        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
-            <div class="text-center mb-12 md:mb-16 animate-on-scroll animate-fade-in">
-                <span
-                    class="text-primary text-xs uppercase tracking-widest font-semibold font-mono dark:text-primary light:text-primary-accent">Who
-                    I Am</span>
-                <h2 class="text-3xl md:text-4xl font-bold mt-2">About Me</h2>
-                <div class="w-12 h-0.5 bg-primary mx-auto mt-3 dark:bg-primary light:bg-primary-accent"></div>
-            </div>
-
-            <div class="blueprint-card animate-on-scroll animate-fade-in">
-                <p class="text-lg mb-8">
-                    Results-driven MSc Photonics graduate with a strong foundation in optical design, simulation, and
-                    development, complemented by full-stack software expertise. Proven track record in designing
-                    innovative optical solutions, leading software projects, and conducting advanced optics research.
-                    Strong problem-solving, communication, and leadership abilities.
-                </p>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                    <div class="flex items-center space-x-3">
-                        <div class="icon-container"> <i class="bi bi-envelope"></i> </div>
-                        <div>
-                            <h3 class="text-lg font-medium">Email</h3>
-                            <a href="mailto:harikrznan@gmail.com"
-                                class="text-muted hover:text-primary transition-colors text-base light:hover:text-primary-accent">harikrznan@gmail.com</a>
-                        </div>
-                    </div>
-                    <div class="flex items-center space-x-3">
-                        <div class="icon-container"> <i class="bi bi-telephone"></i> </div>
-                        <div>
-                            <h3 class="text-lg font-medium">Phone</h3>
-                            <a href="tel:+918111957721"
-                                class="text-muted hover:text-primary transition-colors text-base light:hover:text-primary-accent">+91
-                                81119 57721</a>
-                        </div>
-                    </div>
-                    <div class="flex items-center space-x-3">
-                        <div class="icon-container"> <i class="bi bi-linkedin"></i> </div>
-                        <div>
-                            <h3 class="text-lg font-medium">LinkedIn</h3>
-                            <a href="https://linkedin.com/in/harikrishnanpv" target="_blank" rel="noopener noreferrer"
-                                class="text-muted hover:text-primary transition-colors text-base light:hover:text-primary-accent">harikrishnanpv</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="mb-8 pt-6 border-t border-themed">
-                    <h3 class="text-xl font-semibold mb-4">Languages</h3>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        <div
-                            class="border border-themed rounded p-4 text-center bg-primary/5 dark:bg-primary/5 light:bg-primary-accent/5">
-                            <p class="font-medium text-base">Malayalam <span class="text-muted text-sm">(Native)</span>
-                            </p>
-                        </div>
-                        <div
-                            class="border border-themed rounded p-4 text-center bg-primary/5 dark:bg-primary/5 light:bg-primary-accent/5">
-                            <p class="font-medium text-base">English <span class="text-muted text-sm">(Fluent)</span>
-                            </p>
-                        </div>
-                        <div
-                            class="border border-themed rounded p-4 text-center bg-primary/5 dark:bg-primary/5 light:bg-primary-accent/5">
-                            <p class="font-medium text-base">Tamil <span class="text-muted text-sm">(Fluent)</span></p>
-                        </div>
-                        <div
-                            class="border border-themed rounded p-4 text-center bg-primary/5 dark:bg-primary/5 light:bg-primary-accent/5">
-                            <p class="font-medium text-base">Hindi <span
-                                    class="text-muted text-sm">(Conversational)</span></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="mb-8 pt-6 border-t border-themed">
-                    <h3 class="text-xl font-semibold mb-5">Professional Skills</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-5">
-                        <div class="flex items-start space-x-4">
-                            <i class="bi bi-lightbulb text-primary mt-1 text-lg"></i>
-                            <div>
-                                <h4 class="font-medium text-base mb-1">Problem Solving</h4>
-                                <p class="text-muted text-base">Systematic analysis & solution development.</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start space-x-4">
-                            <i class="bi bi-chat-dots text-primary mt-1 text-lg"></i>
-                            <div>
-                                <h4 class="font-medium text-base mb-1">Communication</h4>
-                                <p class="text-muted text-base">Clear technical concept presentation.</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start space-x-4">
-                            <i class="bi bi-people text-primary mt-1 text-lg"></i>
-                            <div>
-                                <h4 class="font-medium text-base mb-1">Collaboration</h4>
-                                <p class="text-muted text-base">Effective multidisciplinary teamwork.</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start space-x-4">
-                            <i class="bi bi-flag text-primary mt-1 text-lg"></i>
-                            <div>
-                                <h4 class="font-medium text-base mb-1">Leadership</h4>
-                                <p class="text-muted text-base">University roles & project management.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="pt-6 border-t border-themed">
-                    <h3 class="text-xl font-semibold mb-5">Leadership & Activities</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-5">
-                        <div class="flex items-start space-x-4">
-                            <i class="bi bi-journal-text text-primary mt-1 text-lg"></i>
-                            <div>
-                                <h4 class="font-medium text-base mb-1">University Magazine Chief Editor (2023)</h4>
-                                <p class="text-muted text-base mb-1">Led content development & publication.</p>
-                                <a href="https://magazine23.netlify.app/" target="_blank" rel="noopener noreferrer"
-                                    class="text-sm text-primary hover:underline light:text-primary-accent light:hover:text-primary">View
-                                    Magazine <i class="bi bi-box-arrow-up-right text-xs"></i></a>
-                            </div>
-                        </div>
-                        <div class="flex items-start space-x-4">
-                            <i class="bi bi-gear text-primary mt-1 text-lg"></i>
-                            <div>
-                                <h4 class="font-medium text-base mb-1">Technical Lead, University Events (2021-23)</h4>
-                                <p class="text-muted text-base">Managed tech for <a
-                                        href="https://www.google.com/search?q=sargam+cusat" target="_blank"
-                                        rel="noopener noreferrer"
-                                        class="text-primary hover:underline light:text-primary-accent light:hover:text-primary">Sargam <i class="bi bi-box-arrow-up-right text-xs"></i></a>,
-                                    <a href="https://www.google.com/search?q=medha+cusat" target="_blank"
-                                        rel="noopener noreferrer"
-                                        class="text-primary hover:underline light:text-primary-accent light:hover:text-primary">Medha <i class="bi bi-box-arrow-up-right text-xs"></i></a>,
-                                    and <a href="https://www.google.com/search?q=CFF+cusat" target="_blank"
-                                        rel="noopener noreferrer"
-                                        class="text-primary hover:underline light:text-primary-accent light:hover:text-primary">CFF <i class="bi bi-box-arrow-up-right text-xs"></i></a>.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="flex items-start space-x-4">
-                            <i class="bi bi-calendar-event text-primary mt-1 text-lg"></i>
-                            <div>
-                                <h4 class="font-medium text-base mb-1">Gen Sec, <a
-                                        href="https://www.google.com/search?q=etchnew+cusat" target="_blank"
-                                        rel="noopener noreferrer"
-                                        class="text-primary hover:underline light:text-primary-accent light:hover:text-primary">Optics
-                                        Fest - EtchNew-2023 <i class="bi bi-box-arrow-up-right text-xs"></i></a></h4>
-                                <p class="text-muted text-base">Coordinated event planning & execution.</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start space-x-4">
-                            <i class="bi bi-easel text-primary mt-1 text-lg"></i>
-                            <div>
-                                <h4 class="font-medium text-base mb-1">Optics Workshop Facilitator</h4>
-                                <p class="text-muted text-base">Conducted hands-on undergrad workshops.</p>
-                            </div>
+                <div class="relative animate-on-scroll lg:justify-self-end">
+                    <div class="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96">
+                        <div class="absolute inset-0 border-2 border-primary/20 dark:border-white/20 rounded-full transform rotate-6 translate-x-4 translate-y-4"></div>
+                        <div class="absolute inset-0 rounded-full overflow-hidden border-2 border-primary/10 dark:border-white/10 bg-slate-100 dark:bg-slate-800">
+                            <img src="images/dp.jpg" alt="Harikrishnan P V" 
+                                onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=Harikrishnan+P+V&background=random&size=400';"
+                                class="w-full h-full object-cover">
                         </div>
                     </div>
                 </div>
@@ -752,428 +312,443 @@
         </div>
     </section>
 
-    <section id="education" class="py-20 md:py-24 light:bg-[#e5e7eb]/20 ">
+    <!-- Key Projects Section -->
+    <section id="projects" class="py-20 bg-white/50 dark:bg-white/5">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
-            <div class="text-center md:text-left mb-12 md:mb-16 animate-on-scroll animate-fade-in">
-                <span
-                    class="text-primary text-xs uppercase tracking-widest font-semibold font-mono dark:text-primary light:text-primary-accent">Academic
-                    Background</span>
-                <h2 class="text-3xl md:text-4xl font-bold mt-2">Education</h2>
-                <p class="text-muted max-w-xl mt-3 mx-auto md:mx-0 text-base">
-                    Specialized knowledge in photonics and optical systems.
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 gap-6 lg:gap-8 mb-12">
-                <div class="blueprint-card animate-on-scroll animate-fade-in">
-                    <span
-                        class="text-primary text-xs uppercase tracking-wider font-semibold font-mono dark:text-primary light:text-primary-accent">2019
-                        - 2024</span>
-                    <h3 class="text-xl lg:text-2xl font-semibold mt-2 mb-1">MSc Photonics</h3>
-                    <p class="text-muted text-base mb-3">Cochin University of Science and Technology (CUSAT)</p>
-                    <div class="mt-3 pt-3 border-t border-themed">
-                        <p class="font-medium text-sm text-muted uppercase tracking-wider mb-1">Thesis</p>
-                        <p class="text-base">Lens Design for Optical Wireless Communication in Rotary Applications</p>
+            <h2 class="text-3xl font-bold mb-12 section-title">Key Projects</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div class="card p-8 rounded-xl animate-on-scroll">
+                    <div class="flex justify-between items-start mb-6">
+                        <i class="bi bi-building-gear text-3xl text-primary dark:text-white"></i>
+                        <div class="flex gap-2">
+                            <span class="text-xs font-mono py-1 px-2 rounded bg-black/5 dark:bg-white/10">AWS</span>
+                        </div>
                     </div>
-                    <div class="mt-3 pt-3 border-t border-themed">
-                        <p class="font-medium text-sm text-muted uppercase tracking-wider mb-1">Undergraduate Thesis</p>
-                        <p class="text-base">Characteristic Study of Carbon Dot Embedded Self Assembled Photonic Crystal
-                        </p>
+                    <h3 class="text-xl font-bold mb-3">Brixline Listing Engine</h3>
+                    <p class="text-slate-600 dark:text-slate-400 mb-6 text-sm leading-relaxed">
+                        Developed dynamic listing pages with AWS Lambda for OGP insertion and optimized caching via CloudFront to reduce latency.
+                    </p>
+                    <div class="mt-auto">
+                        <div class="text-xs font-mono text-slate-500 dark:text-slate-500">
+                            Next.js • AWS Lambda • CloudFront
+                        </div>
+                    </div>
+                        </div>
+
+                <!-- Project 2 -->
+                <div class="card p-8 rounded-xl animate-on-scroll" style="transition-delay: 100ms;">
+                    <div class="flex justify-between items-start mb-6">
+                        <i class="bi bi-cpu text-3xl text-primary dark:text-white"></i>
+                        <div class="flex gap-2">
+                            <span class="text-xs font-mono py-1 px-2 rounded bg-black/5 dark:bg-white/10">AI</span>
                     </div>
                 </div>
-            </div>
+                    <h3 class="text-xl font-bold mb-3">AI Property Onboarding</h3>
+                    <p class="text-slate-600 dark:text-slate-400 mb-6 text-sm leading-relaxed">
+                        Created a floor plan layout generator using Google AI Studio, utilizing prompt engineering for consistent image output.
+                    </p>
+                    <div class="mt-auto">
+                        <div class="text-xs font-mono text-slate-500 dark:text-slate-500">
+                            Google AI Studio • Prompt Eng
+                        </div>
+                        </div>
+                        </div>
 
-            <div class="blueprint-card animate-on-scroll animate-fade-in">
-                <h3 class="text-xl font-semibold mb-4">Relevant Coursework</h3>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
-                    <div>
-                        <h4 class="text-primary mb-2 font-medium text-base dark:text-primary light:text-primary-accent">
-                            Graduate</h4>
-                        <ul class="space-y-1.5 text-muted text-base list-disc list-inside font-mono">
-                            <li>Quantum Optics</li>
-                            <li>Non-Linear Optics</li>
-                            <li>Optical Sensors</li>
-                            <li>Nanophotonics</li>
-                            <li>Laser Spectroscopy</li>
-                            <li>Photonic Bandgap Structures</li>
-                            <li>Metamaterials</li>
-                        </ul>
+                <!-- Project 3 -->
+                <div class="card p-8 rounded-xl animate-on-scroll" style="transition-delay: 200ms;">
+                    <div class="flex justify-between items-start mb-6">
+                        <i class="bi bi-phone text-3xl text-primary dark:text-white"></i>
+                        <div class="flex gap-2">
+                            <span class="text-xs font-mono py-1 px-2 rounded bg-black/5 dark:bg-white/10">Mobile</span>
+                        </div>
                     </div>
-                    <div>
-                        <h4 class="text-primary mb-2 font-medium text-base dark:text-primary light:text-primary-accent">
-                            Undergraduate</h4>
-                        <ul class="space-y-1.5 text-muted text-base list-disc list-inside font-mono">
-                            <li>Optics & Electrodynamics</li>
-                            <li>Spectroscopy (Mol./Atom.)</li>
-                            <li>Quantum Mechanics</li>
-                            <li>Laser Physics</li>
-                            <li>Fibre Optics</li>
-                            <li>Solid State Physics</li>
-                            <li>Computational Physics</li>
-                        </ul>
+                    <h3 class="text-xl font-bold mb-3">Construction MVP App</h3>
+                    <p class="text-slate-600 dark:text-slate-400 mb-6 text-sm leading-relaxed">
+                        Built a cross-platform React Native application for initial client interactions and construction-as-a-service lead management.
+                    </p>
+                    <div class="mt-auto">
+                        <div class="text-xs font-mono text-slate-500 dark:text-slate-500">
+                            React Native • Mobile
+                </div>
+                            </div>
+                        </div>
+
+                <!-- Project 4: Optical Retail ERP -->
+                <div class="card p-8 rounded-xl animate-on-scroll" style="transition-delay: 300ms;">
+                    <div class="flex justify-between items-start mb-6">
+                        <i class="bi bi-cart3 text-3xl text-primary dark:text-white"></i>
+                        <div class="flex gap-2">
+                            <span class="text-xs font-mono py-1 px-2 rounded bg-black/5 dark:bg-white/10">SaaS</span>
+                            </div>
+                        </div>
+                    <h3 class="text-xl font-bold mb-3">Optical Retail ERP</h3>
+                    <p class="text-slate-600 dark:text-slate-400 mb-6 text-sm leading-relaxed">
+                        Comprehensive optical retail ERP SaaS with GST Taxation and real-time Inventory management.
+                    </p>
+                    <div class="mt-auto">
+                        <div class="text-xs font-mono text-slate-500 dark:text-slate-500">
+                            Next.js • Supabase • Edge Functions
+                            </div>
+                        </div>
+                            </div>
+
+                <!-- Project 5: Spectrometer Interface -->
+                <div class="card p-8 rounded-xl animate-on-scroll" style="transition-delay: 400ms;">
+                    <div class="flex justify-between items-start mb-6">
+                        <i class="bi bi-display text-3xl text-primary dark:text-white"></i>
+                        <div class="flex gap-2">
+                            <span class="text-xs font-mono py-1 px-2 rounded bg-black/5 dark:bg-white/10">IoT</span>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Spectrometer Interface</h3>
+                    <p class="text-slate-600 dark:text-slate-400 mb-6 text-sm leading-relaxed">
+                         High-performance mobile interface for spectrometer hardware, automating manual calibration to slash field data collection time by 80%.
+                    </p>
+                    <div class="mt-auto">
+                        <div class="text-xs font-mono text-slate-500 dark:text-slate-500">
+                            Flutter • Hardware Integration
+                </div>
+                            </div>
+                        </div>
+
+                <!-- Project 6: Optical E-commerce App -->
+                <div class="card p-8 rounded-xl animate-on-scroll" style="transition-delay: 500ms;">
+                    <div class="flex justify-between items-start mb-6">
+                        <i class="bi bi-bag-check text-3xl text-primary dark:text-white"></i>
+                        <div class="flex gap-2">
+                            <span class="text-xs font-mono py-1 px-2 rounded bg-black/5 dark:bg-white/10">Mobile</span>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Optical E-commerce App</h3>
+                    <p class="text-slate-600 dark:text-slate-400 mb-6 text-sm leading-relaxed">
+                        Developed an e-commerce Android app and admin dashboard for an optical retail store.
+                    </p>
+                    <div class="mt-auto">
+                        <div class="text-xs font-mono text-slate-500 dark:text-slate-500">
+                            Flutter • Firebase
+                            </div>
+                        </div>
+                            </div>
+
+                 <!-- Project 7: Ride-Booking Platform -->
+                 <div class="card p-8 rounded-xl animate-on-scroll" style="transition-delay: 600ms;">
+                    <div class="flex justify-between items-start mb-6">
+                        <i class="bi bi-car-front text-3xl text-primary dark:text-white"></i>
+                        <div class="flex gap-2">
+                            <span class="text-xs font-mono py-1 px-2 rounded bg-black/5 dark:bg-white/10">UI/UX</span>
+                        </div>
+                            </div>
+                    <h3 class="text-xl font-bold mb-3">Ride-Booking Platform</h3>
+                    <p class="text-slate-600 dark:text-slate-400 mb-6 text-sm leading-relaxed">
+                        Designed and implemented the complete UI/UX for a ride-booking platform.
+                    </p>
+                    <div class="mt-auto">
+                        <div class="text-xs font-mono text-slate-500 dark:text-slate-500">
+                            Flutter • UI/UX Design
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="skills" class="py-20 md:py-24 relative">
-        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
-            <div class="text-center mb-12 md:mb-16 animate-on-scroll animate-fade-in">
-                <span
-                    class="text-primary text-xs uppercase tracking-widest font-semibold font-mono dark:text-primary light:text-primary-accent">What
-                    I Do</span>
-                <h2 class="text-3xl md:text-4xl font-bold mt-2">Technical Skills</h2>
-                <div class="w-12 h-0.5 bg-primary mx-auto mt-3 dark:bg-primary light:bg-primary-accent"></div>
+    <!-- Skills Section -->
+    <section id="skills" class="py-20">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <h2 class="text-3xl font-bold mb-12 section-title">Skills & Expertise</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <!-- Column 1: Dev Skills -->
+                <div class="space-y-8 animate-on-scroll">
+                    <div>
+                        <h3 class="text-lg font-mono font-semibold mb-4 text-primary dark:text-white border-b border-black/10 dark:border-white/10 pb-2 inline-block">Languages & Core</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="skill-tag">JavaScript (ES6+)</span>
+                            <span class="skill-tag">TypeScript</span>
+                            <span class="skill-tag">HTML5</span>
+                            <span class="skill-tag">CSS3</span>
+                            <span class="skill-tag">JSON</span>
+                            <span class="skill-tag">Dart</span>
+                            <span class="skill-tag">SQL</span>
+                    </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg font-mono font-semibold mb-4 text-primary dark:text-white border-b border-black/10 dark:border-white/10 pb-2 inline-block">Frameworks</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="skill-tag">Next.js</span>
+                            <span class="skill-tag">React</span>
+                            <span class="skill-tag">Flutter</span>
+                            <span class="skill-tag">Tailwind CSS</span>
+                            <span class="skill-tag">React Native</span>
+                </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-                <div class="blueprint-card animate-on-scroll animate-fade-in">
-                    <div class="flex items-center space-x-3 mb-3">
-                        <div class="icon-container !w-9 !h-9"> <i class="bi bi-calculator !text-lg"></i> </div>
-                        <h3 class="text-lg font-semibold">Modeling & Simulation</h3>
+                    <div>
+                        <h3 class="text-lg font-mono font-semibold mb-4 text-primary dark:text-white border-b border-black/10 dark:border-white/10 pb-2 inline-block">Backend & Cloud</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="skill-tag">Node.js</span>
+                            <span class="skill-tag">Supabase (PostgreSQL)</span>
+                            <span class="skill-tag">AWS (S3, CloudFront, Lambda)</span>
+                            <span class="skill-tag">RESTful APIs</span>
+                            <span class="skill-tag">Firebase</span>
                     </div>
-                    <div class="flex flex-wrap gap-1.5">
-                        <span class="skill-tag">COMSOL</span> <span class="skill-tag">Matlab</span>
+                    </div>
+                </div>
+
+                <!-- Column 2: Tools & Optics -->
+                <div class="space-y-8 animate-on-scroll">
+                    <div>
+                        <h3 class="text-lg font-mono font-semibold mb-4 text-primary dark:text-white border-b border-black/10 dark:border-white/10 pb-2 inline-block">Tools & DevOps</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="skill-tag">GitHub Actions</span>
+                            <span class="skill-tag">Jira</span>
+                            <span class="skill-tag">Cursor</span>
+                            <span class="skill-tag">Claude Code</span>
+            </div>
+                    </div>
+
+                    <!-- Preserving unique Optical Skills -->
+                    <div>
+                        <h3 class="text-lg font-mono font-semibold mb-4 text-primary dark:text-white border-b border-black/10 dark:border-white/10 pb-2 inline-block">Optical Design & Simulation</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="skill-tag">COMSOL</span>
+                            <span class="skill-tag">Matlab</span>
                         <span class="skill-tag">Zemax</span>
-                        <span class="skill-tag">SolidWorks</span> <span class="skill-tag">Python (SciPy)</span>
+                            <span class="skill-tag">SolidWorks</span>
+                            <span class="skill-tag">Python (SciPy)</span>
+                            <span class="skill-tag">FSO</span>
+                            <span class="skill-tag">Fiber Optics</span>
                     </div>
                 </div>
-                <div class="blueprint-card animate-on-scroll animate-fade-in" style="transition-delay: 0.05s;">
-                    <div class="flex items-center space-x-3 mb-3">
-                        <div class="icon-container !w-9 !h-9"> <i class="bi bi-code-slash !text-lg"></i> </div>
-                        <h3 class="text-lg font-semibold">Programming</h3>
+                    
+                    <div>
+                        <h3 class="text-lg font-mono font-semibold mb-4 text-primary dark:text-white border-b border-black/10 dark:border-white/10 pb-2 inline-block">Languages</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="skill-tag">English (Fluent)</span>
+                            <span class="skill-tag">Malayalam (Native)</span>
+                            <span class="skill-tag">Tamil (Fluent)</span>
+                            <span class="skill-tag">Hindi (Conv.)</span>
                     </div>
-                    <div class="flex flex-wrap gap-1.5">
-                        <span class="skill-tag">Python</span> <span class="skill-tag">C/C++</span>
-                        <span class="skill-tag">Java</span> <span class="skill-tag">JavaScript</span>
-                        <span class="skill-tag">Dart</span>
-                    </div>
-                </div>
-                <div class="blueprint-card animate-on-scroll animate-fade-in" style="transition-delay: 0.1s;">
-                    <div class="flex items-center space-x-3 mb-3">
-                        <div class="icon-container !w-9 !h-9"> <i class="bi bi-lightbulb !text-lg"></i> </div>
-                        <h3 class="text-lg font-semibold">Optical Design</h3>
-                    </div>
-                    <div class="flex flex-wrap gap-1.5">
-                        <span class="skill-tag">Lens Design</span> <span class="skill-tag">Optical Systems</span>
-                        <span class="skill-tag">FSO</span> <span class="skill-tag">Fiber Optics</span>
                     </div>
                 </div>
-                <div class="blueprint-card animate-on-scroll animate-fade-in" style="transition-delay: 0.15s;">
-                    <div class="flex items-center space-x-3 mb-3">
-                        <div class="icon-container !w-9 !h-9"> <i class="bi bi-tools !text-lg"></i> </div>
-                        <h3 class="text-lg font-semibold">Prototyping</h3>
                     </div>
-                    <div class="flex flex-wrap gap-1.5">
-                        <span class="skill-tag">3D Printing</span> <span class="skill-tag">CNC</span>
-                        <span class="skill-tag">Laser Cutting</span> <span class="skill-tag">PCB (Basic)</span>
                     </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-20 bg-white/50 dark:bg-white/5">
+        <div class="max-w-4xl mx-auto px-6 lg:px-8">
+            <h2 class="text-3xl font-bold mb-12 section-title">Professional Experience</h2>
+            
+            <div class="relative border-l-2 border-black/10 dark:border-white/10 ml-3 space-y-12">
+                
+                <!-- Role 1 -->
+                <div class="relative pl-8 animate-on-scroll">
+                    <div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-primary dark:bg-white border-4 border-white dark:border-slate-900"></div>
+                    <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between mb-2">
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white">Frontend Engineer</h3>
+                        <span class="font-mono text-sm text-slate-500">June 2025 – Present</span>
                 </div>
-                <div class="blueprint-card animate-on-scroll animate-fade-in" style="transition-delay: 0.2s;">
-                    <div class="flex items-center space-x-3 mb-3">
-                        <div class="icon-container !w-9 !h-9"> <i class="bi bi-stack !text-lg"></i> </div>
-                        <h3 class="text-lg font-semibold">Frameworks</h3>
+                    <div class="mb-4">
+                        <span class="font-medium text-primary dark:text-slate-300">Brixline Housing Pvt. Ltd.</span>
+                        <span class="text-slate-400 mx-2">|</span>
+                        <span class="text-sm text-slate-500">Bangalore, India</span>
                     </div>
-                    <div class="flex flex-wrap gap-1.5">
-                        <span class="skill-tag">React</span> <span class="skill-tag">Next.js</span>
-                        <span class="skill-tag">Flutter</span> <span class="skill-tag">Node.js</span>
-                        <span class="skill-tag">Tailwind</span>
+                    <ul class="list-disc list-outside ml-4 space-y-2 text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                        <li><strong>Full Stack Architecture:</strong> Spearheaded the development of a serverless consumer web application using <strong>Next.js</strong> and <strong>AWS S3</strong>, ensuring high availability and scalability.</li>
+                        <li><strong>Cloud Infrastructure & Performance:</strong> Deployed <strong>CloudFront</strong> caching strategies that minimized latency for image-heavy property listings, significantly enhancing Core Web Vitals.</li>
+                        <li><strong>AI-Integrated Solutions:</strong> Integrated a custom AI-driven floor plan generator (<strong>Google AI Studio</strong>) directly into the Admin Dashboard, reducing property onboarding time by automating layout creation.</li>
+                    </ul>
                     </div>
+
+                <!-- Role 2 -->
+                <div class="relative pl-8 animate-on-scroll">
+                    <div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-slate-300 dark:bg-slate-600 border-4 border-white dark:border-slate-900"></div>
+                    <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between mb-2">
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white">Development Engineer</h3>
+                        <span class="font-mono text-sm text-slate-500">Sept 2024 - Feb 2025</span>
                 </div>
-                <div class="blueprint-card animate-on-scroll animate-fade-in" style="transition-delay: 0.25s;">
-                    <div class="flex items-center space-x-3 mb-3">
-                        <div class="icon-container !w-9 !h-9"> <i class="bi bi-clipboard-data !text-lg"></i> </div>
-                        <h3 class="text-lg font-semibold">Testing & Analysis</h3>
+                    <div class="mb-4">
+                        <span class="font-medium text-primary dark:text-slate-300">Infiniti Agrotech</span>
+                        <span class="text-slate-400 mx-2">|</span>
+                        <span class="text-sm text-slate-500">Goa, India</span>
                     </div>
-                    <div class="flex flex-wrap gap-1.5">
-                        <span class="skill-tag">Spectroscopy</span> <span class="skill-tag">Interferometry</span>
-                        <span class="skill-tag">Data Analysis</span>
-                        <span class="skill-tag">LabVIEW (Basic)</span>
-                    </div>
-                </div>
+                    <ul class="list-disc list-outside ml-4 space-y-2 text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                        <li><strong>Mobile Interface:</strong> Built a high-performance <strong>Flutter</strong> interface for spectrometer hardware, automating manual calibration to slash field data collection time by <strong>80%</strong>.</li>
+                        <li><strong>Backend Systems:</strong> Built a <strong>Next.js</strong> Admin Dashboard with Firebase to manage spectral data, handling cross-functional integration of optical physics logic.</li>
+                    </ul>
             </div>
 
-            <div class="blueprint-card animate-on-scroll animate-fade-in">
-                <h3 class="text-xl font-semibold mb-4">Design & Documentation Tools</h3>
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-5">
-                    <div class="text-center sm:text-left">
-                        <i class="bi bi-vector-pen text-primary text-2xl mb-1 inline-block"></i>
-                        <h4 class="font-medium text-base mb-1">Vector Graphics</h4>
-                        <p class="text-muted text-sm font-mono">Inkscape, Illustrator</p>
+                <!-- Role 3 -->
+                <div class="relative pl-8 animate-on-scroll">
+                    <div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-slate-300 dark:bg-slate-600 border-4 border-white dark:border-slate-900"></div>
+                    <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between mb-2">
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white">Founding Engineer (Part-Time)</h3>
+                        <span class="font-mono text-sm text-slate-500">Sept 2022 – Present</span>
                     </div>
-                    <div class="text-center sm:text-left">
-                        <i class="bi bi-image text-primary text-2xl mb-1 inline-block"></i>
-                        <h4 class="font-medium text-base mb-1">Raster Graphics</h4>
-                        <p class="text-muted text-sm font-mono">Photoshop, GIMP, Affinity</p>
+                    <div class="mb-4">
+                        <span class="font-medium text-primary dark:text-slate-300">Reflex Optic Solutions</span>
+                        <span class="text-slate-400 mx-2">|</span>
+                        <span class="text-sm text-slate-500">Bangalore, India</span>
                     </div>
-                    <div class="text-center sm:text-left">
-                        <i class="bi bi-palette text-primary text-2xl mb-1 inline-block"></i>
-                        <h4 class="font-medium text-base mb-1">UI/UX Design</h4>
-                        <p class="text-muted text-sm font-mono">Figma, Framer</p>
+                    <ul class="list-disc list-outside ml-4 space-y-2 text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                        <li><strong>Enterprise ERP:</strong> Launched a comprehensive optical retail ERP SaaS using <strong>Next.js & Supabase</strong>, featuring modules for GST Taxation and real-time Inventory management.</li>
+                        <li><strong>Scalability:</strong> Orchestrated a backend migration to Supabase Edge Functions, improving system scalability and reducing server overhead.</li>
+                        <li><strong>Mobile Commerce:</strong> Developed an e-commerce Android app and admin dashboard using <strong>Flutter</strong> and Firebase for an optical retail store.</li>
+                    </ul>
                     </div>
-                    <div class="text-center sm:text-left">
-                        <i class="bi bi-file-earmark-text text-primary text-2xl mb-1 inline-block"></i>
-                        <h4 class="font-medium text-base mb-1">Publishing</h4>
-                        <p class="text-muted text-sm font-mono">InDesign, LaTeX</p>
-                    </div>
+
+                <!-- Role 4 -->
+                <div class="relative pl-8 animate-on-scroll">
+                    <div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-slate-300 dark:bg-slate-600 border-4 border-white dark:border-slate-900"></div>
+                    <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between mb-2">
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white">Software Development Intern</h3>
+                        <span class="font-mono text-sm text-slate-500">Sept 2021 – April 2022</span>
+            </div>
+                    <div class="mb-4">
+                        <span class="font-medium text-primary dark:text-slate-300">Intelltech Pvt Ltd.</span>
+                        <span class="text-slate-400 mx-2">|</span>
+                        <span class="text-sm text-slate-500">Kochi, India</span>
+                        </div>
+                    <ul class="list-disc list-outside ml-4 space-y-2 text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                        <li><strong>Flutter Development:</strong> Developed multiple web and mobile applications using Flutter.</li>
+                        <li><strong>UI/UX Design:</strong> Designed and implemented the complete UI/UX for a ride-booking platform (similar to Uber).</li>
+                    </ul>
+                </div>
+
+                 <!-- Role 5 -->
+                 <div class="relative pl-8 animate-on-scroll">
+                    <div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-slate-300 dark:bg-slate-600 border-4 border-white dark:border-slate-900"></div>
+                    <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between mb-2">
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white">Optics Intern</h3>
+                        <span class="font-mono text-sm text-slate-500">Jan 2024 - June 2024</span>
+                        </div>
+                    <div class="mb-4">
+                        <span class="font-medium text-primary dark:text-slate-300">SABIC</span>
+                        <span class="text-slate-400 mx-2">|</span>
+                        <span class="text-sm text-slate-500">Bangalore, India</span>
+                        </div>
+                    <ul class="list-disc list-outside ml-4 space-y-2 text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                        <li>Designed and simulated a hybrid optical lens for optical communication networks.</li>
+                    </ul>
+                </div>
+
+                        </div>
+                        </div>
+    </section>
+    
+    <!-- Education Section -->
+    <section class="py-20">
+        <div class="max-w-4xl mx-auto px-6 lg:px-8">
+            <h2 class="text-3xl font-bold mb-12 section-title">Education</h2>
+            <div class="card p-8 rounded-xl animate-on-scroll">
+                <div class="flex flex-col md:flex-row justify-between md:items-center mb-4">
+                        <div>
+                        <h3 class="text-2xl font-bold text-slate-900 dark:text-white">Integrated MSc in Photonics</h3>
+                        <p class="text-primary dark:text-slate-300 font-medium">Cochin University of Science and Technology (CUSAT)</p>
+                        </div>
+                    <div class="mt-2 md:mt-0 font-mono text-sm text-slate-500">
+                        2019 - 2024 | Kochi, India
+                        </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="experience" class="py-20 md:py-24 light:bg-[#e5e7eb]/50 ">
-        <div class="max-w-7xl mx-auto px-6 lg:px-8">
-            <div class="text-center md:text-left mb-12 md:mb-16 animate-on-scroll animate-fade-in">
-                <span
-                    class="text-primary text-xs uppercase tracking-widest font-semibold font-mono dark:text-primary light:text-primary-accent">Work
-                    History</span>
-                <h2 class="text-3xl md:text-4xl font-bold mt-2">Experience</h2>
-                <p class="text-muted max-w-xl mt-3 mx-auto md:mx-0 text-base">
-                    Professional experience in optics and development.
-                </p>
-            </div>
-
-            <div class="space-y-8">
-                <div class="blueprint-card animate-on-scroll animate-fade-in">
-                    <div class="flex flex-col md:flex-row justify-between md:items-start gap-1 mb-2">
-                        <div>
-                            <h3 class="text-xl font-semibold">Lead Developer</h3>
-                            <p class="text-primary font-medium text-base dark:text-primary light:text-primary-accent">
-                                Reflex Optic Solutions</p>
-                        </div>
-                        <div class="text-sm text-muted text-left md:text-right font-mono mt-1 md:mt-0">
-                            <p>Sep 2022 - Present</p>
-                            <p>Bangalore (Hybrid)</p>
-                        </div>
-                    </div>
-                    <ul class="text-muted space-y-2 text-base list-disc list-inside pl-1">
-                        <li>Led architecture & development of optical wholesale e-commerce platform.</li>
-                        <li>Managed full-stack (React, Node, Express, MongoDB), API integrations.</li>
-                        <li>Implemented responsive design with Tailwind CSS.</li>
-                        <li>Reduced operational costs by 30% via automation & efficiency.</li>
-                    </ul>
-                </div>
-
-                <div class="blueprint-card animate-on-scroll animate-fade-in" style="transition-delay: 0.1s;">
-                    <div class="flex flex-col md:flex-row justify-between md:items-start gap-1 mb-2">
-                        <div>
-                            <h3 class="text-xl font-semibold">Development Engineer - Optics</h3>
-                            <p class="text-primary font-medium text-base dark:text-primary light:text-primary-accent">
-                                Infiniti Agrotech</p>
-                        </div>
-                        <div class="text-sm text-muted text-left md:text-right font-mono mt-1 md:mt-0">
-                            <p>Sep 2024 - Feb 2025</p>
-                            <p>Goa, India</p>
-                        </div>
-                    </div>
-                    <ul class="text-muted space-y-2 text-base list-disc list-inside pl-1">
-                        <li>Designing/optimizing optical circuits for agritech (spectrometers, sensors).</li>
-                        <li>Integrating optical components with microcontrollers.</li>
-                        <li>Conducting simulations (COMSOL, Zemax) for performance enhancement.</li>
-                        <li>Contributing to electronics review, chemometrics, Python dev, costing.</li>
-                    </ul>
-                </div>
-
-                <div class="blueprint-card animate-on-scroll animate-fade-in" style="transition-delay: 0.2s;">
-                    <div class="flex flex-col md:flex-row justify-between md:items-start gap-1 mb-2">
-                        <div>
-                            <h3 class="text-xl font-semibold">Optics Intern</h3>
-                            <p class="text-primary font-medium text-base dark:text-primary light:text-primary-accent">
-                                SABIC</p>
-                        </div>
-                        <div class="text-sm text-muted text-left md:text-right font-mono mt-1 md:mt-0">
-                            <p>Jan 2024 - Jun 2024</p>
-                            <p>Bangalore, India</p>
-                        </div>
-                    </div>
-                    <ul class="text-muted space-y-2 text-base list-disc list-inside pl-1">
-                        <li>Engineered high-efficiency FSO Lenses (Zemax), improving efficiency by 50%.</li>
-                        <li>Evaluated prototyping (CNC, injection molding) & manufacturability.</li>
-                        <li>Collaborated cross-functionally on design integration.</li>
-                        <li>Presented technical findings to senior management.</li>
-                    </ul>
-                </div>
-
-                <div class="blueprint-card animate-on-scroll animate-fade-in" style="transition-delay: 0.3s;">
-                    <div class="flex flex-col md:flex-row justify-between md:items-start gap-1 mb-2">
-                        <div>
-                            <h3 class="text-xl font-semibold">Software Development Intern</h3>
-                            <p class="text-primary font-medium text-base dark:text-primary light:text-primary-accent">
-                                Intelltech Pvt Ltd.</p>
-                        </div>
-                        <div class="text-sm text-muted text-left md:text-right font-mono mt-1 md:mt-0">
-                            <p>Sep 2021 - Apr 2022</p>
-                            <p>Kochi (Hybrid)</p>
-                        </div>
-                    </div>
-                    <ul class="text-muted space-y-2 text-base list-disc list-inside pl-1">
-                        <li>Delivered 30+ websites & mobile apps for diverse clients.</li>
-                        <li>Utilized HTML, CSS, JS, React, Flutter for responsive UIs.</li>
-                        <li>Collaborated with clients on requirements, updates, solutions.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="py-20 md:py-24 relative">
-        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
-            <div class="text-center mb-12 md:mb-16 animate-on-scroll animate-fade-in">
-                <span
-                    class="text-primary text-xs uppercase tracking-widest font-semibold font-mono dark:text-primary light:text-primary-accent">Get
-                    In Touch</span>
-                <h2 class="text-3xl md:text-4xl font-bold mt-2">Contact Me</h2>
-                <p class="text-muted max-w-md mx-auto mt-3 text-base">
-                    Interested in working together or have a question? Feel free to reach out.
-                </p>
-                <div class="w-12 h-0.5 bg-primary mx-auto mt-3 dark:bg-primary light:bg-primary-accent"></div>
-            </div>
-
-            <div class="flex flex-wrap justify-center gap-6">
-                <a href="mailto:harikrznan@gmail.com"
-                    class="group blueprint-card p-4 flex items-center space-x-4 w-full sm:w-auto sm:min-w-[300px] animate-on-scroll animate-fade-in"
-                    style="transition-delay: 0.1s;">
-                    <div
-                        class="icon-container group-hover:bg-primary/10 light:group-hover:bg-primary-accent/10 transition-colors">
-                        <i class="bi bi-envelope"></i> </div>
-                    <div class="text-left">
-                        <h3 class="text-lg font-medium">Email</h3>
-                        <p class="text-muted text-base break-all">harikrznan@gmail.com</p>
-                    </div>
-                </a>
-
-                <a href="tel:+918111957721"
-                    class="group blueprint-card p-4 flex items-center space-x-4 w-full sm:w-auto sm:min-w-[300px] animate-on-scroll animate-fade-in"
-                    style="transition-delay: 0.2s;">
-                    <div
-                        class="icon-container group-hover:bg-primary/10 light:group-hover:bg-primary-accent/10 transition-colors">
-                        <i class="bi bi-telephone"></i> </div>
-                    <div class="text-left">
-                        <h3 class="text-lg font-medium">Phone</h3>
-                        <p class="text-muted text-base">+91 81119 57721</p>
-                    </div>
-                </a>
-
-                <a href="https://linkedin.com/in/harikrishnanpv" target="_blank" rel="noopener noreferrer"
-                    class="group blueprint-card p-4 flex items-center space-x-4 w-full sm:w-auto sm:min-w-[300px] animate-on-scroll animate-fade-in"
-                    style="transition-delay: 0.3s;">
-                    <div
-                        class="icon-container group-hover:bg-primary/10 light:group-hover:bg-primary-accent/10 transition-colors">
-                        <i class="bi bi-linkedin"></i> </div>
-                    <div class="text-left">
-                        <h3 class="text-lg font-medium">LinkedIn</h3>
-                        <p class="text-muted text-base">harikrishnanpv</p>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <footer class="py-6 border-t border-themed mt-16">
+    <!-- Footer -->
+    <footer id="contact" class="py-12 border-t border-black/5 dark:border-white/5 bg-white dark:bg-[#0f172a]">
         <div class="max-w-7xl mx-auto px-6 lg:px-8 text-center">
-            <p class="text-muted text-sm font-mono">© <span id="currentYear"></span> Harikrishnan P V. All rights
-                reserved.</p>
+            <h2 class="text-2xl font-bold mb-6">Let's Connect</h2>
+            <p class="text-slate-600 dark:text-slate-400 mb-8 max-w-lg mx-auto">
+                Currently open for new opportunities. Whether you have a question or just want to say hi, I'll try my best to get back to you!
+            </p>
+            <div class="flex justify-center gap-8 mb-8">
+                <a href="mailto:harikrznan@gmail.com" class="flex items-center gap-2 hover:text-primary dark:hover:text-white transition-colors">
+                    <i class="bi bi-envelope text-xl"></i>
+                    <span class="hidden sm:inline">harikrznan@gmail.com</span>
+                </a>
+                <a href="tel:+918111957721" class="flex items-center gap-2 hover:text-primary dark:hover:text-white transition-colors">
+                    <i class="bi bi-phone text-xl"></i>
+                    <span class="hidden sm:inline">+91 81119 57721</span>
+                </a>
+                <a href="https://linkedin.com/in/harikrishnanpv" target="_blank" class="flex items-center gap-2 hover:text-primary dark:hover:text-white transition-colors">
+                    <i class="bi bi-linkedin text-xl"></i>
+                    <span class="hidden sm:inline">LinkedIn</span>
+                </a>
+            </div>
+            <p class="text-sm text-slate-500 font-mono">
+                © <span id="year"></span> Harikrishnan P V. Built with HTML5 & Tailwind CSS.
+            </p>
         </div>
     </footer>
 
     <script>
+        // Theme Toggle Logic
         const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
         const body = document.body;
-        const darkIcon = themeToggle.querySelector('.dark-icon');
-        const lightIcon = themeToggle.querySelector('.light-icon');
-
-        const applyTheme = (theme) => {
-            body.classList.remove('light-mode', 'dark-mode');
-            body.classList.add(theme + '-mode');
-            if (theme === 'dark') {
-                darkIcon.classList.add('hidden');
-                lightIcon.classList.remove('hidden');
+        
+        // Check local storage or system preference
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            html.classList.add('dark');
+            body.classList.remove('light');
+            body.classList.add('dark');
             } else {
-                darkIcon.classList.remove('hidden');
-                lightIcon.classList.add('hidden');
-            }
-            localStorage.setItem('theme', theme);
-        };
-
-        const savedTheme = localStorage.getItem('theme');
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        let currentTheme = savedTheme ? savedTheme : (prefersDark ? 'dark' : 'light');
-
-        // If no theme is saved, use the user's preferred color scheme
-        if (!savedTheme) {
-            applyTheme(currentTheme);
-        } else {
-            // If a theme is saved, apply it
-            applyTheme(savedTheme);
+            html.classList.remove('dark');
+            body.classList.remove('dark');
+            body.classList.add('light');
         }
 
-
         themeToggle.addEventListener('click', () => {
-            const newTheme = body.classList.contains('dark-mode') ? 'light' : 'dark';
-            applyTheme(newTheme);
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                body.classList.remove('dark');
+                body.classList.add('light');
+                localStorage.theme = 'light';
+        } else {
+                html.classList.add('dark');
+                body.classList.remove('light');
+                body.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
         });
 
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                if (targetId.length > 1 && targetId.startsWith('#')) {
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        const offsetTop = targetElement.offsetTop - 64;
-                        window.scrollTo({ top: offsetTop, behavior: 'smooth' });
-                    }
-                }
-            });
-        });
+        // Mobile Menu Logic
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const closeMenuBtn = document.getElementById('closeMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
 
-        const observerOptions = {
-            threshold: 0.15,
-            rootMargin: '0px 0px -50px 0px'
-        };
+        function openMenu() {
+            mobileMenu.classList.remove('translate-x-full');
+            document.body.style.overflow = 'hidden';
+        }
 
-        const animationObserver = new IntersectionObserver((entries, observer) => {
+        function closeMenu() {
+            mobileMenu.classList.add('translate-x-full');
+            document.body.style.overflow = 'auto';
+        }
+
+        mobileMenuBtn.addEventListener('click', openMenu);
+        closeMenuBtn.addEventListener('click', closeMenu);
+
+        // Intersection Observer for Animations
+        const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
-                    observer.unobserve(entry.target);
                 }
             });
-        }, observerOptions);
+        }, { threshold: 0.1 });
 
-        document.querySelectorAll('.animate-on-scroll').forEach(el => {
-            animationObserver.observe(el);
+        document.querySelectorAll('.animate-on-scroll').forEach((el) => {
+            observer.observe(el);
         });
 
-        document.getElementById('currentYear').textContent = new Date().getFullYear();
-
-        const sections = document.querySelectorAll('section[id]');
-        const navLinks = document.querySelectorAll('nav a.nav-link');
-        const navHeight = document.querySelector('nav')?.offsetHeight || 64;
-
-        window.addEventListener('scroll', () => {
-            let currentSectionId = '';
-            const scrollY = window.scrollY;
-
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop - navHeight - 20;
-                const sectionHeight = section.clientHeight;
-                if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
-                    currentSectionId = section.getAttribute('id');
-                }
-            });
-
-            navLinks.forEach(link => {
-                link.classList.remove('active', 'font-semibold');
-                const linkHref = link.getAttribute('href');
-                if (linkHref === `#${currentSectionId}`) {
-                    link.classList.add('active', 'font-semibold');
-                }
-            });
-        }, { passive: true });
-
+        // Set Year
+        document.getElementById('year').textContent = new Date().getFullYear();
     </script>
 </body>
-
 </html>
