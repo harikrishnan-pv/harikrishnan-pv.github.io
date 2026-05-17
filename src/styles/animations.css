@@ -1,0 +1,130 @@
+/* Gradient Orbs */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  will-change: transform;
+  filter: blur(80px);
+}
+
+.orb-1 {
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.18) 0%, transparent 70%);
+  top: -200px;
+  right: -150px;
+  animation: orb-drift-1 14s ease-in-out infinite alternate;
+}
+
+.orb-2 {
+  width: 550px;
+  height: 550px;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.14) 0%, transparent 70%);
+  bottom: -150px;
+  left: -100px;
+  animation: orb-drift-2 11s ease-in-out infinite alternate;
+}
+
+/* Reduced opacity in light mode */
+.orb-1 {
+  opacity: 0.6;
+}
+.dark .orb-1 {
+  opacity: 1;
+}
+.orb-2 {
+  opacity: 0.5;
+}
+.dark .orb-2 {
+  opacity: 1;
+}
+
+@keyframes orb-drift-1 {
+  from { transform: translate(0, 0) scale(1); }
+  to { transform: translate(-70px, 50px) scale(1.12); }
+}
+
+@keyframes orb-drift-2 {
+  from { transform: translate(0, 0) scale(1.08); }
+  to { transform: translate(50px, -60px) scale(1); }
+}
+
+/* Scroll reveal */
+[data-reveal] {
+  opacity: 0;
+  transition: opacity 0.7s ease-out, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-reveal='fade-up'] {
+  transform: translateY(28px);
+}
+
+[data-reveal='fade-left'] {
+  transform: translateX(-28px);
+}
+
+[data-reveal='fade-right'] {
+  transform: translateX(28px);
+}
+
+[data-reveal='scale'] {
+  transform: scale(0.94);
+}
+
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Stagger delays */
+[data-reveal][data-delay='100'] { transition-delay: 0.1s; }
+[data-reveal][data-delay='200'] { transition-delay: 0.2s; }
+[data-reveal][data-delay='300'] { transition-delay: 0.3s; }
+[data-reveal][data-delay='400'] { transition-delay: 0.4s; }
+[data-reveal][data-delay='500'] { transition-delay: 0.5s; }
+
+/* Typewriter cursor */
+#typewriter-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1.1em;
+  background: #6366f1;
+  margin-left: 2px;
+  vertical-align: text-bottom;
+}
+
+#typewriter-cursor.blink {
+  animation: cursor-blink 1s step-end infinite;
+}
+
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Page load fade in */
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+body {
+  animation: page-in 0.5s ease-out;
+}
+
+/* Marquee scrolling */
+@keyframes marquee-left {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes marquee-right {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
