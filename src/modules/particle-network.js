@@ -1,4 +1,4 @@
-const COLORS = ['#6366f1', '#8b5cf6', '#818cf8', '#a78bfa', '#c4b5fd']
+const COLORS = ['#ef4444', '#dc2626', '#e11d48', '#f43f5e', '#fca5a5']
 const NODE_COUNT = 62
 const MAX_DIST = 130
 const MOUSE_RADIUS = 115
@@ -83,7 +83,7 @@ export function initParticleNetwork() {
           ctx.beginPath()
           ctx.moveTo(ax, ay)
           ctx.lineTo(bx, by)
-          ctx.strokeStyle = `rgba(99,102,241,${((1 - d / MAX_DIST) * lineAlphaMax).toFixed(3)})`
+          ctx.strokeStyle = `rgba(239,68,68,${((1 - d / MAX_DIST) * lineAlphaMax).toFixed(3)})`
           ctx.lineWidth = 0.75
           ctx.stroke()
         }

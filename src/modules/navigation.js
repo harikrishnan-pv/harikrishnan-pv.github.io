@@ -1,26 +1,7 @@
 export function initNavigation() {
-  const mobileMenuBtn = document.getElementById('mobileMenuBtn')
-  const closeMenuBtn = document.getElementById('closeMenuBtn')
-  const mobileMenu = document.getElementById('mobileMenu')
   const progressBar = document.getElementById('scroll-progress')
   const hero = document.querySelector('.parallax-hero')
-
-  // Mobile menu
-  function openMenu() {
-    mobileMenu?.classList.remove('translate-x-full')
-    document.body.style.overflow = 'hidden'
-  }
-
-  function closeMenu() {
-    mobileMenu?.classList.add('translate-x-full')
-    document.body.style.overflow = ''
-  }
-
-  mobileMenuBtn?.addEventListener('click', openMenu)
-  closeMenuBtn?.addEventListener('click', closeMenu)
-  document.querySelectorAll('.mobile-link').forEach(link => {
-    link.addEventListener('click', closeMenu)
-  })
+  const pillLinks = document.querySelectorAll('.pill-link[href^="#"]')
 
   // Scroll: progress bar + hero parallax
   let ticking = false
@@ -42,15 +23,14 @@ export function initNavigation() {
     })
   }, { passive: true })
 
-  // Active nav link highlighting via IntersectionObserver
+  // Active pill link via IntersectionObserver
   const sections = document.querySelectorAll('section[id], footer[id]')
-  const navLinks = document.querySelectorAll('.nav-link[href^="#"]')
 
   const sectionObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         const id = entry.target.getAttribute('id')
-        navLinks.forEach(link => {
+        pillLinks.forEach(link => {
           link.classList.toggle('active', link.getAttribute('href') === `#${id}`)
         })
       }

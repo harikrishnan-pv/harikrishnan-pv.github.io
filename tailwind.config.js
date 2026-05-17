@@ -6,8 +6,8 @@ export default {
     extend: {
       colors: {
         accent: {
-          DEFAULT: '#6366f1',
-          secondary: '#8b5cf6',
+          DEFAULT: '#ef4444',
+          secondary: '#e11d48',
         },
       },
       fontFamily: {
