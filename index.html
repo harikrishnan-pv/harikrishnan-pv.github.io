@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Harikrishnan P V — Founding Engineer & Full Stack Developer</title>
+  <meta name="description" content="Portfolio of Harikrishnan P V — Founding Engineer specializing in high-performance web architecture with Next.js, AWS, and AI-driven interfaces.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="https://img.icons8.com/fluency/48/console.png">
+  <script type="module" crossorigin src="/assets/index-eyHaXwtt.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-pR-3r_1y.css">
+</head>
+
+<body class="font-sans antialiased text-slate-800 dark:text-slate-200 bg-[#f8fafc] dark:bg-[#0a0f1e]">
+
+  <!-- Grid Background -->
+  <div class="grid-bg"></div>
+
+  <!-- Navigation -->
+  <nav class="fixed w-full z-50 bg-[#f8fafc]/80 dark:bg-[#0a0f1e]/80 backdrop-blur-md border-b border-black/5 dark:border-white/5 transition-colors duration-300">
+    <div id="scroll-progress"></div>
+    <div class="max-w-6xl mx-auto px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <!-- Logo -->
+        <a href="#" class="font-mono text-lg font-bold tracking-tighter flex items-center gap-2">
+          <span class="w-7 h-7 bg-gradient-to-br from-accent to-accent-secondary text-white flex items-center justify-center rounded-sm text-xs font-bold">HP</span>
+          <span class="hidden sm:inline">Harikrishnan</span>
+        </a>
+
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex items-center gap-7 text-sm font-medium font-mono">
+          <a href="#about"      class="nav-link hover:text-accent transition-colors">About</a>
+          <a href="#projects"   class="nav-link hover:text-accent transition-colors">Work</a>
+          <a href="#stack"      class="nav-link hover:text-accent transition-colors">Stack</a>
+          <a href="#journey"    class="nav-link hover:text-accent transition-colors">Journey</a>
+          <a href="#contact"    class="nav-link hover:text-accent transition-colors">Contact</a>
+          <button id="themeToggle" class="p-1.5 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors" aria-label="Toggle theme">
+            <i class="bi bi-moon-fill hidden dark:block text-accent-secondary text-sm"></i>
+            <i class="bi bi-sun-fill block dark:hidden text-accent text-sm"></i>
+          </button>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button class="md:hidden text-2xl p-1" id="mobileMenuBtn" aria-label="Open menu">
+          <i class="bi bi-list"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div id="mobileMenu" class="fixed inset-0 z-40 bg-[#f8fafc]/97 dark:bg-[#0a0f1e]/97 backdrop-blur-xl transform translate-x-full transition-transform duration-300 md:hidden flex flex-col items-center justify-center space-y-7 text-xl font-mono">
+    <button id="closeMenuBtn" class="absolute top-5 right-6 text-2xl" aria-label="Close menu">
+      <i class="bi bi-x-lg"></i>
+    </button>
+    <a href="#about"    class="mobile-link hover:text-accent transition-colors">About</a>
+    <a href="#projects" class="mobile-link hover:text-accent transition-colors">Work</a>
+    <a href="#stack"    class="mobile-link hover:text-accent transition-colors">Stack</a>
+    <a href="#journey"  class="mobile-link hover:text-accent transition-colors">Journey</a>
+    <a href="#contact"  class="mobile-link hover:text-accent transition-colors">Contact</a>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       HERO
+  ═══════════════════════════════════════════ -->
+  <section id="about" class="min-h-screen flex items-center pt-16 relative overflow-hidden">
+    <canvas id="particle-canvas" class="absolute inset-0 w-full h-full z-0"></canvas>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <div class="parallax-hero w-full relative z-10">
+      <div class="max-w-6xl mx-auto px-6 lg:px-8">
+        <div class="flex items-center py-16 lg:py-0 min-h-[calc(100vh-4rem)]">
+
+          <!-- Text column -->
+          <div class="space-y-5" data-reveal="scale">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-accent/30 bg-accent/5 text-xs font-mono font-semibold tracking-wider uppercase text-accent">
+              <span class="w-1.5 h-1.5 rounded-full bg-accent pulse-dot"></span>
+              Available for Opportunities
+            </div>
+
+            <h1 class="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1]">
+              Harikrishnan<br>
+              <span class="text-slate-400 dark:text-slate-500">P V</span>
+            </h1>
+
+            <h2 class="text-lg sm:text-xl font-medium text-slate-500 dark:text-slate-400 min-h-[1.75rem] flex items-center gap-1">
+              <span id="typewriter-text"></span><span id="typewriter-cursor"></span>
+            </h2>
+
+            <p class="text-base text-slate-600 dark:text-slate-400 max-w-md leading-relaxed">
+              I turn complex business requirements into production-ready SaaS — specializing in Next.js/AWS architecture and bridging hardware-software gaps with AI.
+            </p>
+
+            <div class="flex flex-wrap gap-3 pt-1">
+              <a href="#projects" class="btn-primary btn-cta">View Work</a>
+              <a href="mailto:harikrznan@gmail.com" class="btn-secondary btn-cta">Contact Me</a>
+            </div>
+
+            <div class="flex items-center gap-5 pt-1 text-xl text-slate-400 dark:text-slate-500">
+              <a href="https://linkedin.com/in/harikrishnanpv" target="_blank" rel="noopener" aria-label="LinkedIn" class="hover:text-accent transition-colors">
+                <i class="bi bi-linkedin"></i>
+              </a>
+              <a href="https://github.com/harikrishnan-pv" target="_blank" rel="noopener" aria-label="GitHub" class="hover:text-accent transition-colors">
+                <i class="bi bi-github"></i>
+              </a>
+              <a href="mailto:harikrznan@gmail.com" aria-label="Email" class="hover:text-accent transition-colors">
+                <i class="bi bi-envelope"></i>
+              </a>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       PROJECTS (Bento)
+  ═══════════════════════════════════════════ -->
+  <section id="projects" class="py-20 bg-white/40 dark:bg-white/[0.02]">
+    <div class="max-w-6xl mx-auto px-6 lg:px-8">
+      <h2 class="text-2xl font-bold mb-10 section-title" data-reveal="fade-up">Work</h2>
+
+      <div class="bento-grid">
+
+        <!-- Brixline — FEATURED (span 2 on lg) -->
+        <div onclick="openProjectModal('brixline')" class="card p-7 cursor-pointer group bento-featured" data-reveal="fade-left">
+          <div class="flex justify-between items-start mb-5">
+            <i class="bi bi-building-gear text-2xl text-accent group-hover:scale-110 transition-transform duration-300"></i>
+            <span class="text-xs font-mono py-1 px-2 rounded bg-accent/10 text-accent">AWS</span>
+          </div>
+          <h3 class="text-xl font-bold mb-2 group-hover:text-accent transition-colors duration-200">
+            Brixline Listing Engine
+            <i class="bi bi-arrow-up-right text-sm align-top opacity-0 group-hover:opacity-100 transition-opacity ml-1"></i>
+          </h3>
+          <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-5 max-w-md">
+            Dynamic property listings with AWS Lambda OGP insertion and CloudFront caching for sub-100ms responses.
+          </p>
+          <div class="text-xs font-mono text-slate-500">Next.js • AWS Lambda • CloudFront • TypeScript</div>
+        </div>
+
+        <!-- AI Property — compact -->
+        <div class="card p-6 group" data-reveal="fade-right">
+          <div class="flex justify-between items-start mb-4">
+            <i class="bi bi-cpu text-2xl text-accent"></i>
+            <span class="text-xs font-mono py-1 px-2 rounded bg-accent/10 text-accent">AI</span>
+          </div>
+          <h3 class="text-lg font-bold mb-3">AI Property Onboarding</h3>
+          <div class="text-xs font-mono text-slate-500 mt-auto">Google AI Studio • Prompt Engineering</div>
+        </div>
+
+        <!-- Spectrometer — compact -->
+        <div class="card p-6 group" data-reveal="fade-left" data-delay="100">
+          <div class="flex justify-between items-start mb-4">
+            <i class="bi bi-display text-2xl text-accent"></i>
+            <span class="text-xs font-mono py-1 px-2 rounded bg-accent/10 text-accent">IoT</span>
+          </div>
+          <h3 class="text-lg font-bold mb-2">Spectrometer Interface</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-500 mb-3">80% reduction in field data collection time.</p>
+          <div class="text-xs font-mono text-slate-500 mt-auto">Flutter • Hardware Integration</div>
+        </div>
+
+        <!-- Reflex ERP — FEATURED (span 2 on lg) -->
+        <div onclick="openProjectModal('reflex')" class="card p-7 cursor-pointer group bento-featured" data-reveal="fade-right" data-delay="100">
+          <div class="flex justify-between items-start mb-5">
+            <i class="bi bi-cart3 text-2xl text-accent group-hover:scale-110 transition-transform duration-300"></i>
+            <span class="text-xs font-mono py-1 px-2 rounded bg-accent/10 text-accent">SaaS</span>
+          </div>
+          <h3 class="text-xl font-bold mb-2 group-hover:text-accent transition-colors duration-200">
+            Optical Retail ERP
+            <i class="bi bi-arrow-up-right text-sm align-top opacity-0 group-hover:opacity-100 transition-opacity ml-1"></i>
+          </h3>
+          <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-5 max-w-md">
+            End-to-end optical retail SaaS with 196+ Edge Functions — eye care, inventory, GST, multi-store ops.
+          </p>
+          <div class="text-xs font-mono text-slate-500">Next.js • Supabase • Edge Functions • TypeScript</div>
+        </div>
+
+        <!-- Construction MVP — compact -->
+        <div class="card p-6 group" data-reveal="fade-left" data-delay="200">
+          <div class="flex justify-between items-start mb-4">
+            <i class="bi bi-phone text-2xl text-accent"></i>
+            <span class="text-xs font-mono py-1 px-2 rounded bg-accent/10 text-accent">Mobile</span>
+          </div>
+          <h3 class="text-lg font-bold mb-3">Construction MVP App</h3>
+          <div class="text-xs font-mono text-slate-500 mt-auto">React Native • Mobile</div>
+        </div>
+
+        <!-- E-commerce — compact -->
+        <div class="card p-6 group" data-reveal="fade-right" data-delay="200">
+          <div class="flex justify-between items-start mb-4">
+            <i class="bi bi-bag-check text-2xl text-accent"></i>
+            <span class="text-xs font-mono py-1 px-2 rounded bg-accent/10 text-accent">Mobile</span>
+          </div>
+          <h3 class="text-lg font-bold mb-3">Optical E-commerce App</h3>
+          <div class="text-xs font-mono text-slate-500 mt-auto">Flutter • Firebase</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       STACK (Marquee)
+  ═══════════════════════════════════════════ -->
+  <section id="stack" class="py-20">
+    <div class="max-w-6xl mx-auto px-6 lg:px-8 mb-8">
+      <h2 class="text-2xl font-bold section-title" data-reveal="fade-up">
+        <span class="font-mono text-accent">&lt;</span>Stack<span class="font-mono text-accent">/&gt;</span>
+      </h2>
+    </div>
+
+    <!-- Row 1: scrolls left -->
+    <div class="marquee-wrapper mb-3" data-reveal="fade-up" data-delay="100">
+      <div class="marquee-track marquee-left">
+        <!-- Set 1 -->
+        <span class="skill-tag">JavaScript</span>
+        <span class="skill-tag">TypeScript</span>
+        <span class="skill-tag">HTML5</span>
+        <span class="skill-tag">CSS3</span>
+        <span class="skill-tag">Dart</span>
+        <span class="skill-tag">SQL</span>
+        <span class="skill-tag">Next.js</span>
+        <span class="skill-tag">React</span>
+        <span class="skill-tag">Flutter</span>
+        <span class="skill-tag">Tailwind CSS</span>
+        <span class="skill-tag">React Native</span>
+        <span class="skill-tag">Node.js</span>
+        <span class="skill-tag">Supabase</span>
+        <span class="skill-tag">AWS</span>
+        <span class="skill-tag">Firebase</span>
+        <span class="skill-tag">RESTful APIs</span>
+        <!-- Set 2 (duplicate for seamless loop) -->
+        <span class="skill-tag">JavaScript</span>
+        <span class="skill-tag">TypeScript</span>
+        <span class="skill-tag">HTML5</span>
+        <span class="skill-tag">CSS3</span>
+        <span class="skill-tag">Dart</span>
+        <span class="skill-tag">SQL</span>
+        <span class="skill-tag">Next.js</span>
+        <span class="skill-tag">React</span>
+        <span class="skill-tag">Flutter</span>
+        <span class="skill-tag">Tailwind CSS</span>
+        <span class="skill-tag">React Native</span>
+        <span class="skill-tag">Node.js</span>
+        <span class="skill-tag">Supabase</span>
+        <span class="skill-tag">AWS</span>
+        <span class="skill-tag">Firebase</span>
+        <span class="skill-tag">RESTful APIs</span>
+      </div>
+    </div>
+
+    <!-- Row 2: scrolls right -->
+    <div class="marquee-wrapper" data-reveal="fade-up" data-delay="150">
+      <div class="marquee-track marquee-right">
+        <!-- Set 1 -->
+        <span class="skill-tag">GitHub Actions</span>
+        <span class="skill-tag">Jira</span>
+        <span class="skill-tag">Cursor</span>
+        <span class="skill-tag">Claude Code</span>
+        <span class="skill-tag">COMSOL</span>
+        <span class="skill-tag">Matlab</span>
+        <span class="skill-tag">Zemax</span>
+        <span class="skill-tag">SolidWorks</span>
+        <span class="skill-tag">Python (SciPy)</span>
+        <span class="skill-tag">FSO</span>
+        <span class="skill-tag">Fiber Optics</span>
+        <span class="skill-tag">Optical Simulation</span>
+        <span class="skill-tag">Bun</span>
+        <span class="skill-tag">PostgreSQL</span>
+        <span class="skill-tag">Edge Functions</span>
+        <!-- Set 2 (duplicate for seamless loop) -->
+        <span class="skill-tag">GitHub Actions</span>
+        <span class="skill-tag">Jira</span>
+        <span class="skill-tag">Cursor</span>
+        <span class="skill-tag">Claude Code</span>
+        <span class="skill-tag">COMSOL</span>
+        <span class="skill-tag">Matlab</span>
+        <span class="skill-tag">Zemax</span>
+        <span class="skill-tag">SolidWorks</span>
+        <span class="skill-tag">Python (SciPy)</span>
+        <span class="skill-tag">FSO</span>
+        <span class="skill-tag">Fiber Optics</span>
+        <span class="skill-tag">Optical Simulation</span>
+        <span class="skill-tag">Bun</span>
+        <span class="skill-tag">PostgreSQL</span>
+        <span class="skill-tag">Edge Functions</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       JOURNEY (Experience + Education)
+  ═══════════════════════════════════════════ -->
+  <section id="journey" class="py-20 bg-white/40 dark:bg-white/[0.02]">
+    <div class="max-w-3xl mx-auto px-6 lg:px-8">
+      <h2 class="text-2xl font-bold mb-12 section-title" data-reveal="fade-up">Journey</h2>
+
+      <div class="journey-container space-y-8" data-reveal="fade-up" data-delay="100">
+
+        <!-- Role 1: Brixline (current) -->
+        <div class="journey-item" data-reveal="fade-left">
+          <div class="journey-dot active"></div>
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-1 gap-1">
+            <p class="font-semibold text-slate-900 dark:text-white text-[15px]">
+              Frontend Engineer
+              <span class="text-slate-500 dark:text-slate-400 font-normal"> · <span class="text-accent">Brixline Housing</span></span>
+            </p>
+            <span class="font-mono text-xs text-slate-500 shrink-0">2025 – Present · Bangalore</span>
+          </div>
+          <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+            Serverless Next.js + AWS S3 platform; CloudFront CDN for sub-100ms property listing responses; AI-driven floor plan generator cutting onboarding time.
+          </p>
+        </div>
+
+        <!-- Role 2: Infiniti -->
+        <div class="journey-item" data-reveal="fade-left" data-delay="100">
+          <div class="journey-dot"></div>
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-1 gap-1">
+            <p class="font-semibold text-slate-900 dark:text-white text-[15px]">
+              Development Engineer
+              <span class="text-slate-500 dark:text-slate-400 font-normal"> · Infiniti Agrotech</span>
+            </p>
+            <span class="font-mono text-xs text-slate-500 shrink-0">Sept 2024 – Feb 2025 · Goa</span>
+          </div>
+          <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+            Flutter interface for spectrometer hardware reducing field data collection time by 80%; Next.js admin dashboard with Firebase for spectral data management.
+          </p>
+        </div>
+
+        <!-- Role 3: Reflex -->
+        <div class="journey-item" data-reveal="fade-left" data-delay="200">
+          <div class="journey-dot"></div>
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-1 gap-1">
+            <p class="font-semibold text-slate-900 dark:text-white text-[15px]">
+              Founding Engineer <span class="text-slate-500 font-normal text-sm">(Part-Time)</span>
+              <span class="text-slate-500 dark:text-slate-400 font-normal"> · Reflex Optic Solutions</span>
+            </p>
+            <span class="font-mono text-xs text-slate-500 shrink-0">Sept 2022 – Present · Bangalore</span>
+          </div>
+          <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+            Optical retail ERP SaaS (196+ Edge Functions, 10+ modules); migrated to Supabase Edge Functions for scale; Flutter + Firebase e-commerce app.
+          </p>
+        </div>
+
+        <!-- Role 4: Intelltech -->
+        <div class="journey-item" data-reveal="fade-left" data-delay="300">
+          <div class="journey-dot"></div>
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-1 gap-1">
+            <p class="font-semibold text-slate-900 dark:text-white text-[15px]">
+              Software Development Intern
+              <span class="text-slate-500 dark:text-slate-400 font-normal"> · Intelltech Pvt Ltd.</span>
+            </p>
+            <span class="font-mono text-xs text-slate-500 shrink-0">Sept 2021 – April 2022 · Kochi</span>
+          </div>
+          <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+            Flutter web and mobile applications; full UI/UX for a ride-booking platform.
+          </p>
+        </div>
+
+        <!-- Role 5: SABIC -->
+        <div class="journey-item" data-reveal="fade-left" data-delay="400">
+          <div class="journey-dot"></div>
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-1 gap-1">
+            <p class="font-semibold text-slate-900 dark:text-white text-[15px]">
+              Optics Intern
+              <span class="text-slate-500 dark:text-slate-400 font-normal"> · SABIC</span>
+            </p>
+            <span class="font-mono text-xs text-slate-500 shrink-0">Jan 2024 – June 2024 · Bangalore</span>
+          </div>
+          <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+            Designed and simulated a hybrid optical lens for free-space optical communication networks using COMSOL and Zemax.
+          </p>
+        </div>
+
+        <!-- Education -->
+        <div class="journey-item" data-reveal="fade-left" data-delay="500">
+          <div class="journey-dot edu"></div>
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-1 gap-1">
+            <p class="font-semibold text-slate-900 dark:text-white text-[15px]">
+              Integrated MSc in Photonics
+              <span class="text-slate-500 dark:text-slate-400 font-normal"> · CUSAT</span>
+            </p>
+            <span class="font-mono text-xs text-slate-500 shrink-0">2019 – 2024 · Kochi</span>
+          </div>
+          <p class="text-sm text-slate-600 dark:text-slate-400">
+            Cochin University of Science and Technology — Photonics, optical design, hardware-software integration.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       CONTACT
+  ═══════════════════════════════════════════ -->
+  <footer id="contact" class="py-20 border-t border-black/5 dark:border-white/5">
+    <div class="max-w-6xl mx-auto px-6 lg:px-8 text-center">
+
+      <p class="font-mono text-xs text-accent tracking-widest uppercase mb-4" data-reveal="fade-up">get in touch</p>
+
+      <a href="mailto:harikrznan@gmail.com" class="contact-email-link" data-reveal="fade-up" data-delay="100">
+        harikrznan@gmail.com
+      </a>
+
+      <div class="flex flex-wrap justify-center gap-6 mt-8 text-sm text-slate-500" data-reveal="fade-up" data-delay="200">
+        <a href="tel:+918111957721" class="hover:text-accent transition-colors">+91 81119 57721</a>
+        <span class="text-slate-300 dark:text-slate-700">·</span>
+        <a href="https://linkedin.com/in/harikrishnanpv" target="_blank" rel="noopener" class="hover:text-accent transition-colors">LinkedIn</a>
+        <span class="text-slate-300 dark:text-slate-700">·</span>
+        <a href="https://github.com/harikrishnan-pv" target="_blank" rel="noopener" class="hover:text-accent transition-colors">GitHub</a>
+      </div>
+
+      <p class="text-xs text-slate-400 dark:text-slate-600 font-mono mt-10" data-reveal="fade-up" data-delay="300">
+        English · Malayalam · Tamil · Hindi
+        <span class="mx-2">·</span>
+        © <span id="year"></span> Harikrishnan P V
+      </p>
+    </div>
+  </footer>
+
+  <!-- Project Modal -->
+  <div id="projectModal" class="hidden fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+    <div id="modalContent" class="bg-white dark:bg-[#0d1224] w-full max-w-4xl rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] border border-black/8 dark:border-white/8">
+      <div class="flex items-center justify-between px-6 py-4 border-b border-black/5 dark:border-white/5 flex-shrink-0">
+        <div class="text-xs font-mono text-slate-400 uppercase tracking-widest">Project Details</div>
+        <button id="closeModalBtn" class="p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-full transition-colors" aria-label="Close">
+          <i class="bi bi-x-lg text-lg"></i>
+        </button>
+      </div>
+      <div id="modalBody" class="p-6 md:p-8 overflow-y-auto"></div>
+    </div>
+  </div>
+
+</body>
+</html>
