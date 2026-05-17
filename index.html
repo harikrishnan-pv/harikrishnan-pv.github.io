@@ -18,70 +18,46 @@
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="https://img.icons8.com/fluency/48/console.png">
-  <script type="module" crossorigin src="/assets/index-eyHaXwtt.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/index-pR-3r_1y.css">
+  <script type="module" crossorigin src="/assets/index-BjyN9om6.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-BBceEbD_.css">
 </head>
 
-<body class="font-sans antialiased text-slate-800 dark:text-slate-200 bg-[#f8fafc] dark:bg-[#0a0f1e]">
+<body class="font-sans antialiased text-neutral-900 dark:text-neutral-100 bg-white dark:bg-[#0d0d0d]">
 
   <!-- Grid Background -->
   <div class="grid-bg"></div>
 
-  <!-- Navigation -->
-  <nav class="fixed w-full z-50 bg-[#f8fafc]/80 dark:bg-[#0a0f1e]/80 backdrop-blur-md border-b border-black/5 dark:border-white/5 transition-colors duration-300">
-    <div id="scroll-progress"></div>
-    <div class="max-w-6xl mx-auto px-6 lg:px-8">
-      <div class="flex items-center justify-between h-16">
-        <!-- Logo -->
-        <a href="#" class="font-mono text-lg font-bold tracking-tighter flex items-center gap-2">
-          <span class="w-7 h-7 bg-gradient-to-br from-accent to-accent-secondary text-white flex items-center justify-center rounded-sm text-xs font-bold">HP</span>
-          <span class="hidden sm:inline">Harikrishnan</span>
-        </a>
+  <!-- Scroll Progress -->
+  <div id="scroll-progress"></div>
 
-        <!-- Desktop Menu -->
-        <div class="hidden md:flex items-center gap-7 text-sm font-medium font-mono">
-          <a href="#about"      class="nav-link hover:text-accent transition-colors">About</a>
-          <a href="#projects"   class="nav-link hover:text-accent transition-colors">Work</a>
-          <a href="#stack"      class="nav-link hover:text-accent transition-colors">Stack</a>
-          <a href="#journey"    class="nav-link hover:text-accent transition-colors">Journey</a>
-          <a href="#contact"    class="nav-link hover:text-accent transition-colors">Contact</a>
-          <button id="themeToggle" class="p-1.5 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors" aria-label="Toggle theme">
-            <i class="bi bi-moon-fill hidden dark:block text-accent-secondary text-sm"></i>
-            <i class="bi bi-sun-fill block dark:hidden text-accent text-sm"></i>
-          </button>
-        </div>
+  <!-- Theme Toggle -->
+  <button id="themeToggle" class="fixed top-5 right-5 z-50 w-9 h-9 rounded-full flex items-center justify-center bg-white/80 dark:bg-white/8 backdrop-blur-md border border-black/10 dark:border-white/10 shadow-sm transition-colors hover:border-accent/40" aria-label="Toggle theme">
+    <i class="bi bi-moon-fill hidden dark:block text-accent text-sm"></i>
+    <i class="bi bi-sun-fill block dark:hidden text-accent text-sm"></i>
+  </button>
 
-        <!-- Mobile Menu Button -->
-        <button class="md:hidden text-2xl p-1" id="mobileMenuBtn" aria-label="Open menu">
-          <i class="bi bi-list"></i>
-        </button>
-      </div>
+  <!-- Floating Pill Navigation -->
+  <nav id="pill-nav" class="fixed bottom-7 left-1/2 -translate-x-1/2 z-50">
+    <div class="flex items-center gap-1 p-1.5 rounded-full bg-white/75 dark:bg-[#1c1c1c]/85 backdrop-blur-xl border border-black/8 dark:border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.1)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.6)]">
+      <a href="#about"    class="pill-link">About</a>
+      <a href="#projects" class="pill-link">Work</a>
+      <a href="#stack"    class="pill-link">Stack</a>
+      <a href="#journey"  class="pill-link">Journey</a>
+      <a href="#contact"  class="pill-link">Contact</a>
     </div>
   </nav>
-
-  <!-- Mobile Menu -->
-  <div id="mobileMenu" class="fixed inset-0 z-40 bg-[#f8fafc]/97 dark:bg-[#0a0f1e]/97 backdrop-blur-xl transform translate-x-full transition-transform duration-300 md:hidden flex flex-col items-center justify-center space-y-7 text-xl font-mono">
-    <button id="closeMenuBtn" class="absolute top-5 right-6 text-2xl" aria-label="Close menu">
-      <i class="bi bi-x-lg"></i>
-    </button>
-    <a href="#about"    class="mobile-link hover:text-accent transition-colors">About</a>
-    <a href="#projects" class="mobile-link hover:text-accent transition-colors">Work</a>
-    <a href="#stack"    class="mobile-link hover:text-accent transition-colors">Stack</a>
-    <a href="#journey"  class="mobile-link hover:text-accent transition-colors">Journey</a>
-    <a href="#contact"  class="mobile-link hover:text-accent transition-colors">Contact</a>
-  </div>
 
   <!-- ══════════════════════════════════════════
        HERO
   ═══════════════════════════════════════════ -->
-  <section id="about" class="min-h-screen flex items-center pt-16 relative overflow-hidden">
+  <section id="about" class="min-h-screen flex items-center relative overflow-hidden">
     <canvas id="particle-canvas" class="absolute inset-0 w-full h-full z-0"></canvas>
     <div class="orb orb-1"></div>
     <div class="orb orb-2"></div>
 
     <div class="parallax-hero w-full relative z-10">
       <div class="max-w-6xl mx-auto px-6 lg:px-8">
-        <div class="flex items-center py-16 lg:py-0 min-h-[calc(100vh-4rem)]">
+        <div class="flex items-center py-20 min-h-screen">
 
           <!-- Text column -->
           <div class="space-y-5" data-reveal="scale">
@@ -92,14 +68,14 @@
 
             <h1 class="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1]">
               Harikrishnan<br>
-              <span class="text-slate-400 dark:text-slate-500">P V</span>
+              <span class="text-neutral-400 dark:text-neutral-500">P V</span>
             </h1>
 
-            <h2 class="text-lg sm:text-xl font-medium text-slate-500 dark:text-slate-400 min-h-[1.75rem] flex items-center gap-1">
+            <h2 class="text-lg sm:text-xl font-medium text-neutral-500 dark:text-neutral-400 min-h-[1.75rem] flex items-center gap-1">
               <span id="typewriter-text"></span><span id="typewriter-cursor"></span>
             </h2>
 
-            <p class="text-base text-slate-600 dark:text-slate-400 max-w-md leading-relaxed">
+            <p class="text-base text-neutral-600 dark:text-neutral-400 max-w-md leading-relaxed">
               I turn complex business requirements into production-ready SaaS — specializing in Next.js/AWS architecture and bridging hardware-software gaps with AI.
             </p>
 
@@ -108,7 +84,7 @@
               <a href="mailto:harikrznan@gmail.com" class="btn-secondary btn-cta">Contact Me</a>
             </div>
 
-            <div class="flex items-center gap-5 pt-1 text-xl text-slate-400 dark:text-slate-500">
+            <div class="flex items-center gap-5 pt-1 text-xl text-neutral-400 dark:text-neutral-500">
               <a href="https://linkedin.com/in/harikrishnanpv" target="_blank" rel="noopener" aria-label="LinkedIn" class="hover:text-accent transition-colors">
                 <i class="bi bi-linkedin"></i>
               </a>
@@ -130,7 +106,7 @@
   <!-- ══════════════════════════════════════════
        PROJECTS (Bento)
   ═══════════════════════════════════════════ -->
-  <section id="projects" class="py-20 bg-white/40 dark:bg-white/[0.02]">
+  <section id="projects" class="py-20 bg-neutral-50 dark:bg-white/[0.04]">
     <div class="max-w-6xl mx-auto px-6 lg:px-8">
       <h2 class="text-2xl font-bold mb-10 section-title" data-reveal="fade-up">Work</h2>
 
@@ -146,10 +122,10 @@
             Brixline Listing Engine
             <i class="bi bi-arrow-up-right text-sm align-top opacity-0 group-hover:opacity-100 transition-opacity ml-1"></i>
           </h3>
-          <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-5 max-w-md">
+          <p class="text-neutral-600 dark:text-neutral-400 text-sm leading-relaxed mb-5 max-w-md">
             Dynamic property listings with AWS Lambda OGP insertion and CloudFront caching for sub-100ms responses.
           </p>
-          <div class="text-xs font-mono text-slate-500">Next.js • AWS Lambda • CloudFront • TypeScript</div>
+          <div class="text-xs font-mono text-neutral-500">Next.js • AWS Lambda • CloudFront • TypeScript</div>
         </div>
 
         <!-- AI Property — compact -->
@@ -159,7 +135,7 @@
             <span class="text-xs font-mono py-1 px-2 rounded bg-accent/10 text-accent">AI</span>
           </div>
           <h3 class="text-lg font-bold mb-3">AI Property Onboarding</h3>
-          <div class="text-xs font-mono text-slate-500 mt-auto">Google AI Studio • Prompt Engineering</div>
+          <div class="text-xs font-mono text-neutral-500 mt-auto">Google AI Studio • Prompt Engineering</div>
         </div>
 
         <!-- Spectrometer — compact -->
@@ -169,8 +145,8 @@
             <span class="text-xs font-mono py-1 px-2 rounded bg-accent/10 text-accent">IoT</span>
           </div>
           <h3 class="text-lg font-bold mb-2">Spectrometer Interface</h3>
-          <p class="text-xs text-slate-500 dark:text-slate-500 mb-3">80% reduction in field data collection time.</p>
-          <div class="text-xs font-mono text-slate-500 mt-auto">Flutter • Hardware Integration</div>
+          <p class="text-xs text-neutral-500 dark:text-neutral-500 mb-3">80% reduction in field data collection time.</p>
+          <div class="text-xs font-mono text-neutral-500 mt-auto">Flutter • Hardware Integration</div>
         </div>
 
         <!-- Reflex ERP — FEATURED (span 2 on lg) -->
@@ -183,10 +159,10 @@
             Optical Retail ERP
             <i class="bi bi-arrow-up-right text-sm align-top opacity-0 group-hover:opacity-100 transition-opacity ml-1"></i>
           </h3>
-          <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-5 max-w-md">
+          <p class="text-neutral-600 dark:text-neutral-400 text-sm leading-relaxed mb-5 max-w-md">
             End-to-end optical retail SaaS with 196+ Edge Functions — eye care, inventory, GST, multi-store ops.
           </p>
-          <div class="text-xs font-mono text-slate-500">Next.js • Supabase • Edge Functions • TypeScript</div>
+          <div class="text-xs font-mono text-neutral-500">Next.js • Supabase • Edge Functions • TypeScript</div>
         </div>
 
         <!-- Construction MVP — compact -->
@@ -196,7 +172,7 @@
             <span class="text-xs font-mono py-1 px-2 rounded bg-accent/10 text-accent">Mobile</span>
           </div>
           <h3 class="text-lg font-bold mb-3">Construction MVP App</h3>
-          <div class="text-xs font-mono text-slate-500 mt-auto">React Native • Mobile</div>
+          <div class="text-xs font-mono text-neutral-500 mt-auto">React Native • Mobile</div>
         </div>
 
         <!-- E-commerce — compact -->
@@ -206,7 +182,7 @@
             <span class="text-xs font-mono py-1 px-2 rounded bg-accent/10 text-accent">Mobile</span>
           </div>
           <h3 class="text-lg font-bold mb-3">Optical E-commerce App</h3>
-          <div class="text-xs font-mono text-slate-500 mt-auto">Flutter • Firebase</div>
+          <div class="text-xs font-mono text-neutral-500 mt-auto">Flutter • Firebase</div>
         </div>
 
       </div>
@@ -305,7 +281,7 @@
   <!-- ══════════════════════════════════════════
        JOURNEY (Experience + Education)
   ═══════════════════════════════════════════ -->
-  <section id="journey" class="py-20 bg-white/40 dark:bg-white/[0.02]">
+  <section id="journey" class="py-20 bg-neutral-50 dark:bg-white/[0.04]">
     <div class="max-w-3xl mx-auto px-6 lg:px-8">
       <h2 class="text-2xl font-bold mb-12 section-title" data-reveal="fade-up">Journey</h2>
 
@@ -315,13 +291,13 @@
         <div class="journey-item" data-reveal="fade-left">
           <div class="journey-dot active"></div>
           <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-1 gap-1">
-            <p class="font-semibold text-slate-900 dark:text-white text-[15px]">
+            <p class="font-semibold text-neutral-900 dark:text-white text-[15px]">
               Senior Software Engineer
-              <span class="text-slate-500 dark:text-slate-400 font-normal"> · <span class="text-accent">M2H Infotech LLP</span></span>
+              <span class="text-neutral-500 dark:text-neutral-400 font-normal"> · <span class="text-accent">M2H Infotech LLP</span></span>
             </p>
-            <span class="font-mono text-xs text-slate-500 shrink-0">Feb 2026 – Present · Calicut</span>
+            <span class="font-mono text-xs text-neutral-500 shrink-0">Feb 2026 – Present · Calicut</span>
           </div>
-          <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+          <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
             Leading cross-platform Flutter app architecture; coordinating design, middleware, and backend integration; automating UI testing with Patrol for high-fidelity releases.
           </p>
         </div>
@@ -330,13 +306,13 @@
         <div class="journey-item" data-reveal="fade-left" data-delay="100">
           <div class="journey-dot"></div>
           <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-1 gap-1">
-            <p class="font-semibold text-slate-900 dark:text-white text-[15px]">
+            <p class="font-semibold text-neutral-900 dark:text-white text-[15px]">
               Frontend Engineer
-              <span class="text-slate-500 dark:text-slate-400 font-normal"> · Brixline Housing</span>
+              <span class="text-neutral-500 dark:text-neutral-400 font-normal"> · Brixline Housing</span>
             </p>
-            <span class="font-mono text-xs text-slate-500 shrink-0">2025 – Nov 2025 · Bangalore</span>
+            <span class="font-mono text-xs text-neutral-500 shrink-0">2025 – Nov 2025 · Bangalore</span>
           </div>
-          <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+          <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
             Serverless Next.js + AWS S3 platform; CloudFront CDN for sub-100ms property listing responses; AI-driven floor plan generator cutting onboarding time.
           </p>
         </div>
@@ -345,13 +321,13 @@
         <div class="journey-item" data-reveal="fade-left" data-delay="100">
           <div class="journey-dot"></div>
           <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-1 gap-1">
-            <p class="font-semibold text-slate-900 dark:text-white text-[15px]">
+            <p class="font-semibold text-neutral-900 dark:text-white text-[15px]">
               Development Engineer
-              <span class="text-slate-500 dark:text-slate-400 font-normal"> · Infiniti Agrotech</span>
+              <span class="text-neutral-500 dark:text-neutral-400 font-normal"> · Infiniti Agrotech</span>
             </p>
-            <span class="font-mono text-xs text-slate-500 shrink-0">Sept 2024 – Feb 2025 · Goa</span>
+            <span class="font-mono text-xs text-neutral-500 shrink-0">Sept 2024 – Feb 2025 · Goa</span>
           </div>
-          <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+          <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
             Flutter interface for spectrometer hardware reducing field data collection time by 80%; Next.js admin dashboard with Firebase for spectral data management.
           </p>
         </div>
@@ -360,13 +336,13 @@
         <div class="journey-item" data-reveal="fade-left" data-delay="200">
           <div class="journey-dot"></div>
           <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-1 gap-1">
-            <p class="font-semibold text-slate-900 dark:text-white text-[15px]">
-              Founding Engineer <span class="text-slate-500 font-normal text-sm">(Part-Time)</span>
-              <span class="text-slate-500 dark:text-slate-400 font-normal"> · Reflex Optic Solutions</span>
+            <p class="font-semibold text-neutral-900 dark:text-white text-[15px]">
+              Founding Engineer <span class="text-neutral-500 font-normal text-sm">(Part-Time)</span>
+              <span class="text-neutral-500 dark:text-neutral-400 font-normal"> · Reflex Optic Solutions</span>
             </p>
-            <span class="font-mono text-xs text-slate-500 shrink-0">Sept 2022 – Present · Bangalore</span>
+            <span class="font-mono text-xs text-neutral-500 shrink-0">Sept 2022 – Present · Bangalore</span>
           </div>
-          <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+          <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
             Optical retail ERP SaaS (196+ Edge Functions, 10+ modules); migrated to Supabase Edge Functions for scale; Flutter + Firebase e-commerce app.
           </p>
         </div>
@@ -375,13 +351,13 @@
         <div class="journey-item" data-reveal="fade-left" data-delay="300">
           <div class="journey-dot"></div>
           <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-1 gap-1">
-            <p class="font-semibold text-slate-900 dark:text-white text-[15px]">
+            <p class="font-semibold text-neutral-900 dark:text-white text-[15px]">
               Software Development Intern
-              <span class="text-slate-500 dark:text-slate-400 font-normal"> · Intelltech Pvt Ltd.</span>
+              <span class="text-neutral-500 dark:text-neutral-400 font-normal"> · Intelltech Pvt Ltd.</span>
             </p>
-            <span class="font-mono text-xs text-slate-500 shrink-0">Sept 2021 – April 2022 · Kochi</span>
+            <span class="font-mono text-xs text-neutral-500 shrink-0">Sept 2021 – April 2022 · Kochi</span>
           </div>
-          <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+          <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
             Flutter web and mobile applications; full UI/UX for a ride-booking platform.
           </p>
         </div>
@@ -390,13 +366,13 @@
         <div class="journey-item" data-reveal="fade-left" data-delay="400">
           <div class="journey-dot"></div>
           <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-1 gap-1">
-            <p class="font-semibold text-slate-900 dark:text-white text-[15px]">
+            <p class="font-semibold text-neutral-900 dark:text-white text-[15px]">
               Optics Intern
-              <span class="text-slate-500 dark:text-slate-400 font-normal"> · SABIC</span>
+              <span class="text-neutral-500 dark:text-neutral-400 font-normal"> · SABIC</span>
             </p>
-            <span class="font-mono text-xs text-slate-500 shrink-0">Jan 2024 – June 2024 · Bangalore</span>
+            <span class="font-mono text-xs text-neutral-500 shrink-0">Jan 2024 – June 2024 · Bangalore</span>
           </div>
-          <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+          <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
             Designed and simulated a hybrid optical lens for free-space optical communication networks using COMSOL and Zemax.
           </p>
         </div>
@@ -405,13 +381,13 @@
         <div class="journey-item" data-reveal="fade-left" data-delay="500">
           <div class="journey-dot edu"></div>
           <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-1 gap-1">
-            <p class="font-semibold text-slate-900 dark:text-white text-[15px]">
+            <p class="font-semibold text-neutral-900 dark:text-white text-[15px]">
               Integrated MSc in Photonics
-              <span class="text-slate-500 dark:text-slate-400 font-normal"> · CUSAT</span>
+              <span class="text-neutral-500 dark:text-neutral-400 font-normal"> · CUSAT</span>
             </p>
-            <span class="font-mono text-xs text-slate-500 shrink-0">2019 – 2024 · Kochi</span>
+            <span class="font-mono text-xs text-neutral-500 shrink-0">2019 – 2024 · Kochi</span>
           </div>
-          <p class="text-sm text-slate-600 dark:text-slate-400">
+          <p class="text-sm text-neutral-600 dark:text-neutral-400">
             Cochin University of Science and Technology — Photonics, optical design, hardware-software integration.
           </p>
         </div>
@@ -432,15 +408,15 @@
         harikrznan@gmail.com
       </a>
 
-      <div class="flex flex-wrap justify-center gap-6 mt-8 text-sm text-slate-500" data-reveal="fade-up" data-delay="200">
+      <div class="flex flex-wrap justify-center gap-6 mt-8 text-sm text-neutral-500" data-reveal="fade-up" data-delay="200">
         <a href="tel:+918111957721" class="hover:text-accent transition-colors">+91 81119 57721</a>
-        <span class="text-slate-300 dark:text-slate-700">·</span>
+        <span class="text-neutral-300 dark:text-neutral-700">·</span>
         <a href="https://linkedin.com/in/harikrishnanpv" target="_blank" rel="noopener" class="hover:text-accent transition-colors">LinkedIn</a>
-        <span class="text-slate-300 dark:text-slate-700">·</span>
+        <span class="text-neutral-300 dark:text-neutral-700">·</span>
         <a href="https://github.com/harikrishnan-pv" target="_blank" rel="noopener" class="hover:text-accent transition-colors">GitHub</a>
       </div>
 
-      <p class="text-xs text-slate-400 dark:text-slate-600 font-mono mt-10" data-reveal="fade-up" data-delay="300">
+      <p class="text-xs text-neutral-400 dark:text-neutral-600 font-mono mt-10" data-reveal="fade-up" data-delay="300">
         English · Malayalam · Tamil · Hindi
         <span class="mx-2">·</span>
         © <span id="year"></span> Harikrishnan P V
@@ -450,9 +426,9 @@
 
   <!-- Project Modal -->
   <div id="projectModal" class="hidden fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-    <div id="modalContent" class="bg-white dark:bg-[#0d1224] w-full max-w-4xl rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] border border-black/8 dark:border-white/8">
+    <div id="modalContent" class="bg-white dark:bg-[#111111] w-full max-w-4xl rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] border border-black/8 dark:border-white/8">
       <div class="flex items-center justify-between px-6 py-4 border-b border-black/5 dark:border-white/5 flex-shrink-0">
-        <div class="text-xs font-mono text-slate-400 uppercase tracking-widest">Project Details</div>
+        <div class="text-xs font-mono text-neutral-400 uppercase tracking-widest">Project Details</div>
         <button id="closeModalBtn" class="p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-full transition-colors" aria-label="Close">
           <i class="bi bi-x-lg text-lg"></i>
         </button>
