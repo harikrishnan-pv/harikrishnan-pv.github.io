@@ -18,8 +18,8 @@
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="https://img.icons8.com/fluency/48/console.png">
-  <script type="module" crossorigin src="/assets/index-B76Ebijz.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/index-8HE3E6wE.css">
+  <script type="module" crossorigin src="/assets/index-BCplfGg-.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-D_WhyC_d.css">
 </head>
 
 <body class="font-sans antialiased text-neutral-900 dark:text-neutral-100 bg-white dark:bg-[#0d0d0d]">
@@ -48,56 +48,36 @@
   </nav>
 
   <!-- ══════════════════════════════════════════
-       HERO
+       HERO — full-bleed interactive ID card
   ═══════════════════════════════════════════ -->
-  <section id="about" class="min-h-screen flex items-center relative overflow-hidden">
+  <section id="about" class="h-screen relative overflow-hidden">
     <canvas id="particle-canvas" class="absolute inset-0 w-full h-full z-0"></canvas>
     <div class="orb orb-1"></div>
     <div class="orb orb-2"></div>
 
-    <div class="parallax-hero w-full relative z-10">
-      <div class="max-w-6xl mx-auto px-6 lg:px-8">
-        <div class="flex items-center py-20 min-h-screen">
+    <!-- Full-screen 3D ID card (React island, lazy-loaded) -->
+    <div id="lanyard-root" class="absolute inset-0 z-[1]" aria-label="Interactive ID card — drag to swing"></div>
 
-          <!-- Text column -->
-          <div class="space-y-5" data-reveal="scale">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-accent/30 bg-accent/5 text-xs font-mono font-semibold tracking-wider uppercase text-accent">
-              <span class="w-1.5 h-1.5 rounded-full bg-accent pulse-dot"></span>
-              Available for Opportunities
-            </div>
+    <!-- Headline kept for screen readers / SEO; visual identity lives on the card -->
+    <h1 class="sr-only">Harikrishnan P V — Lead Product & Platform Engineer | AI-Native Systems</h1>
 
-            <h1 class="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1]">
-              Harikrishnan<br>
-              <span class="text-neutral-400 dark:text-neutral-500">P V</span>
-            </h1>
-
-            <h2 class="text-lg sm:text-xl font-medium text-neutral-500 dark:text-neutral-400 min-h-[1.75rem] flex items-center gap-1">
-              <span id="typewriter-text"></span><span id="typewriter-cursor"></span>
-            </h2>
-
-            <p class="text-base text-neutral-600 dark:text-neutral-400 max-w-md leading-relaxed">
-              I architect and ship full-stack platforms from 0 to production — pairing rigorous Spec-Driven Development and agentic workflows with distributed cloud, modern web, and physical sensor systems.
-            </p>
-
-            <div class="flex flex-wrap gap-3 pt-1">
-              <a href="#projects" class="btn-primary btn-cta">View Work</a>
-              <a href="mailto:harikrznan@gmail.com" class="btn-secondary btn-cta">Contact Me</a>
-            </div>
-
-            <div class="flex items-center gap-5 pt-1 text-xl text-neutral-400 dark:text-neutral-500">
-              <a href="https://linkedin.com/in/harikrishnanpv" target="_blank" rel="noopener" aria-label="LinkedIn" class="hover:text-accent transition-colors">
-                <i class="bi bi-linkedin"></i>
-              </a>
-              <a href="https://github.com/harikrishnan-pv" target="_blank" rel="noopener" aria-label="GitHub" class="hover:text-accent transition-colors">
-                <i class="bi bi-github"></i>
-              </a>
-              <a href="mailto:harikrznan@gmail.com" aria-label="Email" class="hover:text-accent transition-colors">
-                <i class="bi bi-envelope"></i>
-              </a>
-            </div>
-          </div>
-
-
+    <!-- Floating actions — right-aligned on desktop (card owns the left), centered on mobile -->
+    <div class="absolute inset-x-0 bottom-0 z-10 pointer-events-none">
+      <div class="max-w-6xl mx-auto px-6 lg:px-8 pb-24 sm:pb-12 flex flex-col sm:items-end items-center justify-center gap-4">
+        <div class="flex flex-wrap justify-center gap-3 pointer-events-auto" data-reveal="fade-up">
+          <a href="#projects" class="btn-primary btn-cta">View Work</a>
+          <a href="mailto:harikrznan@gmail.com" class="btn-secondary btn-cta">Contact Me</a>
+        </div>
+        <div class="flex items-center gap-5 text-xl text-neutral-400 dark:text-neutral-500 pointer-events-auto" data-reveal="fade-up" data-delay="100">
+          <a href="https://linkedin.com/in/harikrishnanpv" target="_blank" rel="noopener" aria-label="LinkedIn" class="hover:text-accent transition-colors">
+            <i class="bi bi-linkedin"></i>
+          </a>
+          <a href="https://github.com/harikrishnan-pv" target="_blank" rel="noopener" aria-label="GitHub" class="hover:text-accent transition-colors">
+            <i class="bi bi-github"></i>
+          </a>
+          <a href="mailto:harikrznan@gmail.com" aria-label="Email" class="hover:text-accent transition-colors">
+            <i class="bi bi-envelope"></i>
+          </a>
         </div>
       </div>
     </div>
