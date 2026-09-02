@@ -25,4 +25,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const yearEl = document.getElementById('year')
   if (yearEl) yearEl.textContent = new Date().getFullYear()
+
+  // Lazy-load the 3D hero ID card so the heavy three/rapier bundle never blocks first paint
+  import('./react/hero-lanyard.jsx')
+    .then(m => m.mountLanyard())
+    .catch(err => console.warn('Lanyard failed to load:', err))
 })
