@@ -3,7 +3,7 @@ export function initTypewriter() {
   const cursor = document.getElementById('typewriter-cursor')
   if (!el) return
 
-  const text = 'Founding Engineer & Full Stack Developer'
+  const text = 'Lead Product & Platform Engineer | AI-Native Systems'
   let i = 0
 
   const interval = setInterval(() => {
