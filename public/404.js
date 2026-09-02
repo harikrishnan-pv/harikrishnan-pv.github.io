@@ -1,0 +1,277 @@
+/* Chameleon stats dashboard. This file is served on every 404 of
+ * harikrishnan-pv.github.io (via the custom 404.html, a clone of GitHub's
+ * default). The page stays a perfect "File not found" until the owner types
+ * the dashboard password and presses Enter; the password is verified
+ * server-side (stats edge function, sha256 against stats_keys) and never
+ * appears in any source file. A failed attempt leaves the 404 untouched.
+ */
+(function () {
+  'use strict';
+
+  var ENDPOINT = 'https://trequcbcigtswlolgxfc.supabase.co/functions/v1/stats';
+  var KEY_LS = 'pk_k';
+  var state = { key: null, days: 30, data: null, unlocked: false };
+
+  /* ---------- stealth keystroke capture ---------- */
+
+  var buffer = '';
+  var listening = true;
+
+  document.addEventListener('keydown', function (e) {
+    if (!listening) return;
+    if (e.ctrlKey || e.metaKey || e.altKey) return;
+    var t = e.target;
+    if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
+    if (e.key === 'Enter') {
+      if (buffer) { attempt(buffer, false); }
+      return;
+    }
+    if (e.key === 'Escape') { buffer = ''; return; }
+    if (e.key === 'Backspace') { buffer = buffer.slice(0, -1); return; }
+    if (e.key && e.key.length === 1 && buffer.length < 128) buffer += e.key;
+  });
+
+  function attempt(candidate, silent) {
+    buffer = '';
+    fetch(ENDPOINT + '?days=' + state.days, { headers: { 'x-stats-key': candidate } })
+      .then(function (res) {
+        if (res.status === 401) {
+          if (!silent && state.unlocked) setStatus('wrong key');
+          if (silent) clearStored();
+          return null;
+        }
+        if (!res.ok) throw new Error('http ' + res.status);
+        return res.json();
+      })
+      .then(function (data) {
+        if (!data) return;
+        state.key = candidate;
+        store(candidate);
+        if (!state.unlocked) reveal();
+        state.data = data;
+        render();
+        setStatus('updated ' + new Date().toLocaleTimeString());
+      })
+      .catch(function () { /* stay silent: a 404 page must not show errors */ });
+  }
+
+  function store(k) { try { localStorage.setItem(KEY_LS, k); } catch (e) { /* private mode */ } }
+  function clearStored() { try { localStorage.removeItem(KEY_LS); } catch (e) { /* ignore */ } }
+  function stored() { try { return localStorage.getItem(KEY_LS); } catch (e) { return null; } }
+
+  /* ---------- dashboard shell (injected only after a valid key) ---------- */
+
+  var CSS = [
+    'html { background: #0d0d0d; }',
+    'body { background: #0d0d0d !important; color: #e5e5e5; font-family: "JetBrains Mono", ui-monospace, Menlo, monospace !important; font-size: 14px; line-height: 1.5; margin: 0; padding: 24px clamp(16px, 4vw, 48px) 64px; }',
+    '.pk a { color: #60a5fa; text-decoration: none; } .pk a:hover { text-decoration: underline; }',
+    '.pk header { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin-bottom: 24px; }',
+    '.pk h1 { font-size: 18px; font-weight: 600; letter-spacing: 0.02em; margin: 0; }',
+    '.pk h1 span { color: #8a8a8a; font-weight: 400; }',
+    '.pk .spacer { flex: 1; }',
+    '.pk .ranges { display: flex; gap: 4px; }',
+    '.pk button { background: #151515; color: #8a8a8a; border: 1px solid #262626; border-radius: 8px; padding: 6px 14px; font: inherit; cursor: pointer; }',
+    '.pk button.active, .pk button:hover { color: #e5e5e5; border-color: #3d3d3d; }',
+    '.pk button.active { background: #1b1b1b; color: #34d399; }',
+    '.pk .status { color: #8a8a8a; font-size: 12px; }',
+    '.pk .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 24px; }',
+    '.pk .kpi { background: #151515; border: 1px solid #262626; border-radius: 12px; padding: 14px 16px; }',
+    '.pk .kpi .label { color: #8a8a8a; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; }',
+    '.pk .kpi .value { font-size: 26px; font-weight: 600; margin-top: 2px; }',
+    '.pk .kpi .sub { color: #8a8a8a; font-size: 12px; }',
+    '.pk .card { background: #151515; border: 1px solid #262626; border-radius: 12px; padding: 16px; margin-bottom: 24px; }',
+    '.pk h2 { font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; color: #8a8a8a; margin: 0 0 12px 0; }',
+    '.pk .chart { display: flex; align-items: flex-end; gap: 3px; height: 160px; }',
+    '.pk .bar-col { flex: 1; min-width: 6px; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 2px; height: 100%; }',
+    '.pk .bar-stack { width: 100%; display: flex; flex-direction: column; justify-content: flex-end; height: 100%; }',
+    '.pk .bar-views { background: #34d399; border-radius: 3px 3px 0 0; }',
+    '.pk .bar-visitors { background: #60a5fa; border-radius: 3px 3px 0 0; }',
+    '.pk .tooltip { opacity: 0; position: relative; bottom: -22px; background: #1b1b1b; border: 1px solid #262626; border-radius: 6px; padding: 3px 8px; font-size: 11px; white-space: nowrap; pointer-events: none; transition: opacity .1s; z-index: 2; }',
+    '.pk .bar-col:hover .tooltip { opacity: 1; }',
+    '.pk .x-labels { display: flex; gap: 3px; margin-top: 26px; }',
+    '.pk .x-labels span { flex: 1; min-width: 6px; text-align: center; font-size: 10px; color: #8a8a8a; overflow: hidden; }',
+    '.pk .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; margin-bottom: 24px; }',
+    '.pk .row { display: grid; grid-template-columns: minmax(90px, 38%) 1fr auto; align-items: center; gap: 10px; padding: 3px 0; }',
+    '.pk .row .name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }',
+    '.pk .row .track { background: #1b1b1b; border-radius: 4px; height: 8px; overflow: hidden; }',
+    '.pk .row .fill { background: #34d399; height: 100%; border-radius: 4px; }',
+    '.pk .row.blue .fill { background: #60a5fa; }',
+    '.pk .row .count { color: #8a8a8a; font-size: 12px; min-width: 40px; text-align: right; }',
+    '.pk table { width: 100%; border-collapse: collapse; font-size: 13px; }',
+    '.pk th { text-align: left; color: #8a8a8a; font-weight: 500; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; padding: 6px 10px 6px 0; }',
+    '.pk td { padding: 6px 10px 6px 0; border-top: 1px solid #262626; overflow-wrap: anywhere; }',
+    '.pk .muted { color: #8a8a8a; }',
+    '.pk .tag { font-size: 10px; border: 1px solid #262626; border-radius: 4px; padding: 1px 6px; color: #8a8a8a; }',
+    '.pk .tag.ret { color: #34d399; border-color: rgba(52, 211, 153, 0.4); }',
+    '.pk footer { margin-top: 32px; color: #8a8a8a; font-size: 11px; text-align: center; }'
+  ].join('\n');
+
+  var HTML =
+    '<header>' +
+    '<h1>Stats <span>· harikrishnan-pv.github.io</span></h1>' +
+    '<div class="spacer"></div>' +
+    '<div class="ranges" id="ranges">' +
+    '<button data-days="7">7d</button><button data-days="30" class="active">30d</button><button data-days="90">90d</button>' +
+    '</div>' +
+    '<button id="refresh">Refresh</button>' +
+    '<span class="status" id="status"></span>' +
+    '</header>' +
+    '<div class="kpis" id="kpis"></div>' +
+    '<div class="card"><h2>Traffic — green: pageviews · blue: unique visitors</h2><div class="chart" id="chart"></div><div class="x-labels" id="x-labels"></div></div>' +
+    '<div class="grid">' +
+    '<div class="card"><h2>Referrers</h2><div id="referrers"></div></div>' +
+    '<div class="card"><h2>Campaign sources</h2><div id="utm"></div></div>' +
+    '<div class="card"><h2>Countries</h2><div id="countries"></div></div>' +
+    '<div class="card"><h2>Browsers</h2><div id="browsers"></div></div>' +
+    '<div class="card"><h2>Operating systems</h2><div id="os"></div></div>' +
+    '<div class="card"><h2>Devices</h2><div id="devices"></div></div>' +
+    '<div class="card"><h2>Sections viewed</h2><div id="sections"></div></div>' +
+    '<div class="card"><h2>Top clicks</h2><div id="links"></div></div>' +
+    '</div>' +
+    '<div class="card"><h2>Recent visits</h2><div style="overflow-x: auto;"><table><thead><tr>' +
+    '<th>When</th><th>Where</th><th>Browser / OS</th><th>Device</th><th>Theme</th><th>Referrer</th><th>Type</th>' +
+    '</tr></thead><tbody id="recent"></tbody></table></div></div>' +
+    '<footer>Data: Supabase portfolio-analytics · first-party tracking, no cookies</footer>';
+
+  function reveal() {
+    state.unlocked = true;
+    listening = false;
+    document.title = 'Stats';
+    var style = document.createElement('style');
+    style.textContent = CSS;
+    document.head.appendChild(style);
+    document.body.innerHTML = '<div class="pk" id="pk-dash">' + HTML + '</div>';
+    document.getElementById('ranges').addEventListener('click', function (e) {
+      var b = e.target.closest('button');
+      if (!b) return;
+      document.querySelectorAll('#ranges button').forEach(function (x) { x.classList.remove('active'); });
+      b.classList.add('active');
+      state.days = parseInt(b.dataset.days, 10) || 30;
+      load();
+    });
+    document.getElementById('refresh').addEventListener('click', load);
+  }
+
+  function setStatus(text) {
+    var el = document.getElementById('status');
+    if (el) el.textContent = text;
+  }
+
+  function load() {
+    if (!state.key) return;
+    setStatus('loading…');
+    attempt(state.key, false);
+  }
+
+  /* ---------- rendering (unchanged logic from the previous dashboard) ---------- */
+
+  var $ = function (id) { return document.getElementById(id); };
+
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  function nf(n) {
+    try { return new Intl.NumberFormat().format(n == null ? 0 : n); }
+    catch (e) { return String(n == null ? 0 : n); }
+  }
+
+  function shorten(s, n) {
+    s = String(s == null ? '' : s);
+    return s.length > n ? s.slice(0, n - 1) + '…' : s;
+  }
+
+  function barList(items, valueKey, labelKey, opts) {
+    opts = opts || {};
+    if (!items || !items.length) return '<div class="muted">No data yet.</div>';
+    var max = 0;
+    items.forEach(function (it) { max = Math.max(max, it[valueKey] || 0); });
+    if (!max) max = 1;
+    return items.map(function (it) {
+      var label = labelKey(it);
+      var name = opts.link && it.href
+        ? '<a href="' + esc(it.href) + '" target="_blank" rel="noopener">' + esc(shorten(label, 44)) + '</a>'
+        : esc(shorten(label, 44));
+      return '<div class="row' + (opts.blue ? ' blue' : '') + '" title="' + esc(label) + '">' +
+        '<span class="name">' + name + '</span>' +
+        '<span class="track"><span class="fill" style="width:' + Math.max(2, Math.round((it[valueKey] || 0) / max * 100)) + '%"></span></span>' +
+        '<span class="count">' + nf(it[valueKey]) + '</span></div>';
+    }).join('');
+  }
+
+  function kpi(label, value, sub) {
+    return '<div class="kpi"><div class="label">' + esc(label) + '</div>' +
+      '<div class="value">' + esc(value) + '</div>' +
+      (sub ? '<div class="sub">' + esc(sub) + '</div>' : '') + '</div>';
+  }
+
+  function render() {
+    var d = state.data;
+    if (!d || !state.unlocked) return;
+    var t = d.totals || {};
+    var mins = Math.round((t.avg_visible_seconds || 0) / 60 * 10) / 10;
+
+    $('kpis').innerHTML =
+      kpi('Pageviews', nf(t.pageviews), nf(t.bot_hits) + ' bot hits filtered out of all lists') +
+      kpi('Visitors', nf(t.visitors), nf(t.sessions) + ' sessions') +
+      kpi('Returning', nf(t.returning_visitors), 'multi-session visitors') +
+      kpi('Avg. time', (mins >= 1 ? mins + 'm' : (t.avg_visible_seconds || 0) + 's'), 'visible time per visit') +
+      kpi('Avg. scroll', (t.avg_max_scroll || 0) + '%', 'max scroll depth');
+
+    var daily = d.daily || [];
+    var maxV = 0;
+    daily.forEach(function (x) { maxV = Math.max(maxV, x.pageviews || 0, x.visitors || 0); });
+    if (!maxV) maxV = 1;
+    var chart = $('chart'), labels = $('x-labels');
+    chart.innerHTML = '';
+    labels.innerHTML = '';
+    var showEvery = Math.ceil(daily.length / 15);
+
+    daily.forEach(function (x, i) {
+      var col = document.createElement('div');
+      col.className = 'bar-col';
+      var viewsH = Math.max(2, Math.round((x.pageviews || 0) / maxV * 100));
+      var visH = Math.max(1, Math.round((x.visitors || 0) / maxV * 100));
+      col.innerHTML =
+        '<div class="tooltip">' + esc(x.day) + ' · ' + nf(x.pageviews) + ' views · ' + nf(x.visitors) + ' visitors</div>' +
+        '<div class="bar-stack">' +
+        '<div class="bar-views" style="height:' + (viewsH - Math.min(viewsH, visH)) + '%"></div>' +
+        '<div class="bar-visitors" style="height:' + Math.min(viewsH, visH) + '%"></div>' +
+        '</div>';
+      chart.appendChild(col);
+
+      var l = document.createElement('span');
+      l.textContent = i % showEvery === 0 ? x.day.slice(5) : '\u00a0';
+      labels.appendChild(l);
+    });
+
+    $('referrers').innerHTML = barList(d.referrers, 'visitors', function (it) { return it.referrer; });
+    $('utm').innerHTML = barList(d.utm_sources, 'visitors', function (it) { return it.source; }, { blue: true });
+    $('countries').innerHTML = barList(d.countries, 'visitors', function (it) { return it.country; });
+    $('browsers').innerHTML = barList(d.browsers, 'visitors', function (it) { return it.browser; }, { blue: true });
+    $('os').innerHTML = barList(d.os, 'visitors', function (it) { return it.os; });
+    $('devices').innerHTML = barList(d.devices, 'visitors', function (it) { return it.device; }, { blue: true });
+    $('sections').innerHTML = barList(d.sections, 'views', function (it) { return it.section; });
+    $('links').innerHTML = barList(d.links, 'clicks', function (it) { return it.href; }, { link: true });
+
+    var recent = (d.recent || []).filter(function (r) { return !r.is_bot; });
+    $('recent').innerHTML = recent.length ? recent.map(function (r) {
+      var where = [r.city, r.country].filter(Boolean).join(', ') || '—';
+      return '<tr>' +
+        '<td class="muted">' + esc(r.at) + '</td>' +
+        '<td>' + esc(where) + '</td>' +
+        '<td>' + esc((r.browser || '?') + ' / ' + (r.os || '?')) + '</td>' +
+        '<td>' + esc(r.device || 'desktop') + '</td>' +
+        '<td class="muted">' + esc(r.color_scheme || '—') + '</td>' +
+        '<td>' + esc(shorten(r.referrer, 40)) + '</td>' +
+        '<td><span class="tag' + (r.returning ? ' ret' : '') + '">' + (r.returning ? 'returning' : 'new') + '</span></td>' +
+        '</tr>';
+    }).join('') : '<tr><td colspan="7" class="muted">No visits yet.</td></tr>';
+  }
+
+  /* auto-unlock for the owner (stored key), otherwise stay a plain 404 */
+  var saved = stored();
+  if (saved) attempt(saved, true);
+})();

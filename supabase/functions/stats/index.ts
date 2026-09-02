@@ -1,6 +1,6 @@
 // Private dashboard data endpoint. Requires an x-stats-key header (or ?key=)
 // whose sha256 exists in stats_keys; returns get_stats() aggregates for the
-// stats.html page.
+// disguised 404 stats page (public/404.html + public/404.js in the site repo).
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
 const ALLOWED_ORIGINS = new Set([
