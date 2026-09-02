@@ -73,12 +73,15 @@ export default function Lanyard({
 }) {
   const framing = useFraming();
   const isMobile = framing === 'mobile';
-  // Closer camera = bigger card (the stock demo sits at [0, 0, 30]).
-  const cameraDistance = isMobile ? 20 : 18;
+  // Closer camera = bigger card (the stock demo sits at [0, 0, 30]). On-screen
+  // size scales as 1/distance: 18 -> 12 is the requested 1.5x on desktop.
+  // Mobile uses 15 (not 13.3) because a full 1.5x would overflow the narrow
+  // portrait frame.
+  const cameraDistance = isMobile ? 15 : 12;
   // Desktop: whole lanyard translated into the left third (where the profile
   // summary used to sit), anchor above the top edge so the strap runs in from
   // off-screen. Mobile: centered and raised so the card clears the CTA bar.
-  const bandPosition = isMobile ? [0, 5, 0] : [-2, 4.6, 0];
+  const bandPosition = isMobile ? [0, 4.6, 0] : [-1.8, 4.5, 0];
 
   return (
     <div className="lanyard-wrapper">
