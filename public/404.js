@@ -12,10 +12,12 @@
   var LABEL_ENDPOINT = 'https://trequcbcigtswlolgxfc.supabase.co/functions/v1/label';
   var KEY_LS = 'pk_k';
   var PAGE = 50; // must match the server-side recent limit in get_stats()
+  var VPAGE = 100; // must match the server-side visitors limit in get_stats()
   var state = {
     key: null,
     days: 30,
     offset: 0,
+    voffset: 0,
     data: null,
     unlocked: false,
     self: (function () { try { return localStorage.getItem('pk_self') === '1'; } catch (e) { return false; } })(),
@@ -42,7 +44,7 @@
 
   function attempt(candidate, silent) {
     buffer = '';
-    fetch(ENDPOINT + '?days=' + state.days + '&offset=' + state.offset + '&self=' + (state.self ? '1' : '0'), { headers: { 'x-stats-key': candidate } })
+    fetch(ENDPOINT + '?days=' + state.days + '&offset=' + state.offset + '&voffset=' + state.voffset + '&self=' + (state.self ? '1' : '0'), { headers: { 'x-stats-key': candidate } })
       .then(function (res) {
         if (res.status === 401) {
           if (!silent && state.unlocked) setStatus('wrong key');
@@ -153,6 +155,7 @@
     '<div class="card"><h2>Viewers — recurring visitors</h2><div style="overflow-x: auto;"><table><thead><tr>' +
     '<th>Viewer</th><th>IDs</th><th>Sessions</th><th>Days</th><th>Views</th><th>First seen</th><th>Last seen</th><th>Label</th>' +
     '</tr></thead><tbody id="viewers"></tbody></table></div>' +
+    '<div class="pager"><button id="vpg-prev">← Prev</button><span class="pg-info" id="vpg-info"></span><button id="vpg-next">Next →</button></div>' +
     '<div class="hint">Grouped by IP + browser + OS — one human with cleared storage appears as several IDs in one row. Tag a viewer “me”, then use “Hide my visits” to keep your own traffic out of every number. Bots and suspected stealth traffic are excluded.</div></div>' +
     '<div class="card"><h2>Recent visits</h2><div style="overflow-x: auto;"><table><thead><tr>' +
     '<th>When (IST)</th><th>Where</th><th>Browser / OS</th><th>Device</th><th>Theme</th><th>Referrer</th><th>Type</th>' +
@@ -175,6 +178,7 @@
       b.classList.add('active');
       state.days = parseInt(b.dataset.days, 10) || 30;
       state.offset = 0;
+      state.voffset = 0;
       load();
     });
     document.getElementById('refresh').addEventListener('click', load);
@@ -185,6 +189,7 @@
       try { localStorage.setItem('pk_self', state.self ? '1' : '0'); } catch (e) { /* private mode */ }
       selfBtn.classList.toggle('active', state.self);
       state.offset = 0;
+      state.voffset = 0;
       load();
     });
     document.getElementById('pg-prev').addEventListener('click', function () {
@@ -193,6 +198,13 @@
     document.getElementById('pg-next').addEventListener('click', function () {
       var total = state.data && state.data.recent_total || 0;
       if (state.offset + PAGE < total) { state.offset += PAGE; load(); }
+    });
+    document.getElementById('vpg-prev').addEventListener('click', function () {
+      if (state.voffset >= VPAGE) { state.voffset -= VPAGE; load(); }
+    });
+    document.getElementById('vpg-next').addEventListener('click', function () {
+      var total = state.data && state.data.visitors_total || 0;
+      if (state.voffset + VPAGE < total) { state.voffset += VPAGE; load(); }
     });
     wireViewers();
   }
@@ -389,6 +401,17 @@
         '<button class="mini">' + (v.label ? '✎' : '＋ tag') + '</button>' +
         '</td></tr>';
     }).join('') : '<tr><td colspan="8" class="muted">No viewers yet.</td></tr>';
+
+    var vtotal = d.visitors_total || 0;
+    var vfrom = vtotal === 0 ? 0 : state.voffset + 1;
+    var vto = Math.min(state.voffset + VPAGE, vtotal);
+    var vpages = Math.max(1, Math.ceil(vtotal / VPAGE));
+    var vpage = Math.floor(state.voffset / VPAGE) + 1;
+    $('vpg-info').textContent = vtotal
+      ? nf(vfrom) + '–' + nf(vto) + ' of ' + nf(vtotal) + ' viewers · page ' + vpage + ' / ' + vpages
+      : '';
+    $('vpg-prev').disabled = state.voffset <= 0;
+    $('vpg-next').disabled = state.voffset + VPAGE >= vtotal;
 
     // bots are excluded server-side; every page holds PAGE rows
     var recent = d.recent || [];
