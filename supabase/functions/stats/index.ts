@@ -63,8 +63,9 @@ Deno.serve(async (req) => {
     return new Response('{"error":"unauthorized"}', { status: 401, headers });
   }
 
-  const days = parseInt(url.searchParams.get('days') ?? '30', 10) || 30;
-  const { data, error } = await supabase.rpc('get_stats', { p_days: days });
+  const days = Math.min(Math.max(parseInt(url.searchParams.get('days') ?? '30', 10) || 30, 1), 365);
+  const offset = Math.min(Math.max(parseInt(url.searchParams.get('offset') ?? '0', 10) || 0, 0), 100000);
+  const { data, error } = await supabase.rpc('get_stats', { p_days: days, p_recent_offset: offset });
   if (error) {
     return new Response(JSON.stringify({ error: error.message }), { status: 500, headers });
   }
