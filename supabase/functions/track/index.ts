@@ -122,6 +122,60 @@ async function lookupGeo(supabase: ReturnType<typeof createClient>, ip: string) 
   return geo;
 }
 
+const DC_ORG_RE =
+  /(microsoft|amazon|digitalocean|hetzner|linode|vultr|choopa|leaseweb|contabo|m247|datacamp|packethub|ovh)/i;
+
+// Stealth-bot heuristics applied before insert. Strong signals (2 pts):
+// device_memory varying within one visitor, or >=3 distinct visitor_ids from
+// one IP within an hour. Weak signals (1 pt): viewport exactly equal to
+// screen, browser timezone disagreeing with IP-geo timezone, datacenter org.
+// Real browsers cannot vary deviceMemory, and VPN users only ever trip the
+// weak tz/org signals, so the threshold is score >= 3.
+async function stealthScore(
+  supabase: ReturnType<typeof createClient>,
+  row: Record<string, unknown>
+): Promise<{ suspected: boolean; reason: string | null }> {
+  const reasons: string[] = [];
+
+  if (row.visitor_id && row.device_memory != null) {
+    const { count } = await supabase
+      .from('site_events')
+      .select('id', { count: 'exact', head: true })
+      .eq('visitor_id', row.visitor_id as string)
+      .not('device_memory', 'is', null)
+      .neq('device_memory', row.device_memory as number)
+      .limit(1);
+    if ((count ?? 0) > 0) reasons.push('memory-varies');
+  }
+
+  if (row.ip) {
+    const hourAgo = new Date(Date.now() - 3_600_000).toISOString();
+    const { data } = await supabase
+      .from('site_events')
+      .select('visitor_id')
+      .eq('ip', row.ip as string)
+      .gt('created_at', hourAgo)
+      .limit(10);
+    const ids = new Set((data ?? []).map((r) => r.visitor_id).filter(Boolean));
+    ids.add(row.visitor_id as string);
+    if (ids.size >= 3) reasons.push('ip-burst');
+  }
+
+  if (
+    row.viewport_w != null && row.screen_w != null &&
+    row.viewport_w === row.screen_w && row.viewport_h === row.screen_h
+  ) reasons.push('viewport=screen');
+
+  if (row.timezone && row.geo_timezone && row.timezone !== row.geo_timezone) {
+    reasons.push('tz-mismatch');
+  }
+  if (row.org && DC_ORG_RE.test(row.org as string)) reasons.push('datacenter-org');
+
+  const weight = (r: string) => (r === 'memory-varies' || r === 'ip-burst' ? 2 : 1);
+  const score = reasons.reduce((s, r) => s + weight(r), 0);
+  return { suspected: score >= 3, reason: score >= 3 ? reasons.join('+') : null };
+}
+
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response(null, { status: 204, headers: cors(req.headers.get('origin')) });
@@ -210,6 +264,10 @@ Deno.serve(async (req) => {
       row.org = geo.org ?? null;
     }
   }
+
+  const { suspected, reason } = await stealthScore(supabase, row);
+  row.suspected_bot = suspected;
+  row.bot_reason = reason;
 
   let { error } = await supabase.from('site_events').insert(row);
   if (error && row.ip !== undefined) {

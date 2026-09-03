@@ -9,9 +9,17 @@
   'use strict';
 
   var ENDPOINT = 'https://trequcbcigtswlolgxfc.supabase.co/functions/v1/stats';
+  var LABEL_ENDPOINT = 'https://trequcbcigtswlolgxfc.supabase.co/functions/v1/label';
   var KEY_LS = 'pk_k';
   var PAGE = 50; // must match the server-side recent limit in get_stats()
-  var state = { key: null, days: 30, offset: 0, data: null, unlocked: false };
+  var state = {
+    key: null,
+    days: 30,
+    offset: 0,
+    data: null,
+    unlocked: false,
+    self: (function () { try { return localStorage.getItem('pk_self') === '1'; } catch (e) { return false; } })(),
+  };
 
   /* ---------- stealth keystroke capture ---------- */
 
@@ -34,7 +42,7 @@
 
   function attempt(candidate, silent) {
     buffer = '';
-    fetch(ENDPOINT + '?days=' + state.days + '&offset=' + state.offset, { headers: { 'x-stats-key': candidate } })
+    fetch(ENDPOINT + '?days=' + state.days + '&offset=' + state.offset + '&self=' + (state.self ? '1' : '0'), { headers: { 'x-stats-key': candidate } })
       .then(function (res) {
         if (res.status === 401) {
           if (!silent && state.unlocked) setStatus('wrong key');
@@ -104,6 +112,14 @@
     '.pk .muted { color: #8a8a8a; }',
     '.pk .tag { font-size: 10px; border: 1px solid #262626; border-radius: 4px; padding: 1px 6px; color: #8a8a8a; }',
     '.pk .tag.ret { color: #34d399; border-color: rgba(52, 211, 153, 0.4); }',
+    '.pk .tag.me { color: #60a5fa; border-color: rgba(96, 165, 250, 0.4); }',
+    '.pk .mini { background: #151515; border: 1px solid #262626; border-radius: 6px; color: #8a8a8a; font: inherit; font-size: 11px; padding: 2px 8px; cursor: pointer; margin-left: 6px; white-space: nowrap; }',
+    '.pk .mini:hover { color: #e5e5e5; border-color: #3d3d3d; }',
+    '.pk input[type="text"] { background: #0d0d0d; border: 1px solid #3d3d3d; border-radius: 6px; color: #e5e5e5; font: inherit; font-size: 12px; padding: 3px 8px; width: 150px; }',
+    '.pk input[type="checkbox"] { accent-color: #34d399; }',
+    '.pk .mini-l { color: #8a8a8a; font-size: 11px; margin-left: 8px; white-space: nowrap; }',
+    '.pk .lblcell { white-space: nowrap; }',
+    '.pk .hint { color: #8a8a8a; font-size: 11px; margin-top: 8px; }',
     '.pk .pager { display: flex; align-items: center; gap: 12px; margin-top: 12px; }',
     '.pk .pg-info { color: #8a8a8a; font-size: 12px; }',
     '.pk button:disabled { opacity: 0.35; cursor: default; }',
@@ -119,6 +135,7 @@
     '<button data-days="7">7d</button><button data-days="30" class="active">30d</button><button data-days="90">90d</button>' +
     '</div>' +
     '<button id="refresh">Refresh</button>' +
+    '<button id="self">Hide my visits</button>' +
     '<span class="status" id="status"></span>' +
     '</header>' +
     '<div class="kpis" id="kpis"></div>' +
@@ -133,6 +150,10 @@
     '<div class="card"><h2>Sections viewed</h2><div id="sections"></div></div>' +
     '<div class="card"><h2>Top clicks</h2><div id="links"></div></div>' +
     '</div>' +
+    '<div class="card"><h2>Viewers — recurring visitors</h2><div style="overflow-x: auto;"><table><thead><tr>' +
+    '<th>Viewer</th><th>IDs</th><th>Sessions</th><th>Days</th><th>Views</th><th>First seen</th><th>Last seen</th><th>Label</th>' +
+    '</tr></thead><tbody id="viewers"></tbody></table></div>' +
+    '<div class="hint">Grouped by IP + browser + OS — one human with cleared storage appears as several IDs in one row. Tag a viewer “me”, then use “Hide my visits” to keep your own traffic out of every number. Bots and suspected stealth traffic are excluded.</div></div>' +
     '<div class="card"><h2>Recent visits</h2><div style="overflow-x: auto;"><table><thead><tr>' +
     '<th>When (IST)</th><th>Where</th><th>Browser / OS</th><th>Device</th><th>Theme</th><th>Referrer</th><th>Type</th>' +
     '</tr></thead><tbody id="recent"></tbody></table></div>' +
@@ -157,6 +178,15 @@
       load();
     });
     document.getElementById('refresh').addEventListener('click', load);
+    var selfBtn = document.getElementById('self');
+    if (state.self) selfBtn.classList.add('active');
+    selfBtn.addEventListener('click', function () {
+      state.self = !state.self;
+      try { localStorage.setItem('pk_self', state.self ? '1' : '0'); } catch (e) { /* private mode */ }
+      selfBtn.classList.toggle('active', state.self);
+      state.offset = 0;
+      load();
+    });
     document.getElementById('pg-prev').addEventListener('click', function () {
       if (state.offset >= PAGE) { state.offset -= PAGE; load(); }
     });
@@ -164,6 +194,66 @@
       var total = state.data && state.data.recent_total || 0;
       if (state.offset + PAGE < total) { state.offset += PAGE; load(); }
     });
+    wireViewers();
+  }
+
+  /* ---------- viewer labeling (inline editor in the Viewers table) ---------- */
+
+  function wireViewers() {
+    var tbody = document.getElementById('viewers');
+
+    tbody.addEventListener('click', function (e) {
+      var cell = e.target.closest('.lblcell');
+      if (!cell || cell.querySelector('input')) return;
+      var save = e.target.closest('button.save');
+      var cancel = e.target.closest('button.cancel');
+      if (save || cancel) return; // handled after the editor exists
+      if (!e.target.closest('button.mini')) return;
+      var current = '';
+      var val = cell.querySelector('.lblval');
+      if (val) current = val.textContent;
+      var isSelf = cell.dataset.self === '1';
+      cell.innerHTML =
+        '<input type="text" maxlength="60" value="' + esc(current) + '" placeholder="name or note">' +
+        '<label class="mini-l"><input type="checkbox" class="me-chk"' + (isSelf ? ' checked' : '') + '> me</label>' +
+        '<button class="mini save">Save</button><button class="mini cancel">✕</button>';
+      var inp = cell.querySelector('input[type="text"]');
+      inp.focus();
+      inp.select();
+    });
+
+    tbody.addEventListener('click', function (e) {
+      var cell = e.target.closest('.lblcell');
+      if (!cell) return;
+      if (e.target.closest('button.cancel')) { render(); return; }
+      var save = e.target.closest('button.save');
+      if (!save) return;
+      saveLabel(cell.dataset.vid, cell.querySelector('input[type="text"]').value, cell.querySelector('.me-chk').checked);
+    });
+
+    tbody.addEventListener('keydown', function (e) {
+      var cell = e.target.closest('.lblcell');
+      if (!cell) return;
+      if (e.key === 'Enter') {
+        saveLabel(cell.dataset.vid, cell.querySelector('input[type="text"]').value, cell.querySelector('.me-chk').checked);
+      } else if (e.key === 'Escape') {
+        render();
+      }
+    });
+  }
+
+  function saveLabel(vid, label, isSelf) {
+    setStatus('saving label…');
+    fetch(LABEL_ENDPOINT, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', 'x-stats-key': state.key },
+      body: JSON.stringify({ visitor_id: vid, label: label, is_self: isSelf }),
+    })
+      .then(function (res) {
+        if (!res.ok) throw new Error('http ' + res.status);
+        load();
+      })
+      .catch(function () { setStatus('label save failed'); });
   }
 
   function setStatus(text) {
@@ -239,7 +329,7 @@
     var mins = Math.round((t.avg_visible_seconds || 0) / 60 * 10) / 10;
 
     $('kpis').innerHTML =
-      kpi('Pageviews', nf(t.pageviews), nf(t.bot_hits) + ' bot hits filtered out of all lists') +
+      kpi('Pageviews', nf(t.pageviews), nf(t.bot_hits) + ' bots + ' + nf(t.suspected_bot_hits || 0) + ' stealth hits excluded' + (state.self ? ' · your visits hidden' : '')) +
       kpi('Visitors', nf(t.visitors), nf(t.sessions) + ' sessions') +
       kpi('Returning', nf(t.returning_visitors), 'multi-session visitors') +
       kpi('Avg. time', (mins >= 1 ? mins + 'm' : (t.avg_visible_seconds || 0) + 's'), 'visible time per visit') +
@@ -280,6 +370,25 @@
     $('devices').innerHTML = barList(d.devices, 'visitors', function (it) { return it.device; }, { blue: true });
     $('sections').innerHTML = barList(d.sections, 'views', function (it) { return it.section; });
     $('links').innerHTML = barList(d.links, 'clicks', function (it) { return it.href; }, { link: true });
+
+    var viewers = d.visitors || [];
+    $('viewers').innerHTML = viewers.length ? viewers.map(function (v) {
+      var name = v.label
+        ? '<strong>' + esc(shorten(v.label, 26)) + '</strong>' + (v.is_self ? ' <span class="tag me">you</span>' : '')
+        : '<span class="muted" title="' + esc(v.ip || '') + '">' + esc(shorten((v.location || '?') + ' · ' + (v.sw || '?'), 40)) + '</span>';
+      return '<tr>' +
+        '<td>' + name + '</td>' +
+        '<td class="muted">' + nf(v.ids) + (v.ids > 1 ? ' <span class="tag">stitched</span>' : '') + '</td>' +
+        '<td>' + nf(v.sessions) + '</td>' +
+        '<td>' + nf(v.days) + '</td>' +
+        '<td>' + nf(v.views) + '</td>' +
+        '<td class="muted">' + esc(v.first_seen) + '</td>' +
+        '<td class="muted">' + esc(v.last_seen) + '</td>' +
+        '<td class="lblcell" data-vid="' + esc(v.latest_vid) + '" data-self="' + (v.is_self ? '1' : '0') + '">' +
+        (v.label ? '<span class="lblval">' + esc(shorten(v.label, 18)) + '</span>' : '') +
+        '<button class="mini">' + (v.label ? '✎' : '＋ tag') + '</button>' +
+        '</td></tr>';
+    }).join('') : '<tr><td colspan="8" class="muted">No viewers yet.</td></tr>';
 
     // bots are excluded server-side; every page holds PAGE rows
     var recent = d.recent || [];
