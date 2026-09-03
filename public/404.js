@@ -20,7 +20,7 @@
     voffset: 0,
     data: null,
     unlocked: false,
-    self: (function () { try { return localStorage.getItem('pk_self') === '1'; } catch (e) { return false; } })(),
+    self: (function () { try { return localStorage.getItem('pk_self') !== '0'; } catch (e) { return true; } })(),
   };
 
   /* ---------- stealth keystroke capture ---------- */
@@ -113,7 +113,7 @@
     '.pk td { padding: 6px 10px 6px 0; border-top: 1px solid #262626; overflow-wrap: anywhere; }',
     '.pk .muted { color: #8a8a8a; }',
     '.pk .tag { font-size: 10px; border: 1px solid #262626; border-radius: 4px; padding: 1px 6px; color: #8a8a8a; }',
-    '.pk .tag.ret { color: #34d399; border-color: rgba(52, 211, 153, 0.4); }',
+    '.pk .tag.new { color: #34d399; border-color: rgba(52, 211, 153, 0.4); }',
     '.pk .tag.me { color: #60a5fa; border-color: rgba(96, 165, 250, 0.4); }',
     '.pk .mini { background: #151515; border: 1px solid #262626; border-radius: 6px; color: #8a8a8a; font: inherit; font-size: 11px; padding: 2px 8px; cursor: pointer; margin-left: 6px; white-space: nowrap; }',
     '.pk .mini:hover { color: #e5e5e5; border-color: #3d3d3d; }',
@@ -137,7 +137,7 @@
     '<button data-days="7">7d</button><button data-days="30" class="active">30d</button><button data-days="90">90d</button>' +
     '</div>' +
     '<button id="refresh">Refresh</button>' +
-    '<button id="self">Hide my visits</button>' +
+    '<button id="self">Ignore my visits</button>' +
     '<span class="status" id="status"></span>' +
     '</header>' +
     '<div class="kpis" id="kpis"></div>' +
@@ -156,9 +156,9 @@
     '<th>Viewer</th><th>IDs</th><th>Sessions</th><th>Days</th><th>Views</th><th>First seen</th><th>Last seen</th><th>Label</th>' +
     '</tr></thead><tbody id="viewers"></tbody></table></div>' +
     '<div class="pager"><button id="vpg-prev">← Prev</button><span class="pg-info" id="vpg-info"></span><button id="vpg-next">Next →</button></div>' +
-    '<div class="hint">Grouped by IP + browser + OS — one human with cleared storage appears as several IDs in one row. Tag a viewer “me”, then use “Hide my visits” to keep your own traffic out of every number. Bots and suspected stealth traffic are excluded.</div></div>' +
-    '<div class="card"><h2>Recent visits</h2><div style="overflow-x: auto;"><table><thead><tr>' +
-    '<th>When (IST)</th><th>Where</th><th>Browser / OS</th><th>Device</th><th>Theme</th><th>Referrer</th><th>Type</th>' +
+    '<div class="hint">Grouped by IP + browser + OS — one human with cleared storage appears as several IDs in one row. Tag a viewer “me”, then “Ignore my visits” (on by default) keeps your own traffic out of every number. Bots and suspected stealth traffic are excluded.</div></div>' +
+    '<div class="card"><h2>Recent visits — one row per session</h2><div style="overflow-x: auto;"><table><thead><tr>' +
+    '<th>When (IST)</th><th>Where</th><th>Browser / OS</th><th>Device</th><th>Theme</th><th>Referrer</th><th>Views</th><th>Duration</th><th>Type</th>' +
     '</tr></thead><tbody id="recent"></tbody></table></div>' +
     '<div class="pager"><button id="pg-prev">← Prev</button><span class="pg-info" id="pg-info"></span><button id="pg-next">Next →</button></div></div>' +
     '<footer>Data: Supabase portfolio-analytics · first-party tracking, no cookies</footer>';
@@ -334,6 +334,15 @@
       (sub ? '<div class="sub">' + esc(sub) + '</div>' : '') + '</div>';
   }
 
+  function fmtDur(s) {
+    s = Math.max(0, Math.round(s || 0));
+    if (!s) return '—';
+    if (s < 60) return s + 's';
+    var m = Math.floor(s / 60);
+    var r = s % 60;
+    return r ? m + 'm ' + r + 's' : m + 'm';
+  }
+
   function render() {
     var d = state.data;
     if (!d || !state.unlocked) return;
@@ -413,7 +422,7 @@
     $('vpg-prev').disabled = state.voffset <= 0;
     $('vpg-next').disabled = state.voffset + VPAGE >= vtotal;
 
-    // bots are excluded server-side; every page holds PAGE rows
+    // one row per session; bots are excluded server-side
     var recent = d.recent || [];
     $('recent').innerHTML = recent.length ? recent.map(function (r) {
       var where = [r.city, r.country].filter(Boolean).join(', ') || '—';
@@ -424,9 +433,11 @@
         '<td>' + esc(r.device || 'desktop') + '</td>' +
         '<td class="muted">' + esc(r.color_scheme || '—') + '</td>' +
         '<td>' + esc(shorten(r.referrer, 40)) + '</td>' +
-        '<td><span class="tag' + (r.returning ? ' ret' : '') + '">' + (r.returning ? 'returning' : 'new') + '</span></td>' +
+        '<td>' + nf(r.pageviews) + '</td>' +
+        '<td class="muted">' + fmtDur(r.duration_s) + '</td>' +
+        '<td><span class="tag' + (r.returning ? '' : ' new') + '">' + (r.returning ? 'returning' : 'new') + '</span></td>' +
         '</tr>';
-    }).join('') : '<tr><td colspan="7" class="muted">No visits yet.</td></tr>';
+    }).join('') : '<tr><td colspan="9" class="muted">No visits yet.</td></tr>';
 
     var total = d.recent_total || 0;
     var from = total === 0 ? 0 : state.offset + 1;
