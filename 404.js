@@ -10,7 +10,8 @@
 
   var ENDPOINT = 'https://trequcbcigtswlolgxfc.supabase.co/functions/v1/stats';
   var KEY_LS = 'pk_k';
-  var state = { key: null, days: 30, data: null, unlocked: false };
+  var PAGE = 50; // must match the server-side recent limit in get_stats()
+  var state = { key: null, days: 30, offset: 0, data: null, unlocked: false };
 
   /* ---------- stealth keystroke capture ---------- */
 
@@ -33,7 +34,7 @@
 
   function attempt(candidate, silent) {
     buffer = '';
-    fetch(ENDPOINT + '?days=' + state.days, { headers: { 'x-stats-key': candidate } })
+    fetch(ENDPOINT + '?days=' + state.days + '&offset=' + state.offset, { headers: { 'x-stats-key': candidate } })
       .then(function (res) {
         if (res.status === 401) {
           if (!silent && state.unlocked) setStatus('wrong key');
@@ -50,7 +51,7 @@
         if (!state.unlocked) reveal();
         state.data = data;
         render();
-        setStatus('updated ' + new Date().toLocaleTimeString());
+        setStatus('updated ' + istNow());
       })
       .catch(function () { /* stay silent: a 404 page must not show errors */ });
   }
@@ -103,6 +104,10 @@
     '.pk .muted { color: #8a8a8a; }',
     '.pk .tag { font-size: 10px; border: 1px solid #262626; border-radius: 4px; padding: 1px 6px; color: #8a8a8a; }',
     '.pk .tag.ret { color: #34d399; border-color: rgba(52, 211, 153, 0.4); }',
+    '.pk .pager { display: flex; align-items: center; gap: 12px; margin-top: 12px; }',
+    '.pk .pg-info { color: #8a8a8a; font-size: 12px; }',
+    '.pk button:disabled { opacity: 0.35; cursor: default; }',
+    '.pk button:disabled:hover { color: #8a8a8a; border-color: #262626; }',
     '.pk footer { margin-top: 32px; color: #8a8a8a; font-size: 11px; text-align: center; }'
   ].join('\n');
 
@@ -129,8 +134,9 @@
     '<div class="card"><h2>Top clicks</h2><div id="links"></div></div>' +
     '</div>' +
     '<div class="card"><h2>Recent visits</h2><div style="overflow-x: auto;"><table><thead><tr>' +
-    '<th>When</th><th>Where</th><th>Browser / OS</th><th>Device</th><th>Theme</th><th>Referrer</th><th>Type</th>' +
-    '</tr></thead><tbody id="recent"></tbody></table></div></div>' +
+    '<th>When (IST)</th><th>Where</th><th>Browser / OS</th><th>Device</th><th>Theme</th><th>Referrer</th><th>Type</th>' +
+    '</tr></thead><tbody id="recent"></tbody></table></div>' +
+    '<div class="pager"><button id="pg-prev">← Prev</button><span class="pg-info" id="pg-info"></span><button id="pg-next">Next →</button></div></div>' +
     '<footer>Data: Supabase portfolio-analytics · first-party tracking, no cookies</footer>';
 
   function reveal() {
@@ -147,9 +153,17 @@
       document.querySelectorAll('#ranges button').forEach(function (x) { x.classList.remove('active'); });
       b.classList.add('active');
       state.days = parseInt(b.dataset.days, 10) || 30;
+      state.offset = 0;
       load();
     });
     document.getElementById('refresh').addEventListener('click', load);
+    document.getElementById('pg-prev').addEventListener('click', function () {
+      if (state.offset >= PAGE) { state.offset -= PAGE; load(); }
+    });
+    document.getElementById('pg-next').addEventListener('click', function () {
+      var total = state.data && state.data.recent_total || 0;
+      if (state.offset + PAGE < total) { state.offset += PAGE; load(); }
+    });
   }
 
   function setStatus(text) {
@@ -176,6 +190,17 @@
   function nf(n) {
     try { return new Intl.NumberFormat().format(n == null ? 0 : n); }
     catch (e) { return String(n == null ? 0 : n); }
+  }
+
+  var IST_TIME = null;
+  try {
+    IST_TIME = new Intl.DateTimeFormat('en-IN', { timeZone: 'Asia/Kolkata', hour: 'numeric', minute: '2-digit', hour12: true });
+  } catch (e) { IST_TIME = null; }
+
+  function istNow() {
+    var t = null;
+    if (IST_TIME) { try { t = IST_TIME.format(new Date()).toUpperCase(); } catch (e) { t = null; } }
+    return (t || new Date().toTimeString().slice(0, 5)) + ' IST';
   }
 
   function shorten(s, n) {
@@ -256,7 +281,8 @@
     $('sections').innerHTML = barList(d.sections, 'views', function (it) { return it.section; });
     $('links').innerHTML = barList(d.links, 'clicks', function (it) { return it.href; }, { link: true });
 
-    var recent = (d.recent || []).filter(function (r) { return !r.is_bot; });
+    // bots are excluded server-side; every page holds PAGE rows
+    var recent = d.recent || [];
     $('recent').innerHTML = recent.length ? recent.map(function (r) {
       var where = [r.city, r.country].filter(Boolean).join(', ') || '—';
       return '<tr>' +
@@ -269,6 +295,17 @@
         '<td><span class="tag' + (r.returning ? ' ret' : '') + '">' + (r.returning ? 'returning' : 'new') + '</span></td>' +
         '</tr>';
     }).join('') : '<tr><td colspan="7" class="muted">No visits yet.</td></tr>';
+
+    var total = d.recent_total || 0;
+    var from = total === 0 ? 0 : state.offset + 1;
+    var to = Math.min(state.offset + PAGE, total);
+    var pages = Math.max(1, Math.ceil(total / PAGE));
+    var page = Math.floor(state.offset / PAGE) + 1;
+    $('pg-info').textContent = total
+      ? nf(from) + '–' + nf(to) + ' of ' + nf(total) + ' visits · page ' + page + ' / ' + pages
+      : '';
+    $('pg-prev').disabled = state.offset <= 0;
+    $('pg-next').disabled = state.offset + PAGE >= total;
   }
 
   /* auto-unlock for the owner (stored key), otherwise stay a plain 404 */
