@@ -13,11 +13,13 @@
   var KEY_LS = 'pk_k';
   var PAGE = 50; // must match the server-side recent limit in get_stats()
   var VPAGE = 100; // must match the server-side visitors limit in get_stats()
+  var BPAGE = 50; // must match the server-side bot sessions limit in get_stats()
   var state = {
     key: null,
     days: 30,
     offset: 0,
     voffset: 0,
+    boffset: 0,
     data: null,
     unlocked: false,
     self: (function () { try { return localStorage.getItem('pk_self') !== '0'; } catch (e) { return true; } })(),
@@ -44,7 +46,7 @@
 
   function attempt(candidate, silent) {
     buffer = '';
-    fetch(ENDPOINT + '?days=' + state.days + '&offset=' + state.offset + '&voffset=' + state.voffset + '&self=' + (state.self ? '1' : '0'), { headers: { 'x-stats-key': candidate } })
+    fetch(ENDPOINT + '?days=' + state.days + '&offset=' + state.offset + '&voffset=' + state.voffset + '&boffset=' + state.boffset + '&self=' + (state.self ? '1' : '0'), { headers: { 'x-stats-key': candidate } })
       .then(function (res) {
         if (res.status === 401) {
           if (!silent && state.unlocked) setStatus('wrong key');
@@ -114,6 +116,7 @@
     '.pk .muted { color: #8a8a8a; }',
     '.pk .tag { font-size: 10px; border: 1px solid #262626; border-radius: 4px; padding: 1px 6px; color: #8a8a8a; }',
     '.pk .tag.new { color: #34d399; border-color: rgba(52, 211, 153, 0.4); }',
+    '.pk .tag.botsig { color: #f87171; border-color: rgba(248, 113, 113, 0.4); }',
     '.pk .tag.me { color: #60a5fa; border-color: rgba(96, 165, 250, 0.4); }',
     '.pk .mini { background: #151515; border: 1px solid #262626; border-radius: 6px; color: #8a8a8a; font: inherit; font-size: 11px; padding: 2px 8px; cursor: pointer; margin-left: 6px; white-space: nowrap; }',
     '.pk .mini:hover { color: #e5e5e5; border-color: #3d3d3d; }',
@@ -161,6 +164,14 @@
     '<th>When (IST)</th><th>Where</th><th>Browser / OS</th><th>Device</th><th>Theme</th><th>Referrer</th><th>Views</th><th>Duration</th><th>Type</th>' +
     '</tr></thead><tbody id="recent"></tbody></table></div>' +
     '<div class="pager"><button id="pg-prev">← Prev</button><span class="pg-info" id="pg-info"></span><button id="pg-next">Next →</button></div></div>' +
+    '<div class="card"><h2>Bot actors — identification index (excluded from all stats above)</h2><div style="overflow-x: auto;"><table><thead><tr>' +
+    '<th>Actor</th><th>Org / ASN</th><th>IP</th><th>Where</th><th>Claimed browser</th><th>Contexts</th><th>Events</th><th>Views</th><th>First seen</th><th>Last seen</th><th>Why flagged</th>' +
+    '</tr></thead><tbody id="botactors"></tbody></table></div>' +
+    '<div class="hint">A “context” is a throwaway visitor ID. Identified actors are matched against the bot_signatures index at ingest, so the same bot is recognized on every future visit.</div></div>' +
+    '<div class="card"><h2>Bot sessions</h2><div style="overflow-x: auto;"><table><thead><tr>' +
+    '<th>When (IST)</th><th>Actor</th><th>IP</th><th>Where</th><th>Claimed browser</th><th>Views</th><th>Duration</th><th>Why flagged</th>' +
+    '</tr></thead><tbody id="bots"></tbody></table></div>' +
+    '<div class="pager"><button id="bpg-prev">← Prev</button><span class="pg-info" id="bpg-info"></span><button id="bpg-next">Next →</button></div></div>' +
     '<footer>Data: Supabase portfolio-analytics · first-party tracking, no cookies</footer>';
 
   function reveal() {
@@ -179,6 +190,7 @@
       state.days = parseInt(b.dataset.days, 10) || 30;
       state.offset = 0;
       state.voffset = 0;
+      state.boffset = 0;
       load();
     });
     document.getElementById('refresh').addEventListener('click', load);
@@ -190,6 +202,7 @@
       selfBtn.classList.toggle('active', state.self);
       state.offset = 0;
       state.voffset = 0;
+      state.boffset = 0;
       load();
     });
     document.getElementById('pg-prev').addEventListener('click', function () {
@@ -205,6 +218,13 @@
     document.getElementById('vpg-next').addEventListener('click', function () {
       var total = state.data && state.data.visitors_total || 0;
       if (state.voffset + VPAGE < total) { state.voffset += VPAGE; load(); }
+    });
+    document.getElementById('bpg-prev').addEventListener('click', function () {
+      if (state.boffset >= BPAGE) { state.boffset -= BPAGE; load(); }
+    });
+    document.getElementById('bpg-next').addEventListener('click', function () {
+      var total = state.data && state.data.bots_total || 0;
+      if (state.boffset + BPAGE < total) { state.boffset += BPAGE; load(); }
     });
     wireViewers();
   }
@@ -449,6 +469,56 @@
       : '';
     $('pg-prev').disabled = state.offset <= 0;
     $('pg-next').disabled = state.offset + PAGE >= total;
+
+    /* ---------- bot & stealth traffic (excluded above, kept for the record) ---------- */
+
+    var actors = d.bots_actors || [];
+    $('botactors').innerHTML = actors.length ? actors.map(function (a) {
+      var actorCell = a.sig
+        ? '<span class="tag botsig" title="' + esc(a.actor) + '">' + esc(shorten(a.actor, 34)) + '</span>'
+        : '<span class="muted">' + esc(shorten(a.actor, 34)) + '</span>';
+      return '<tr>' +
+        '<td>' + actorCell + '</td>' +
+        '<td class="muted">' + esc(shorten((a.org || '—') + (a.asn ? ' / ' + a.asn : ''), 30)) + '</td>' +
+        '<td class="muted">' + esc((a.ip || '').replace('/32', '')) + '</td>' +
+        '<td>' + esc([a.city, a.country].filter(Boolean).join(', ') || '—') + '</td>' +
+        '<td class="muted">' + esc((a.browser || '?') + ' / ' + (a.os || '?')) + '</td>' +
+        '<td>' + nf(a.contexts) + '</td>' +
+        '<td>' + nf(a.events) + '</td>' +
+        '<td>' + nf(a.pageviews) + '</td>' +
+        '<td class="muted">' + esc(a.first_seen) + '</td>' +
+        '<td class="muted">' + esc(a.last_seen) + '</td>' +
+        '<td class="muted" title="' + esc(a.reason || '') + '">' + esc(shorten((a.reason || '—').replace(/\+/g, ' · '), 26)) + '</td>' +
+        '</tr>';
+    }).join('') : '<tr><td colspan="11" class="muted">No bot traffic in this range.</td></tr>';
+
+    var bots = d.bots || [];
+    $('bots').innerHTML = bots.length ? bots.map(function (b) {
+      var actorCell = b.sig
+        ? '<span class="tag botsig" title="' + esc(b.actor || b.sig) + '">' + esc(shorten(b.sig, 22)) + '</span>'
+        : '<span class="muted">unidentified</span>';
+      return '<tr>' +
+        '<td class="muted">' + esc(b.at) + '</td>' +
+        '<td>' + actorCell + '</td>' +
+        '<td class="muted">' + esc((b.ip || '').replace('/32', '')) + '</td>' +
+        '<td>' + esc([b.city, b.country].filter(Boolean).join(', ') || '—') + '</td>' +
+        '<td class="muted">' + esc((b.browser || '?') + ' / ' + (b.os || '?')) + '</td>' +
+        '<td>' + nf(b.pageviews) + '</td>' +
+        '<td class="muted">' + fmtDur(b.duration_s) + '</td>' +
+        '<td class="muted" title="' + esc(b.reason || '') + '">' + esc(shorten((b.reason || '—').replace(/\+/g, ' · '), 26)) + '</td>' +
+        '</tr>';
+    }).join('') : '<tr><td colspan="8" class="muted">No bot sessions in this range.</td></tr>';
+
+    var btotal = d.bots_total || 0;
+    var bfrom = btotal === 0 ? 0 : state.boffset + 1;
+    var bto = Math.min(state.boffset + BPAGE, btotal);
+    var bpages = Math.max(1, Math.ceil(btotal / BPAGE));
+    var bpage = Math.floor(state.boffset / BPAGE) + 1;
+    $('bpg-info').textContent = btotal
+      ? nf(bfrom) + '–' + nf(bto) + ' of ' + nf(btotal) + ' sessions · page ' + bpage + ' / ' + bpages
+      : '';
+    $('bpg-prev').disabled = state.boffset <= 0;
+    $('bpg-next').disabled = state.boffset + BPAGE >= btotal;
   }
 
   /* auto-unlock for the owner (stored key), otherwise stay a plain 404 */

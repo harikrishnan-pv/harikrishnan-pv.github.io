@@ -176,6 +176,27 @@ async function stealthScore(
   return { suspected: score >= 3, reason: score >= 3 ? reasons.join('+') : null };
 }
 
+// Match the event against the bot_signatures index (all non-null criteria
+// must match). Returns the signature id so known actors stay identified
+// across visits — the index lives in the DB, not in code.
+async function matchSignature(
+  supabase: ReturnType<typeof createClient>,
+  row: Record<string, unknown>
+): Promise<string | null> {
+  const { data: sigs } = await supabase
+    .from('bot_signatures')
+    .select('id,org_re,ua_re,reason_re');
+  if (!sigs) return null;
+  for (const s of sigs) {
+    if (!s.org_re && !s.ua_re && !s.reason_re) continue;
+    if (s.org_re && !(typeof row.org === 'string' && new RegExp(s.org_re, 'i').test(row.org))) continue;
+    if (s.ua_re && !(typeof row.user_agent === 'string' && new RegExp(s.ua_re, 'i').test(row.user_agent))) continue;
+    if (s.reason_re && !new RegExp(s.reason_re, 'i').test(String(row.bot_reason ?? ''))) continue;
+    return s.id;
+  }
+  return null;
+}
+
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response(null, { status: 204, headers: cors(req.headers.get('origin')) });
@@ -268,6 +289,7 @@ Deno.serve(async (req) => {
   const { suspected, reason } = await stealthScore(supabase, row);
   row.suspected_bot = suspected;
   row.bot_reason = reason;
+  row.bot_signature = await matchSignature(supabase, row);
 
   let { error } = await supabase.from('site_events').insert(row);
   if (error && row.ip !== undefined) {

@@ -66,12 +66,14 @@ Deno.serve(async (req) => {
   const days = Math.min(Math.max(parseInt(url.searchParams.get('days') ?? '30', 10) || 30, 1), 365);
   const offset = Math.min(Math.max(parseInt(url.searchParams.get('offset') ?? '0', 10) || 0, 0), 100000);
   const voffset = Math.min(Math.max(parseInt(url.searchParams.get('voffset') ?? '0', 10) || 0, 0), 100000);
+  const boffset = Math.min(Math.max(parseInt(url.searchParams.get('boffset') ?? '0', 10) || 0, 0), 100000);
   const excludeSelf = ['1', 'true', 'yes'].includes((url.searchParams.get('self') ?? '').toLowerCase());
   const { data, error } = await supabase.rpc('get_stats', {
     p_days: days,
     p_recent_offset: offset,
     p_exclude_self: excludeSelf,
     p_visitors_offset: voffset,
+    p_bots_offset: boffset,
   });
   if (error) {
     return new Response(JSON.stringify({ error: error.message }), { status: 500, headers });
