@@ -56,8 +56,10 @@
     <div class="orb orb-1"></div>
     <div class="orb orb-2"></div>
 
-    <!-- Full-screen 3D ID card (React island, lazy-loaded) -->
-    <div id="lanyard-root" class="absolute inset-0 z-[1]" aria-label="Interactive ID card — drag to swing"></div>
+    <!-- Full-screen 3D ID card (React island, lazy-loaded). The static poster
+         paints instantly; the 3D scene replaces it once its chunk arrives —
+         on data-saver/slow links the poster simply stays. -->
+    <div id="lanyard-root" class="absolute inset-0 z-[1]" aria-label="Interactive ID card — drag to swing"><img src="images/lanyard/front.webp" alt="" aria-hidden="true" class="lanyard-poster" fetchpriority="high" decoding="async" /></div>
 
     <!-- Headline kept for screen readers / SEO; visual identity lives on the card -->
     <h1 class="sr-only">Harikrishnan P V — Lead Product & Platform Engineer | AI-Native Systems</h1>

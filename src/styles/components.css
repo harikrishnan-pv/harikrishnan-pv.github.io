@@ -472,6 +472,30 @@ body {
   border-color: #e11d48;
 }
 
+/* ── Lanyard static poster ───────────────────── */
+/* Instant hero paint while the 3D chunk downloads; React clears this node
+   when the canvas mounts. Positioned where the card hangs (left third on
+   desktop, centred + raised on mobile) to avoid a visual jump. */
+.lanyard-poster {
+  position: absolute;
+  top: 44%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: min(56vh, 500px);
+  width: auto;
+  border-radius: 12px;
+  box-shadow: 0 30px 80px -20px rgb(0 0 0 / 0.45);
+  pointer-events: none;
+  user-select: none;
+}
+
+@media (min-width: 1024px) {
+  .lanyard-poster {
+    left: 17%;
+    height: min(64vh, 560px);
+  }
+}
+
 /* ── Contact Footer ────────────────────────────── */
 .contact-email-link {
   font-family: 'JetBrains Mono', monospace;
