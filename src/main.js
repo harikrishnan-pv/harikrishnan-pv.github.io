@@ -14,7 +14,7 @@ import { initParticleNetwork } from './modules/particle-network.js'
 
 // Start fetching the hero-card assets at script-eval time, not after init:
 // the lazy chunk (~1.2 MB over the wire: three + rapier + card code) and the
-// 2.4 MB card.glb otherwise download strictly back-to-back, which on a slow
+// ~0.5 MB card.glb otherwise download strictly back-to-back, which on a slow
 // connection leaves the hero blank for many seconds. The model fetch warms the
 // HTTP cache so useGLTF's later request resolves instantly.
 import cardModelUrl from './assets/lanyard/card.glb?url'
