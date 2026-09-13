@@ -1,13 +1,15 @@
 /* First-party analytics beacon for harikrishnan-pv.github.io.
  * Sends pageviews, section views, scroll depth, outbound clicks and
- * engagement time to the Supabase `track` edge function. No cookies,
+ * engagement time to the `track` edge function on the Heimdal Supabase
+ * project (the portfolio-analytics project is retired; the stats dashboard
+ * lives in the Heimdal app — this beacon is write-only). No cookies,
  * no third parties; visitor/session ids live in localStorage only.
- * Endpoint source: supabase/functions/track/index.ts
+ * Endpoint source: Heimdall repo, supabase/functions/track/index.ts
  */
 (function () {
   'use strict';
 
-  var ENDPOINT = 'https://trequcbcigtswlolgxfc.supabase.co/functions/v1/track';
+  var ENDPOINT = 'https://ilkjzrjmzblxepjvafup.supabase.co/functions/v1/track';
   var SESSION_MS = 30 * 60 * 1000;
   var SCROLL_MARKS = [25, 50, 75, 100];
 
